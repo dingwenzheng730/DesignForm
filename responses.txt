@@ -1,0 +1,141 @@
+GET /:id
+{
+    "id":"",
+    "password":""
+}
+Response is "Success" or "Error: "
+GET /artists
+
+Response is an array of applicants with the following fields
+{
+    "artists": [
+        {
+            "id": "",
+            "givenname": "",
+            "familyname": "",
+            "gender": ""
+            "college": "",
+            "country": ""
+            "address": ""
+            "status": "",
+            "role": ""
+
+        }
+    ]
+}
+
+GET /artists?country=country
+
+Response has the same structure as the previous request.
+
+{
+    "artists": [
+         {
+                    "id": "",
+                    "givenname": "",
+                    "familyname": "",
+                    "gender": "",
+                    "college": "",
+                    "country": "",
+                    "address": "",
+                    "status": "",
+                    "role": ""
+
+          }
+    ]
+}
+
+GET /artists?fname=fname
+
+{
+        "id": "",
+        "givenname": "",
+        "familyname": "",
+        "gender": "",
+        "college": "",
+        "country": "",
+        "address": "",
+        "status": "",
+        "role": ""
+}
+
+POST /artist
+Request body contains
+
+{
+   "id": "",
+   "password":"",
+   "givenname": "",
+   "familyname": "",
+   "gender": "",
+   "college": "",
+   "country": "",
+   "address": "",
+    "status": "",
+    "role": ""
+    "products": [
+        {
+            "name": "",
+            "description": "",
+            "on-sale": ""
+        },
+        {
+           "name": "",
+           "description": "",
+           "on-sale": ""
+        }
+    ]
+}
+
+Response is "Success" or "Error: "
+
+DELETE /product?fname=fname
+DELETE /product?stunum=stunum
+
+Response is "Success" or "Error: no such student"
+
+GET /products
+Response
+{
+    "products" : [
+        {
+            "name" : "",
+            "artist" : [
+                {
+                   "id": "",
+                   "password":"",
+                    "givenname": "",
+                    "familyname": "",
+                    "gender": "",
+                    "college": "",
+                    "country": "",
+                    "address": "",
+                     "status": "",
+                     "role": ""
+                }
+            ]
+        }
+    ]
+}
+
+GET /product?name=name
+
+Response
+{
+    "name" : "",
+               "artist" : [
+                   {
+                      "id": "",
+                      "password":"",
+                       "givenname": "",
+                       "familyname": "",
+                       "gender": "",
+                       "college": "",
+                       "country": "",
+                       "address": "",
+                        "status": "",
+                        "role": ""
+                   }
+               ]
+}
+
