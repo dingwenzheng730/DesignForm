@@ -1,0 +1,32 @@
+{
+  "name": "group11",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeonYuAng3NT/group11.git"
+  },
+  "keywords": [
+    "reactjs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeonYuAng3NT/group11/issues"
+  },
+  "homepage": "https://github.com/LeonYuAng3NT/group11#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-validator": "^2.21.0",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.6.7",
+    "nodemon": "^1.11.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  }
+}
