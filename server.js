@@ -11,7 +11,7 @@ var passport = require('passport');
 var expressValidator = require('express-validator');
 var bodyParser = require('body-parser');
 var mongoose = require('./node_modules/mongoose');
-var passport = require('passport');
+var Auth0Strategy = require('passport-auth0');
 
 //var authenticate = require('./routes/authentication')(passport);
 //var initPassport = require('./passport-init');
@@ -19,6 +19,16 @@ var cookieParser = require('cookie-parser');
 var session = require('cookie-session');
 
 
+
 var app = express();
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.set('views', path.join(__dirname, '/public/views'));
 app.set('view engine', 'ejs');
+
+
+
+
+
+module.exports = router;
