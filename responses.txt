@@ -6,13 +6,13 @@ GET /:id
 Response is "Success" or "Error: "
 GET /artists
 
-Response is an array of applicants with the following fields
+Response is an array of artists with the following fields
 {
     "artists": [
         {
             "id": "",
             "givenname": "",
-            "familyname": "",
+            "lastname": "",
             "gender": ""
             "college": "",
             "country": ""
@@ -33,7 +33,7 @@ Response has the same structure as the previous request.
          {
                     "id": "",
                     "givenname": "",
-                    "familyname": "",
+                    "lastname": "",
                     "gender": "",
                     "college": "",
                     "country": "",
@@ -45,12 +45,12 @@ Response has the same structure as the previous request.
     ]
 }
 
-GET /artists?fname=fname
+GET /artists?lname=lname
 
 {
         "id": "",
         "givenname": "",
-        "familyname": "",
+        "lastname": "",
         "gender": "",
         "college": "",
         "country": "",
@@ -59,14 +59,14 @@ GET /artists?fname=fname
         "role": ""
 }
 
-POST /artist
+POST /artist/products
 Request body contains
 
 {
    "id": "",
    "password":"",
    "givenname": "",
-   "familyname": "",
+   "lastname": "",
    "gender": "",
    "college": "",
    "country": "",
@@ -77,11 +77,13 @@ Request body contains
         {
             "name": "",
             "description": "",
+            "release-time":"",
             "on-sale": ""
         },
         {
            "name": "",
            "description": "",
+            "release-time":"",
            "on-sale": ""
         }
     ]
@@ -100,12 +102,13 @@ Response
     "products" : [
         {
             "name" : "",
+             "release-time":"",
             "artist" : [
                 {
                    "id": "",
                    "password":"",
                     "givenname": "",
-                    "familyname": "",
+                    "lastname": "",
                     "gender": "",
                     "college": "",
                     "country": "",
@@ -123,12 +126,13 @@ GET /product?name=name
 Response
 {
     "name" : "",
+     "release-time":"",
                "artist" : [
                    {
                       "id": "",
                       "password":"",
                        "givenname": "",
-                       "familyname": "",
+                       "lastname": "",
                        "gender": "",
                        "college": "",
                        "country": "",
@@ -139,3 +143,55 @@ Response
                ]
 }
 
+GET /product?rtime=rtime
+
+Response
+{
+    "name" : "",
+     "release-time":"",
+               "artist" : [
+                   {
+                      "id": "",
+                      "password":"",
+                       "givenname": "",
+                       "lastname": "",
+                       "gender": "",
+                       "college": "",
+                       "country": "",
+                       "address": "",
+                        "status": "",
+                        "role": ""
+                   }
+               ]
+}
+
+PUT /user
+
+Response
+{
+        "id": "",
+            "givenname": "",
+            "lastname": "",
+            "gender": "",
+            "college": "",
+            "country": "",
+            "address": "",
+            "status": "",
+            "role": ""
+}
+
+
+PUT /user/product
+
+Response
+{
+        "id": "",
+            "givenname": "",
+            "lastname": "",
+            "gender": "",
+            "college": "",
+            "country": "",
+            "address": "",
+            "status": "",
+            "role": ""
+}
