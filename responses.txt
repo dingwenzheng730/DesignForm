@@ -59,7 +59,7 @@ GET /artists?lname=lname
         "role": ""
 }
 
-POST /artist/products
+POST /:artist/products
 Request body contains
 
 {
@@ -89,10 +89,39 @@ Request body contains
     ]
 }
 
+PUT /:artist/products
+Request body contains
+
+{
+   "id": "",
+   "password":"",
+   "givenname": "",
+   "lastname": "",
+   "gender": "",
+   "college": "",
+   "country": "",
+   "address": "",
+    "status": "",
+    "role": ""
+    "products": [
+        {
+            "name": "",
+            "description": "",
+            "releaseTime":"",
+            "saleStatus": ""
+        },
+        {
+           "name": "",
+           "description": "",
+            "releaseTime":"",
+           "saleStatus": ""
+        }
+    ]
+}
 Response is "Success" or "Error: "
 
-DELETE /product?fname=fname
-DELETE /product?stunum=stunum
+DELETE /artist/product?name=name
+
 
 Response is "Success" or "Error: no such student"
 
@@ -121,7 +150,7 @@ Response
     ]
 }
 
-GET /product?name=name
+GET /artists/products?name=name
 
 Response
 {
@@ -143,7 +172,7 @@ Response
                ]
 }
 
-GET /product?rtime=rtime
+GET /artists/products?rtime=rtime
 
 Response
 {
@@ -165,19 +194,19 @@ Response
                ]
 }
 
-PUT /user
+PUT /artists/:id
 
 Response
 {
         "id": "",
-            "givenname": "",
-            "lastname": "",
-            "gender": "",
-            "college": "",
-            "country": "",
-            "address": "",
-            "status": "",
-            "role": ""
+        "givenname": "",
+        "lastname": "",
+        "gender": "",
+        "college": "",
+        "country": "",
+        "address": "",
+        "status": "",
+        "role": ""
 }
 
 
