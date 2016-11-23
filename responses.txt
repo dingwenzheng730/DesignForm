@@ -1,9 +1,4 @@
-GET /:id
-{
-    "id":"",
-    "password":""
-}
-Response is "Success" or "Error: "
+
 GET /artists
 
 Response is an array of artists with the following fields
@@ -11,6 +6,7 @@ Response is an array of artists with the following fields
     "artists": [
         {
             "id": "",
+            "pwd": "",
             "givenname": "",
             "lastname": "",
             "gender": ""
@@ -32,6 +28,7 @@ Response has the same structure as the previous request.
     "artists": [
          {
                     "id": "",
+                    "pwd": "",
                     "givenname": "",
                     "lastname": "",
                     "gender": "",
@@ -49,6 +46,7 @@ GET /artists?lname=lname
 
 {
         "id": "",
+         "pwd": "",
         "givenname": "",
         "lastname": "",
         "gender": "",
@@ -59,7 +57,7 @@ GET /artists?lname=lname
         "role": ""
 }
 
-POST /:artist/products
+POST /artists/:id/products
 Request body contains
 
 {
@@ -88,8 +86,9 @@ Request body contains
         }
     ]
 }
+Response is "Success" or "Error: duplicate product"
 
-PUT /:artist/products
+PUT /artists:/:id/products
 Request body contains
 
 {
@@ -118,7 +117,7 @@ Request body contains
         }
     ]
 }
-Response is "Success" or "Error: "
+Response is "Success" or "Error: does not contain product"
 
 DELETE /artist/product?name=name
 
@@ -131,7 +130,7 @@ Response
     "products" : [
         {
             "name" : "",
-             "release-time":"",
+             "releaseTime":"",
             "artist" : [
                 {
                    "id": "",
@@ -155,7 +154,7 @@ GET /artists/products?name=name
 Response
 {
     "name" : "",
-     "release-time":"",
+     "releaseTime":"",
                "artist" : [
                    {
                       "id": "",
@@ -177,7 +176,7 @@ GET /artists/products?rtime=rtime
 Response
 {
     "name" : "",
-     "release-time":"",
+     "releaseTime":"",
                "artist" : [
                    {
                       "id": "",
@@ -196,9 +195,10 @@ Response
 
 PUT /artists/:id
 
-Response
+Request contains
 {
         "id": "",
+        "pwd":"",
         "givenname": "",
         "lastname": "",
         "gender": "",
@@ -209,18 +209,4 @@ Response
         "role": ""
 }
 
-
-PUT /user/product
-
-Response
-{
-        "id": "",
-            "givenname": "",
-            "lastname": "",
-            "gender": "",
-            "college": "",
-            "country": "",
-            "address": "",
-            "status": "",
-            "role": ""
-}
+Response:

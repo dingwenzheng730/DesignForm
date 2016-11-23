@@ -15,35 +15,35 @@ var sendJsonRes = function(res, status, content){
     res.json(content);
 };
 
-var addReview = function(req, res, product, artist){
+var pushReview = function(req, res, product, artist){
     product.reviews.push({
         rating: req.body.rating,
         author: artist,
         releaseTime:req.body.releaseTime,
         text: req.body.text
     });
-    product.save(function(err, mission){
-        var thisReview;
+    product.save(function(err, product){
+        var review;
         if(err){
             sendJsonRes(res, 400, err);
         }else{
-            updateAveRating(mission._id);
-            thisReview = mission.reviews[mission.reviews.length - 1];
-            sendJsonRes(res, 201, thisReview);
+            updateAveRating(product.id);
+            review = product.reviews[product.reviews.length - 1];
+            sendJsonRes(res, 201, review);
         }
     })
 };
 
-module.exports.reviewsCreate = function(req, res){
-    getAuthor(req, res, function(req, res, userName){
-        if(req.params.missionid){
-            Products.findById(req.params.missionid)
+module.exports.addReview = function(req, res){
+    FindArtist(req, res, function(req, res, artistID){
+        if(req.params.name){
+            Products.findById(req.params.name)
                 .select("reviews")
                 .exec(function(err, product){
                     if(err){
                         sendJsonRes(res, 404, err);
                     }else{
-                        addRiview(req, res, product, userName);
+                        pushReview(req, res, product, artistID);
                     }
                 })
         }else{
@@ -54,11 +54,11 @@ module.exports.reviewsCreate = function(req, res){
     });
 };
 
-var getAuthor = function(req, res, callback) {
-    console.log("Finding author with email " + req.payload.email);
+var FindArtist = function(req, res, callback) {
+    console.log("Finding author with id " + req.body.id);
     if (req.payload.email) {
         User
-            .findOne({ email : req.payload.email })
+            .findOne({ id : req.payload.id })
             .exec(function(err, user) {
                 if (!user) {
                     sendJSONresponse(res, 404, {
@@ -75,10 +75,13 @@ var getAuthor = function(req, res, callback) {
             });
 
     } else {
-        sendJSONresponse(res, 404, {
+        sendJsonRes(res, 404, {
             "message": "User not found"
         });
-        return;
+
     }
+
+};
+var updateAveRating = function(id){
 
 };
