@@ -5,6 +5,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 var passport = require('passport');
 
 
@@ -23,7 +24,7 @@ router.put('/artists/:id', ctrlReviews.UpdateArtist);
 router.get('/artists/:id',ctrlProfile.getById);
 router.post('/artists/:id', ctrlProfile.addApplicants);
 router.get('/artists?lname=lname',ctrlProfile.getArtistBylastname);
-router.get('/artists?country=country',ctrlProfile.getArtistBylastname);
+router.get('/artists?country=country',ctrlProfile.getArtistByCountry);
 
 //Zi Li
 router.put('/artists/reviews/:reviewid', ctrlReviews.addReview);
