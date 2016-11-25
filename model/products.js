@@ -9,6 +9,7 @@ var findOrCreate = require('mongoose-findorcreate');
 
 
 var Reviews = new  Schema({
+    id: {type: Number, required: true},
     rating: {type: Number, "default": 0, min: 0, max: 5, required: true},
     author: {type: String, required: true},
     releaseTime: {type: Date, "default": Date.now},

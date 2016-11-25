@@ -18,10 +18,10 @@ var Picture = new Schema(
 var Artist = new Schema(
     {
         id: {
-            type: String, required: true
+            type: String, required: true,unique: true
         },
         pwd: {
-            type: String, required: true
+            type: String, required: true,unique: true
         },
         givenname: {
             type: String, requried: true
@@ -32,8 +32,8 @@ var Artist = new Schema(
         gender: {
             type: String, required: true,
         },
-        college: {
-            type: String, required: true,
+        email: {
+            type: String, required: true,unique: true
         },
         country: {
             type: String

@@ -16,7 +16,7 @@ var cookieParser = require('cookie-parser');
 var session = require('cookie-session');
 
 //authentication section
-var authenticate = require('./routes/authentication')(passport);
+var authenticate = require('./controller/authentication')(passport);
 var initPassport = require('./config/passport');
 
 
