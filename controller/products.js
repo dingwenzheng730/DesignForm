@@ -16,9 +16,7 @@ console.log("Success:");
 
 //add product
 exports.addProduct = function(req, res) {
-    console.log("addProduct");
-    console.log(req.body);
-    var newProduct = new Product(req.body);
+    var newProduct = new Product({});
 
     newProduct.save(function(err, newProduct) {
         if (err) throw err;
