@@ -16,9 +16,21 @@ module.exports = function(passport) {
     }));
     // Google login callback
     router.get('/google/callback', passport.authenticate('google', {
-        successRedirect: '/',
-        failureRedirect: '/auth/failure'
+        successRedirect: '/artists',
+        failureRedirect: '/'
     }));
+
+    //Facebook login
+    router.get('/auth/facebook', passport.authenticate('facebook',
+        { scope : 'email'
+        }));
+
+    // Facebook login callback
+    router.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect : '/artists',
+            failureRedirect : '/'
+        }));
 
 
 };

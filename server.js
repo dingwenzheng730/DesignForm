@@ -11,7 +11,8 @@ var routes = require('./routes/api');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var bodyParser = require('body-parser');
-var mongoose = require('./node_modules/mongoose');
+var logger = require('morgan');
+
 var cookieParser = require('cookie-parser');
 var session = require('cookie-session');
 
@@ -23,11 +24,14 @@ var initPassport = require('./config/passport');
 
 var app = express();
 
+var mongoose = require('./node_modules/mongoose');
+mongoose.connect('mongodb://csc309:banana@ds047722.mongolab.com:47722/heroku_v51bxlrz');
 
 var secret = 'secretkeyDesignform';
 var hash = bcrypt.hashSync();
 
 //Passport init
+initPassport(passport);
 app.use(passport.initialize());
 app.use(passport.session({
     secret: 'secretkeyDesignform'
@@ -56,6 +60,11 @@ app.use(expressValidator({
 
 
 
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+
 app.set('views', path.join(__dirname, '/public/views'));
 app.set('view engine', 'ejs');
 
@@ -75,7 +84,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
+module.exports = app;
 
 app.listen(process.env.PORT || 3000);
 console.log('Listening on port 3000');
