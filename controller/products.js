@@ -2,7 +2,7 @@
  * Created by YuAng on 2016-11-22.
  */
 var fs = require('fs');
-var Product = require('../models/product');
+var Product = require('../model/products');
 
 //sort by product name
 function pnamesort(a, b) {
