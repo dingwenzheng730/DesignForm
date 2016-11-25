@@ -16,22 +16,22 @@ var ctrlAuth = require('../controller/authentication');
 
 
 // Yu Ang
-router.post('/artists/artist', routes.addArtist);
-router.put('/artists/:id', ctrlReviews.UpdateArtist);
+router.put('/artists/:id/product', ctrlProfile.removeProductbyName);
+//router.put('/artists/:id', ctrlReviews.UpdateArtist);
 
 
 // Zi Yao
 router.get('/artists/:id',ctrlProfile.getById);
-router.post('/artists/:id', ctrlProfile.addApplicants);
+router.post('/artists/:id', ctrlProfile.addArtist);
 router.get('/artists?lname=lname',ctrlProfile.getArtistBylastname);
 router.get('/artists?country=country',ctrlProfile.getArtistByCountry);
 
-//Zi Li
-router.put('/artists/reviews/:reviewid', ctrlReviews.addReview);
+//Ding Ren
+router.put('/artists/:id/product/review', ctrlReviews.addReview);
 router.post('/artist/:id/products/:name', ctrlProfile.addProduct);
 router.delete('/artist/:id/reviews', ctrlReviews.removeReviewbyName);
 
-// Ding Ren
+// Zi Li
 router.delete('/artists/:id/products/:name', ctrlProfile.removeProductbyName);
 router.get('/artists/:id/products?name=name', ctrlProfile.getProductbyName);
 router.get('/artists/:id/products?rtime=rtime', ctrlProfile.getProductbyReleaseTime);

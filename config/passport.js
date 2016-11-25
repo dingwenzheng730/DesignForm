@@ -9,9 +9,10 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var Artist =  require('./models/artists.js');
 var LocalStrategy    = require('passport-local').Strategy;
 var configAuth = require('./auth');
+var bCrypt = require('bcrypt-nodejs');
 var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
-GOOGLE_CONSUMER_KEY ='';
-GOOGLE_CONSUMER_SECRET = '';
+var GOOGLE_CONSUMER_KEY ='', GOOGLE_CONSUMER_SECRET = '';
+var FACEBOOK_CONSUMER_KEY ='', FACEBOOK_CONSUMER_SECRET = '';
 passport.use('signup', new LocalStrategy({
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
@@ -55,7 +56,9 @@ passport.use('signup', new LocalStrategy({
 passport.use(new GoogleStrategy({
         consumerKey: GOOGLE_CONSUMER_KEY,
         consumerSecret: GOOGLE_CONSUMER_SECRET,
-        callbackURL: "http://www.example.com/auth/google/callback"
+        callbackURL: "http://www.example.com/auth/google/callback",
+        profileFields: ['id', 'first_name', 'last_name', 'gender','email']
+        // haven't decided the picture
     },
     function(token, tokenSecret, profile, done) {
         User.findOrCreate({ userid: profile.id }, function (err, user) {
@@ -64,8 +67,8 @@ passport.use(new GoogleStrategy({
     }
 ));
 passport.use(new FacebookStrategy({
-        clientID:'1006730306139581',
-        clientSecret: 'ef44eadbcb4598df5eccb8cbc2e7c5b5',
+        clientID:FACEBOOK_CONSUMER_KEY,
+        clientSecret: FACEBOOK_CONSUMER_SECRET,
         callbackURL: "http://www.example.com/auth/facebook/callback"
     },
     function(req,accessToken, refreshToken, profile, done) {
@@ -88,3 +91,10 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
     done(null, user);
 });
+var isValidPassword = function(user, password){
+    return bCrypt.compareSync(password, user.Pwd);
+};
+// Generates hash using bCrypt
+var createHash = function(password){
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+};
