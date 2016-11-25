@@ -3,20 +3,27 @@
  */
 var Products = require('../model/products.js');
 
-//sort by product name
-function pnamesort(a, b) {
-    if (a.name < b.name)
-        return -1;
-    if (a.name > b.name)
-        return 1;
-    return 0;
+
+
+
+
+
+
+var sendJsonRes = function(res, status, content){
+	res.status(status);
+	res.json(content);
 }
 
-console.log("Success:");
+
+
+
+
+
 
 //add product
 exports.addProduct = function(req, res) {
-    var newProduct = new Product({});
+    var newProduct = new Product({
+    });
 
     newProduct.save(function(err, newProduct) {
         if (err) throw err;
