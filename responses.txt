@@ -119,7 +119,7 @@ Request body contains
 }
 Response is "Success" or "Error: does not contain product"
 
-DELETE /artist/product?name=name
+DELETE /artist/products?name=name
 
 
 Response is "Success" or "Error: no such student"
@@ -130,7 +130,7 @@ Response
     "products" : [
         {
             "name" : "",
-             "releaseTime":"",
+            "releaseTime":"",
             "artist" : [
                 {
                    "id": "",
