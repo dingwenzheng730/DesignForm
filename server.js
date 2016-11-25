@@ -4,8 +4,7 @@
 
 'use strict';
 
-// Make sure to install these dependencies!
-// Instructions are in the README.
+
 var express = require('express');
 var routes = require('./routes/api');
 var passport = require('passport');
