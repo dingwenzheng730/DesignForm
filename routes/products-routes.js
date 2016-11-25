@@ -46,9 +46,10 @@ exports.removeProductbyName = function(req, res) {
 
 
 //get product by name
-exports.getProductbyName = function(req, res) {
+exports.getProduct = function(req, res) {
     var temp;
     var productname = req.query.name;
+    var pReleaseTime = req.query.releaseTime;
     var productObj = JSON.parse(JSON.stringify(Product));
     //productObj['name'].sort(pnamesort);
 
@@ -60,6 +61,16 @@ exports.getProductbyName = function(req, res) {
             }
         }
     }
+
+    //by release time
+    if (pReleaseTime != undefined){
+        for(i = 0; i < productObj['products'].length; i++) {
+            if (productObj['products'][i].releaseTime == pReleaseTime) {
+                temp = productObj['products'][i];
+            }
+        }
+    }
+
     res.send(temp);
 };
 
