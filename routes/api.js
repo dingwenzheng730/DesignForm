@@ -25,12 +25,12 @@ router.post('/artists/:id', ctrlProfile.addApplicants);
 router.get('/artists?lname=lname',ctrlProfile.getArtistBylastname);
 router.get('/artists?country=country',ctrlProfile.getArtistBylastname);
 
-//Zi Li
+//Ding Ren
 router.put('/artists/reviews/:reviewid', ctrlReviews.addReview);
 router.post('/artist/:id/products/:name', ctrlProfile.addProduct);
 router.delete('/artist/:id/reviews', ctrlReviews.removeReviewbyName);
 
-// Ding Ren
+// Zi Li
 router.delete('/artists/:id/products/:name', ctrlProfile.removeProductbyName);
 router.get('/artists/:id/products?name=name', ctrlProfile.getProductbyName);
 router.get('/artists/:id/products?rtime=rtime', ctrlProfile.getProductbyReleaseTime);
