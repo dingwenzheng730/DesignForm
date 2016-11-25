@@ -75,13 +75,13 @@ Request body contains
         {
             "name": "",
             "description": "",
-            "release-time":"",
+            "releaseTime":"",
             "on-sale": ""
         },
         {
            "name": "",
            "description": "",
-            "release-time":"",
+            "releaseTime":"",
            "on-sale": ""
         }
     ]
@@ -124,7 +124,7 @@ DELETE /artist/products?name=name
 
 Response is "Success" or "Error: no such student"
 
-GET /products
+GET /artists:id/products
 Response
 {
     "products" : [
@@ -149,7 +149,7 @@ Response
     ]
 }
 
-GET /artists/products?name=name
+GET /artists/:id/products?name=name
 
 Response
 {
@@ -193,7 +193,7 @@ Response
                ]
 }
 
-PUT /artists/:id
+POST /artist
 
 Request contains
 {
