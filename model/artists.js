@@ -4,7 +4,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var findOrCreate = require('mongoose-findorcreate');
+
 var crypto = require('crypto');
 var Products = require('../model/products.js');
 
@@ -58,5 +58,5 @@ var Artists = new Schema(
     });
 
 
-Artists.plugin(findOrCreate());
+
 mongoose.model('Artists', Artists);

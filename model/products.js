@@ -5,7 +5,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var findOrCreate = require('mongoose-findorcreate');
+
 
 
 var Reviews = new  Schema({
@@ -23,7 +23,6 @@ var Products = new Schema({
     onSaleStatus:{type: Boolean, "default": false},
     reviews: [Reviews],
 });
-Reviews.plugin(findOrCreate);
-Products.plugin(findOrCreate);
+
 
 mongoose.model('Products', Products);

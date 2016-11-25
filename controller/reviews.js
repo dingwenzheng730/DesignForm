@@ -6,7 +6,7 @@
 var mongoose = require('mongoose');
 var Artists = mongoose.model('Artists');
 var Products = mongoose.model('Products');
-var User = mongoose.model('User');
+
 
 
 
@@ -57,7 +57,7 @@ module.exports.addReview = function(req, res){
 var FindArtist = function(req, res, callback) {
     console.log("Finding author with id " + req.body.id);
     if (req.payload.email) {
-        User
+        Artists
             .findOne({ id : req.payload.id })
             .exec(function(err, user) {
                 if (!user) {

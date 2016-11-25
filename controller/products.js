@@ -3,22 +3,13 @@
  */
 var Products = require('../model/products.js');
 
-//sort by product name
-function pnamesort(a, b) {
-    if (a.name < b.name)
-        return -1;
-    if (a.name > b.name)
-        return 1;
-    return 0;
-}
-
 console.log("Success:");
 
 //add product
 exports.addProduct = function(req, res) {
     console.log("addProduct");
     console.log(req.body);
-    var newProduct = new Product(req.body);
+    var newProduct = new Products({});
 
     newProduct.save(function(err, newProduct) {
         if (err) throw err;
@@ -53,8 +44,8 @@ exports.removeProductbyName = function(req, res) {
         }
         sendJsonRes(res, 204, null);
         })
-}
-		
+})};
+
 
 
 //get product by name (global search)
@@ -78,4 +69,3 @@ exports.getProductbyReleaseTime = function(req, res) {
     });
 
 };
-

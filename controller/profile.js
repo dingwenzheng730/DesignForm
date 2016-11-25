@@ -17,7 +17,7 @@ exports.getById = function(req, res) {
 	});
 };
 
-exports.addApplicants = function(req, res) {
+exports.addArtist = function(req, res) {
 
 	var id = req.query.id;
 	var newArtist = new Artists({
@@ -47,7 +47,7 @@ exports.getArtistByCountry = function(req, res) {
  		if (err) throw err;
 
   		res.send(artist);
-	});	
+	});
 }
 
 //-----------------2016-11-24-------------------------------------------
