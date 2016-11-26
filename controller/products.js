@@ -3,6 +3,16 @@
  */
 var Products = require('../model/products.js');
 
+console.log("Success:");
+
+
+
+//--------------zili 11/22-----------------
+//add product
+exports.addProduct = function(req, res) {
+    console.log("addProduct");
+    console.log(req.body);
+    var newProduct = new Products({});
 
 console.log("Success:");
 
@@ -19,6 +29,7 @@ var sendJsonRes = function(res, status, content){
 
 //add product
 exports.addProduct = function(req, res) {
+    var newProduct = new Product(req.body);
     var newProduct = new Product({
     });
 

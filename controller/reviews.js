@@ -85,3 +85,25 @@ var FindArtist = function(req, res, callback) {
 var updateAveRating = function(id){
 
 };
+
+module.exports.removeReviewbyID = function(req, res) {
+    var artid = req.params.id;
+    var reviewid = req.query;
+
+    Artists.findOne({ id: artid })
+               .populate("products")
+               .forEach(function(eachproduct){
+                    eachproduct.populate("reviews").findOne( { id: reviewid}, function(err, review){
+
+                            if (err) throw err;
+
+                            console.log("remove review by id successfully find review.")
+
+                            review.remove(function(err) {
+                                if err throw err;
+                                console.log("review successfully removed by id");
+                            })
+
+                    } )
+               });
+}
