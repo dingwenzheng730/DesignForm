@@ -18,6 +18,7 @@ var ctrlAuth = require('../controller/authentication');
 
 // Yu Ang
 /*
+router.get('/main',ctrlProduct.allProduct);
 router.put('/artists/:id/products/:name', ctrlProfile.UpdateProduct);
 router.put('/artists/:id/products/review:id', ctrlReviews.UpdateReivew);
 */
@@ -36,7 +37,7 @@ router.post('/artist/:id/products/review', ctrlProfile.addReview);
 */
 // Zi Li
 
-router.delete('/products?name=name', ctrlProduct.removeProductbyName);
+//router.delete('/products?name=name', ctrlProduct.removeProductbyName);
 
 router.get('/products?name=name', ctrlProduct.getProductbyName);
 router.get('/products?rtime=rtime', ctrlProduct.getProductbyReleaseTime);

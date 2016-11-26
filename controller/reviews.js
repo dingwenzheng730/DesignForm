@@ -100,7 +100,7 @@ module.exports.removeReviewbyID = function(req, res) {
                             console.log("remove review by id successfully find review.")
 
                             review.remove(function(err) {
-                                if err throw err;
+                                if (err )throw err;
                                 console.log("review successfully removed by id");
                             })
 
