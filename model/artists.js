@@ -57,7 +57,7 @@ var Artist = new Schema(
 mongoose.connect('mongodb://localhost/artistsdb');
 
 
-module.exports = Artist;
+module.exports = mongoose.model('Artist', Artist);
 var Person  = mongoose.model('Artist', Artist);
 
 var SunMeng = new Person({

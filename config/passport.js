@@ -7,7 +7,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var Artist = require('../model/artists.js');
 
 var findOrCreate = require('mongoose-findorcreate');
-Artist.plugin(findOrCreate);
+//Artist.plugin(findOrCreate);
 
 var LocalStrategy = require('passport-local').Strategy;
 
