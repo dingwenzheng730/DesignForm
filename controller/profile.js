@@ -32,7 +32,7 @@ exports.addArtist = function(req, res) {
 exports.getArtistBylastname = function(req, res) {
 	var targetlastname = req.query.lname;
 
-	Artists.findOne({ lastname: targetlastname }, function(err, artist) {
+	Artists.findOne({ familyname: targetlastname }, function(err, artist) {
  		if (err) throw err;
 
   		res.send(artist);

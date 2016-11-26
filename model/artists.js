@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var crypto = require('crypto');
+//var crypto = require('crypto');
 var Products = require('../model/products.js');
 
 
@@ -45,18 +45,17 @@ var Artist = new Schema(
             type: String
         },
 
-        products: [Products],
-        picture: [Picture],
-        hash: String,
-        salt: String
+        products: [{ type: Schema.Types.ObjectId, ref: 'Products' }],
+        picture: [{ type: Schema.Types.ObjectId, ref: 'Picture' }]},
 
-    });
-var Artists = new Schema(
+
     {
+        collection: 'artists'
+    }
+    );
 
-        artist: [Artist]
-    });
+mongoose.connect('mongodb://localhost/artistsdb');
 
 
 
-mongoose.model('Artists', Artists);
+mongoose.model('Artist', Artist);

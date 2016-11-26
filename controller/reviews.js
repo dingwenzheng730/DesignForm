@@ -4,7 +4,7 @@
 
 
 var mongoose = require('mongoose');
-var Artists = mongoose.model('Artists');
+var Artists = mongoose.model('Artist');
 var Products = mongoose.model('Products');
 
 

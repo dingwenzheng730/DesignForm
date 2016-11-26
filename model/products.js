@@ -2,7 +2,6 @@
  * Created by YuAng on 2016-11-22.
  */
 
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -21,8 +20,11 @@ var Products = new Schema({
     description: { type: String, required: true},
     releaseTime: {type: Date, "default": Date.now},
     onSaleStatus:{type: Boolean, "default": false},
-    reviews: [Reviews],
-});
-
+    reviews: [Reviews]},
+    {
+        collection: 'products'
+    }
+);
+//mongoose.connect('mongodb://localhost/productsdb');
 
 mongoose.model('Products', Products);
