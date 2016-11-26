@@ -45,8 +45,8 @@ var Artist = new Schema(
             type: String
         },
 
-        products: [{ type: Schema.Types.ObjectId, ref: 'Products' }],
-        picture: [{ type: Schema.Types.ObjectId, ref: 'Picture' }]},
+        products: [Products],
+        picture: [Picture]},
 
 
     {

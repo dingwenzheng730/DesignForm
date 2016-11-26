@@ -48,6 +48,6 @@ exports.getArtistByCountry = function(req, res) {
 
   		res.send(artist);
 	});
-}
+};
 
 //-----------------2016-11-24-------------------------------------------
