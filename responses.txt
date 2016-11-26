@@ -57,7 +57,7 @@ GET /artists?lname=lname
         "role": ""
 }
 
-POST /artists/:id/products
+POST /artists/:id/product
 Request body contains
 
 {
