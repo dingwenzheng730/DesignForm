@@ -36,7 +36,7 @@ router.post('/artist/:id/products/review', ctrlProfile.addReview);
 */
 // Zi Li
 
-/*router.delete('/products?name=name', ctrlProfile.removeProductbyName);*/
+router.delete('/products?name=name', ctrlProduct.removeProductbyName);
 
 router.get('/products?name=name', ctrlProduct.getProductbyName);
 router.get('/products?rtime=rtime', ctrlProduct.getProductbyReleaseTime);
@@ -53,9 +53,8 @@ router.get('/logout', function(req, res) {
 
 
 // Login in section
-/*
-router.post('/register', ctrlAuth.register);
-router.post('/login', ctrlAuth.login);
+
+
 // send to facebook to do the authentication
 router.get('/login/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
@@ -66,5 +65,5 @@ router.get('/login/facebook/callback',
         failureRedirect : '/'
     }));
 
-*/
+
 module.exports = router;

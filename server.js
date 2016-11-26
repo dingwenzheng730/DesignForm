@@ -52,7 +52,7 @@ app.get('/', function(req, res) {
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+
 
 //app.set('views', path.join(__dirname, '/public/views'));
 
@@ -61,6 +61,7 @@ app.get('/', function(req, res) {
         errors: ''
     });
 });
+/*
 /// catch address error
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -75,8 +76,8 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-module.exports = app;
+*/
+module.exports = routes;
 
 app.listen(process.env.PORT || 3000);
 console.log('Listening on port 3000');
