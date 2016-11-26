@@ -1,22 +1,19 @@
 /**
  * Created by YuAng on 2016-11-22.
  */
-/**
- * Created by YuAng on 2016-11-22.
- */
+
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var Artist = require('../model/artists.js');
-/*
+
 var findOrCreate = require('mongoose-findorcreate');
 Artist.plugin(findOrCreate);
-*/
+
 var LocalStrategy = require('passport-local').Strategy;
 
 var bCrypt = require('bcrypt-nodejs');
-var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
-var GOOGLE_CONSUMER_KEY = '', GOOGLE_CONSUMER_SECRET = '';
-var FACEBOOK_CONSUMER_KEY = '', FACEBOOK_CONSUMER_SECRET = '';
+
+var FACEBOOK_CONSUMER_KEY = '1006730306139581', FACEBOOK_CONSUMER_SECRET = 'ef44eadbcb4598df5eccb8cbc2e7c5b5';
 
 module.exports = function (passport) {
 // Local login
@@ -24,7 +21,7 @@ module.exports = function (passport) {
             passReqToCallback: true
         }, function (req, err, password, done) {
 
-            User.findOne({'UserId': name},
+            Artist.findOne({'UserId': name},
                 function (err, user) {
                     // error case
                     if (err)
@@ -85,17 +82,7 @@ module.exports = function (passport) {
             });
         })
     );
-    passport.use(new GoogleStrategy({
-            consumerKey: GOOGLE_CONSUMER_KEY,
-            consumerSecret: GOOGLE_CONSUMER_SECRET,
-            callbackURL: "http://www.example.com/auth/google/callback"
-        },
-        function (token, tokenSecret, profile, done) {
-            User.findOrCreate({userid: profile.id}, function (err, user) {
-                return done(err, user);
-            });
-        }
-    ));
+
     passport.use(new FacebookStrategy({
             clientID: FACEBOOK_CONSUMER_KEY,
             clientSecret: FACEBOOK_CONSUMER_SECRET,
@@ -105,9 +92,8 @@ module.exports = function (passport) {
             // haven't decided the picture
         },
         function (req, accessToken, refreshToken, profile, done) {
-            User.findOrCreate({
+            Artist.findOrCreate({
                 id: profile.id,
-
                 givenName: profile.first_name,
                 familyName: profile.last_name,
                 gender: profile.gender,
@@ -132,9 +118,9 @@ module.exports = function (passport) {
     var isValidPassword = function (user, password) {
         return bCrypt.compareSync(password, user.pwd);
     };
-// Generates hash using bCrypt
+    // Generates hash using bCrypt
     var createHash = function (password) {
-        return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+        return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
     };
 };
 

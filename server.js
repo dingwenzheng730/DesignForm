@@ -11,7 +11,7 @@ var passport = require('passport');
 var expressValidator = require('express-validator');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
-
+var path = require('path');
 var cookieParser = require('cookie-parser');
 var session = require('cookie-session');
 
@@ -21,10 +21,13 @@ var authenticate = require('./controller/authentication')(passport);
 var initPassport = require('./config/passport');
 */
 
-
+require('./config/passport')(passport);
 var app = express();
+app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'view')));
 
-
+app.use(passport.initialize());
+app.use(passport.session());
 
 var secret = 'secretkeyDesignform';
 //var hash = bcrypt.hashSync();

@@ -6,17 +6,7 @@ var Products = require('../model/products.js');
 console.log("Success:");
 
 
-/*
-//--------------zili 11/22-----------------
-//add product
-exports.addProduct = function(req, res) {
-    console.log("addProduct");
-    console.log(req.body);
-    var newProduct = new Products({});
 
-console.log("Success:");
-
-*/
 
 
 
@@ -72,9 +62,9 @@ exports.removeProductbyName = function(req, res) {
 
 //get product by name (global search)
 exports.getProductbyName = function(req, res) {
-    var productname = req.query.name;
-    console.log(productname);
-    Products.findOne({ name: productname }, function(err, product) {
+    var productName = req.query.name;
+    console.log(productName);
+    Products.findOne({ name: productName }, function(err, product) {
 	if (err) throw err;
 
 	res.send(product);
