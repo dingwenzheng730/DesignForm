@@ -85,3 +85,7 @@ var FindArtist = function(req, res, callback) {
 var updateAveRating = function(id){
 
 };
+
+module.exports.removeReviewbyID = function(req, res) {
+
+}

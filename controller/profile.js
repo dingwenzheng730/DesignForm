@@ -20,8 +20,18 @@ exports.getById = function(req, res) {
 exports.addArtist = function(req, res) {
 
 	var id = req.query.id;
+	var pwd  ;
+	var givenname;
+	var lastname;
+	var email;
+	var gender;
 	var newArtist = new Artists({
-
+		id:{id},
+		pwd:{pwd},
+		givenname:{givenname},
+		lastname:{lastname},
+		gender:{gender},
+		email:{email}
 	});
 
 	newArtist.save(function(err){
