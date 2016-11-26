@@ -12,13 +12,13 @@
     "role": "Fashion Designer",
     "products": [
       {
-        "name":"asdfsdf",
+        "name": "asdfsdf",
         "description": "random work",
         "releaseTime": "Oct.11th",
         "reviews": [
           {
-            "id":"asdfasdfasfd",
-            "rating":4,
+            "id": "asdfasdfasfd",
+            "rating": 4,
             "author": "Yu Ang",
             "releaseTime": "Oct.11th",
             "text": "Nice work!"
@@ -26,20 +26,20 @@
         ]
       },
       {
-        "name":"blue",
+        "name": "blue",
         "description": "shitty work",
         "releaseTime": "Oct.11th",
         "reviews": [
           {
-            "id":"asdfasdfasfd",
-            "rating":1,
+            "id": "asdfasdfasfd",
+            "rating": 1,
             "author": "Liya",
             "releaseTime": "Oct.11th",
             "text": "bad work...."
           },
           {
-            "id":"fababsdgsf",
-            "rating":1,
+            "id": "fababsdgsf",
+            "rating": 1,
             "author": "Lisa",
             "releaseTime": "Oct.15th",
             "text": "really bad work...."
@@ -47,13 +47,13 @@
         ]
       },
       {
-        "name":"river",
+        "name": "river",
         "description": "good work",
         "releaseTime": "Oct.12th",
         "reviews": [
           {
-            "id":"asdfasdfasfd",
-            "rating":5,
+            "id": "asdfasdfasfd",
+            "rating": 5,
             "author": "Yu Ang",
             "releaseTime": "Oct.11th",
             "text": "master piece work!"
@@ -61,25 +61,7 @@
         ]
       }
     ]
-
-
-  },
-  {
-
-  },
-  {
-
-  },
-  {
-
-  },
-  {
-
-  },
-  {
-
   }
-
 
 
 ]

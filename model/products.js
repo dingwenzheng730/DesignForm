@@ -28,3 +28,4 @@ var Products = new Schema({
 //mongoose.connect('mongodb://localhost/productsdb');
 
 mongoose.model('Products', Products);
+module.exports = Products;

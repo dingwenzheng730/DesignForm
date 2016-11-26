@@ -45,8 +45,8 @@ var Artist = new Schema(
             type: String
         },
 
-        products: [Products],
-        picture: [Picture]},
+        products: [Products]},
+        //picture: [Picture]},
 
 
     {
@@ -57,5 +57,73 @@ var Artist = new Schema(
 mongoose.connect('mongodb://localhost/artistsdb');
 
 
+module.exports = Artist;
+var Person  = mongoose.model('Artist', Artist);
 
-mongoose.model('Artist', Artist);
+var SunMeng = new Person({
+
+    "id": "9780143194798",
+    "pwd": "1234151249098",
+    "givenname": "Meng",
+    "familyname": "Sun",
+    "gender": "Female",
+    "email": "artist@hotmail.com",
+    "country": "China",
+    "status": "Undergrad",
+    "role": "Fashion Designer",
+    "products": [
+        {
+            "name": "asdfsdf",
+            "description": "random work",
+            "releaseTime": "Oct.11th",
+            "reviews": [
+                {
+                    "id": "asdfasdfasfd",
+                    "rating": 4,
+                    "author": "Yu Ang",
+                    "releaseTime": "Oct.11th",
+                    "text": "Nice work!"
+                }
+            ]
+        },
+        {
+            "name": "blue",
+            "description": "shitty work",
+            "releaseTime": "Oct.11th",
+            "reviews": [
+                {
+                    "id": "asdfasdfasfd",
+                    "rating": 1,
+                    "author": "Liya",
+                    "releaseTime": "Oct.11th",
+                    "text": "bad work...."
+                },
+                {
+                    "id": "fababsdgsf",
+                    "rating": 1,
+                    "author": "Lisa",
+                    "releaseTime": "Oct.15th",
+                    "text": "really bad work...."
+                }
+            ]
+        },
+        {
+            "name": "river",
+            "description": "good work",
+            "releaseTime": "Oct.12th",
+            "reviews": [
+                {
+                    "id": "asdfasdfasfd",
+                    "rating": 5,
+                    "author": "Yu Ang",
+                    "releaseTime": "Oct.11th",
+                    "text": "master piece work!"
+                }
+            ]
+
+        },
+
+    ]});
+SunMeng.save(function(err){
+   // if (err) return handleError(err);
+});

@@ -62,6 +62,7 @@ exports.removeProductbyName = function(req, res) {
 //get product by name (global search)
 exports.getProductbyName = function(req, res) {
     var productname = req.query.name;
+    console.log(productname);
     Products.findOne({ name: productname }, function(err, product) {
 	if (err) throw err;
 
