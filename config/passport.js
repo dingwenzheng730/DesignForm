@@ -7,13 +7,17 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var Artist = require('../model/artists.js');
+/*
+var findOrCreate = require('mongoose-findorcreate');
+Artist.plugin(findOrCreate);
+*/
 var LocalStrategy = require('passport-local').Strategy;
 
 var bCrypt = require('bcrypt-nodejs');
 var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 var GOOGLE_CONSUMER_KEY = '', GOOGLE_CONSUMER_SECRET = '';
 var FACEBOOK_CONSUMER_KEY = '', FACEBOOK_CONSUMER_SECRET = '';
-
+/*
 module.exports = function (passport) {
 // Local login
     passport.use('login', new LocalStrategy({
@@ -133,3 +137,4 @@ module.exports = function (passport) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
     };
 };
+*/

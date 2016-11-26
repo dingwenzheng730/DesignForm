@@ -11,14 +11,16 @@ var passport = require('passport');
 
 //Controller section
 var ctrlProfile = require('../controller/profile');
+var ctrlProduct = require('../controller/products');
 var ctrlReviews = require('../controller/reviews');
 var ctrlAuth = require('../controller/authentication');
 
 
 // Yu Ang
+/*
 router.put('/artists/:id/products/:name', ctrlProfile.UpdateProduct);
 router.put('/artists/:id/products/review:id', ctrlReviews.UpdateReivew);
-
+*/
 
 // Zi Yao
 router.get('/artists?id=id',ctrlProfile.getById);
@@ -27,18 +29,21 @@ router.get('/artists?lname=lname',ctrlProfile.getArtistBylastname);
 router.get('/artists?country=country',ctrlProfile.getArtistByCountry);
 
 //Ding Ren
-
+/*
 router.delete('/artist/:id/products/reviews?id=id', ctrlReviews.removeReviewbyID);
 
 router.post('/artist/:id/products/review', ctrlProfile.addReview);
-
+*/
 // Zi Li
-router.delete('/products?name=name', ctrlProfile.removeProductbyName);
-router.get('/products?name=name', ctrlProfile.getProductbyName);
-router.get('/products?rtime=rtime', ctrlProfile.getProductbyReleaseTime);
-router.get('/artists/:id/products', ctrlProfile.getArtistProduct);
-router.post('/artists/:id/product', ctrlProfile.addProduct);
 
+/*router.delete('/products?name=name', ctrlProfile.removeProductbyName);*/
+
+router.get('/products?name=name', ctrlProduct.getProductbyName);
+router.get('/products?rtime=rtime', ctrlProduct.getProductbyReleaseTime);
+/*
+router.get('/artists/:id/products', ctrlProduct.getArtistProduct);
+router.post('/artists/:id/product', ctrlProfile.addProduct);
+*/
 
 router.get('/logout', function(req, res) {
     req.logout();
@@ -48,6 +53,7 @@ router.get('/logout', function(req, res) {
 
 
 // Login in section
+/*
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 // send to facebook to do the authentication
@@ -60,5 +66,5 @@ router.get('/login/facebook/callback',
         failureRedirect : '/'
     }));
 
-
+*/
 module.exports = router;
