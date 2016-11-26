@@ -32,7 +32,7 @@ exports.addArtist = function(req, res) {
 exports.getArtistBylastname = function(req, res) {
 	var targetlastname = req.query.lname;
 
-	Artists.findOne({ familyname: targetlastname }, function(err, artist) {
+	Artists.findOne({ lastname: targetlastname }, function(err, artist) {
  		if (err) throw err;
 
   		res.send(artist);
@@ -48,6 +48,34 @@ exports.getArtistByCountry = function(req, res) {
 
   		res.send(artist);
 	});
-};
+}
 
 //-----------------2016-11-24-------------------------------------------
+
+
+//----------------Zili 11/24---------------------
+
+exports.getArtistProduct = function(req, res) {
+	var targetid = req.params.id;
+
+	Artists.findOne({ id: targetid })
+               .populate("products")
+               .exec(function(err, artistProducts) {
+ 		if (err) throw err;
+                res.send(artistProducts);
+	});
+
+};
+
+
+exports.addArtistProduct = function(req, res) {
+	var targetid = req.params.id;
+	var product = new Products(req.body);
+
+	Artists.update(
+        	{ _id: targetid }, 
+        	{ $push: { products: product } },
+        	done
+        );
+};
+
