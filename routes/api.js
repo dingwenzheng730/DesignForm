@@ -21,7 +21,7 @@ router.put('/artists/:id/products/review:id', ctrlReviews.UpdateReivew);
 
 
 // Zi Yao
-router.get('/artists/:id',ctrlProfile.getById);
+router.get('/artists?id=id',ctrlProfile.getById);
 router.post('/addartist', ctrlProfile.addArtist);
 router.get('/artists?lname=lname',ctrlProfile.getArtistBylastname);
 router.get('/artists?country=country',ctrlProfile.getArtistByCountry);
