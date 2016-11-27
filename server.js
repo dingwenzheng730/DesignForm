@@ -26,7 +26,7 @@ var secret = 'secretkeyDesignform';
 //var hash = bcrypt.hashSync();
 
 
-
+app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
 // The request body is received on GET or POST.
@@ -38,11 +38,12 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 // Get the index page:
 app.get('/', function(req, res) {
-    res.sendfile('index.html');
+    res.render('main');
 });
 
 app.get('/artists', artists.findArtists);
-app.get('/artists', artists.findArtists);
+
+
 /*
 //app.get('/products', products.getProducts);
 router.get('/main',ctrlProduct.allProduct);
@@ -55,6 +56,20 @@ router.put('/artists/:id/products/review:id', ctrlReviews.UpdateReivew);
  router.get('/artists/:id/products', ctrlProduct.getArtistProduct);
  router.post('/artists/:id/product', ctrlProfile.addProduct);
 */
+
+app.get('/login', function(req,res){
+	res.render('login');
+});
+app.get('/register', function(req,res){
+	res.render('register');
+});
+app.get('/profile', function(req,res){
+	res.render('profile');
+});
+
+//app.get('/products', products.getProducts);
+app.engine('.html', require('ejs').__express);
+
 
 
 // Start the server
