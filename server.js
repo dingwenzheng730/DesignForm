@@ -33,55 +33,26 @@ var secret = 'secretkeyDesignform';
 //var hash = bcrypt.hashSync();
 
 
-app.engine('.html', require('ejs').__express);
-
-
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
 app.set('views', __dirname);
 app.set('view engine', 'html');
-app.get('/', function(req, res) {
-    res.render('./view/index.html', {
-        errors: ''
-    });
-});
 
 
 
 
 
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
-
-//app.set('views', path.join(__dirname, '/public/views'));
 
 app.get('/', function(req, res) {
     res.render('../view/index.html', {
         errors: ''
     });
 });
-/*
-/// catch address error
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
 
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
-*/
 
-module.exports = routes;
+module.exports = app;
 
 app.listen(process.env.PORT || 3000);
 console.log('Listening on port 3000');

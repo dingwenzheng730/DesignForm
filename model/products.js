@@ -25,7 +25,6 @@ var Products = new Schema({
         collection: 'products'
     }
 );
-//mongoose.connect('mongodb://localhost/productsdb');
 
-mongoose.model('Products', Products);
-module.exports =  mongoose.model('Products', Products);
+
+//mongoose.model('Products', Products);

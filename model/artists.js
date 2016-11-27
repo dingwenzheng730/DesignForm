@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 //var crypto = require('crypto');
-var Products = require('../model/products.js');
+
 
 
 var Picture = new Schema(
@@ -14,7 +14,24 @@ var Picture = new Schema(
     { data: Buffer, contentType: String }
     }
 );
+var Reviews = new  Schema({
+    id: {type: Number, required: true},
+    rating: {type: Number, "default": 0, min: 0, max: 5, required: true},
+    author: {type: String, required: true},
+    releaseTime: {type: Date, "default": Date.now},
+    text: {type: String, required: true}
+});
 
+var Products = new Schema({
+        name: { type: String, required: true},
+        description: { type: String, required: true},
+        releaseTime: {type: Date, "default": Date.now},
+        onSaleStatus:{type: Boolean, "default": false},
+        reviews: [Reviews]},
+    {
+        collection: 'products'
+    }
+);
 var Artist = new Schema(
     {
         id: {
@@ -30,7 +47,7 @@ var Artist = new Schema(
             type: String, required: true, unique: true
         },
         gender: {
-            type: String, required: true,
+            type: String, required: true
         },
         email: {
             type: String, required: true,unique: true
@@ -46,7 +63,6 @@ var Artist = new Schema(
         },
 
         products: [Products]},
-        //picture: [Picture]},
 
 
     {
@@ -58,72 +74,3 @@ mongoose.connect('mongodb://localhost/artistsdb');
 
 
 module.exports = mongoose.model('Artist', Artist);
-var Person  = mongoose.model('Artist', Artist);
-
-var SunMeng = new Person({
-
-    "id": "9780143194798",
-    "pwd": "1234151249098",
-    "givenname": "Meng",
-    "familyname": "Sun",
-    "gender": "Female",
-    "email": "artist@hotmail.com",
-    "country": "China",
-    "status": "Undergrad",
-    "role": "Fashion Designer",
-    "products": [
-        {
-            "name": "asdfsdf",
-            "description": "random work",
-            "releaseTime": "Oct.11th",
-            "reviews": [
-                {
-                    "id": "asdfasdfasfd",
-                    "rating": 4,
-                    "author": "Yu Ang",
-                    "releaseTime": "Oct.11th",
-                    "text": "Nice work!"
-                }
-            ]
-        },
-        {
-            "name": "blue",
-            "description": "shitty work",
-            "releaseTime": "Oct.11th",
-            "reviews": [
-                {
-                    "id": "asdfasdfasfd",
-                    "rating": 1,
-                    "author": "Liya",
-                    "releaseTime": "Oct.11th",
-                    "text": "bad work...."
-                },
-                {
-                    "id": "fababsdgsf",
-                    "rating": 1,
-                    "author": "Lisa",
-                    "releaseTime": "Oct.15th",
-                    "text": "really bad work...."
-                }
-            ]
-        },
-        {
-            "name": "river",
-            "description": "good work",
-            "releaseTime": "Oct.12th",
-            "reviews": [
-                {
-                    "id": "asdfasdfasfd",
-                    "rating": 5,
-                    "author": "Yu Ang",
-                    "releaseTime": "Oct.11th",
-                    "text": "master piece work!"
-                }
-            ]
-
-        },
-
-    ]});
-SunMeng.save(function(err){
-   // if (err) return handleError(err);
-});
