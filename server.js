@@ -2,8 +2,29 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var artists = require('./controller/profile');
-//var products = require('./controller/products');
+var passport = require('passport');
+var expressValidator = require('express-validator');
+var logger = require('morgan');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var session = require('cookie-session');
+
+//authentication section
+ var authenticate = require('./controller/authentication')(passport);
+ var initPassport = require('./config/passport');
+
+
+require('./config/passport')(passport);
 var app = express();
+app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'view')));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+var secret = 'secretkeyDesignform';
+//var hash = bcrypt.hashSync();
+
 
 
 app.use(express.static(__dirname + '/'));
@@ -21,9 +42,19 @@ app.get('/', function(req, res) {
 });
 
 app.get('/artists', artists.findArtists);
-
+app.get('/artists', artists.findArtists);
+/*
 //app.get('/products', products.getProducts);
+router.get('/main',ctrlProduct.allProduct);
+router.put('/artists/:id/products/:name', ctrlProfile.UpdateProduct);
+router.put('/artists/:id/products/review:id', ctrlReviews.UpdateReivew);
+ router.delete('/products?name=name', ctrlProduct.removeProductbyName);
 
+ router.get('/products?name=name', ctrlProduct.getProductbyName);
+ router.get('/products?rtime=rtime', ctrlProduct.getProductbyReleaseTime);
+ router.get('/artists/:id/products', ctrlProduct.getArtistProduct);
+ router.post('/artists/:id/product', ctrlProfile.addProduct);
+*/
 
 
 // Start the server

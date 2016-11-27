@@ -1,13 +1,12 @@
 /**
  * Created by YuAng on 2016-11-22.
  */
-
+var mongoose = require('mongoose');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var Artist = require('../model/artists.js');
 
-var findOrCreate = require('mongoose-findorcreate');
-Artist.plugin(findOrCreate);
+
+
 
 var LocalStrategy = require('passport-local').Strategy;
 

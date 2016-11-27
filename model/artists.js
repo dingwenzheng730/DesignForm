@@ -59,7 +59,8 @@ var Artist = new Schema(
 
 
 mongoose.connect('mongodb://localhost/artistsdb');
-
+var findOrCreate = require('mongoose-findorcreate');
+Artist.plugin(findOrCreate);
 
 module.exports = mongoose.model('Artists', Artist);
  
