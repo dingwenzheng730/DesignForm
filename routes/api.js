@@ -24,6 +24,7 @@ router.put('/artists/:id/products/review:id', ctrlReviews.UpdateReivew);
 */
 
 // Zi Yao
+//router.get('/artists',ctrlProfile.findAll);
 router.get('/artists?id=id',ctrlProfile.getById);
 router.post('/addartist', ctrlProfile.addArtist);
 router.get('/artists?lname=lname',ctrlProfile.getArtistBylastname);
@@ -41,10 +42,9 @@ router.post('/artist/:id/products/review', ctrlProfile.addReview);
 
 router.get('/products?name=name', ctrlProduct.getProductbyName);
 router.get('/products?rtime=rtime', ctrlProduct.getProductbyReleaseTime);
-/*
 router.get('/artists/:id/products', ctrlProduct.getArtistProduct);
 router.post('/artists/:id/product', ctrlProfile.addProduct);
-*/
+
 
 router.get('/logout', function(req, res) {
     req.logout();

@@ -1,58 +1,31 @@
-/**
- * Created by YuAng on 2016-11-14.
- */
-
-'use strict';
-
-
 var express = require('express');
-var routes = require('./routes/api');
-var passport = require('passport');
-var expressValidator = require('express-validator');
 var bodyParser = require('body-parser');
-var logger = require('morgan');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var session = require('cookie-session');
 
-//authentication section
-/*
-var authenticate = require('./controller/authentication')(passport);
-var initPassport = require('./config/passport');
-*/
-
-require('./config/passport')(passport);
+var artists = require('./controller/profile');
+//var products = require('./controller/products');
 var app = express();
-app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'view')));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-var secret = 'secretkeyDesignform';
-//var hash = bcrypt.hashSync();
 
 
-app.use(bodyParser.json()); // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
+app.use(express.static(__dirname + '/'));
+
+// The request body is received on GET or POST.
+// A middleware that just simplifies things a bit.
+app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
-app.set('views', __dirname);
-app.set('view engine', 'html');
 
-
-
-
-
-
+// Get the index page:
 app.get('/', function(req, res) {
-    res.render('../view/index.html', {
-        errors: ''
-    });
+    res.sendfile('index.html');
 });
 
+app.get('/artists', artists.findArtists);
 
-module.exports = app;
+//app.get('/products', products.getProducts);
 
-app.listen(process.env.PORT || 3000);
-console.log('Listening on port 3000');
+
+
+// Start the server
+app.listen(3000);
+console.log('Listening on port nmb3000');

@@ -6,20 +6,53 @@
 
 var Artists = require('../model/artists.js');
 
-exports.getById = function(req, res) {
+exports.findArtists = function(req, res) {
 
-	var targetid = req.query.id;
+    var targetid = req.query.id;
+    var targetfname = req.query.fname;
+    var targetcountry = req.query.country;
+    console.log(targetid);
+    console.log('findAll');
 
+    if (targetid == undefined && targetfname == undefined && targetcountry == undefined) {
+
+	    Artists.find({}, function(err, allArtists) {
+		if (err) throw err;
+		//console.log(allBooks)
+		res.send(allArtists);
+	    });
+    }
+
+    else if (targetid != undefined) {
 	Artists.findOne({ id: targetid }, function(err, artist) {
  		if (err) throw err;
 
   		res.send(artist);
 	});
+    }
+
+    else if (targetfname != undefined) {
+	Artists.findOne({ familyname: targetfname }, function(err, artist) {
+ 		if (err) throw err;
+
+  		res.send(artist);
+	});
+
+    }
+
+    else if (targetcountry != undefined) {
+	Artists.find({ country: targetcountry }, function(err, artist) {
+ 		if (err) throw err;
+
+  		res.send(artist);
+	});
+
+    }
 };
 
+
+
 exports.addArtist = function(req, res) {
-
-
 	var newArtist = new Artists(req.body);
 
 	newArtist.save(function(err){
@@ -27,26 +60,7 @@ exports.addArtist = function(req, res) {
 	});
 };
 
-exports.getArtistBylastname = function(req, res) {
-	var targetlastname = req.query.lname;
 
-	Artists.findOne({ lastname: targetlastname }, function(err, artist) {
- 		if (err) throw err;
-
-  		res.send(artist);
-	});
-
-};
-
-exports.getArtistByCountry = function(req, res) {
-	var targetcountry = req.query.country;
-
-	Artists.find({ country: targetcountry }, function(err, artist) {
- 		if (err) throw err;
-
-  		res.send(artist);
-	});
-}
 
 //-----------------2016-11-24-------------------------------------------
 
@@ -76,4 +90,7 @@ exports.addArtistProduct = function(req, res) {
         	done
         );
 };
+
+
+
 
