@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
+var Artists = mongoose.model('Artists');
 
 
 
@@ -20,7 +21,7 @@ module.exports = function (passport) {
             passReqToCallback: true
         }, function (req, err, password, done) {
 
-            Artist.findOne({'UserId': name},
+            Artists.findOne({'UserId': name},
                 function (err, user) {
                     // error case
                     if (err)
@@ -47,7 +48,7 @@ module.exports = function (passport) {
         function (req, userID, password, done) {
 
             // find a user in mongo with provided username
-            User.findOne({'id': userID}, function (err, user) {
+            Artists.findOne({'id': userID}, function (err, user) {
 
                 if (err) {
                     console.log('SignUp Error: ' + err);
@@ -91,7 +92,7 @@ module.exports = function (passport) {
             // haven't decided the picture
         },
         function (req, accessToken, refreshToken, profile, done) {
-            Artist.findOrCreate({
+            Artists.findOrCreate({
                 id: profile.id,
                 givenName: profile.first_name,
                 familyName: profile.last_name,

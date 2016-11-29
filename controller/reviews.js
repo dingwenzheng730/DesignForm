@@ -4,8 +4,7 @@
 
 
 var mongoose = require('mongoose');
-var Artists = mongoose.model('Artist');
-var Products = mongoose.model('Products');
+var Artists = mongoose.model('Artists');
 
 
 
@@ -34,7 +33,7 @@ var pushReview = function(req, res, product, artist){
     })
 };
 
-module.exports.addReview = function(req, res){
+exports.addReview = function(req, res){
     FindArtist(req, res, function(req, res, artistID){
         if(req.params.name){
             Products.findById(req.params.name)
@@ -82,28 +81,29 @@ var FindArtist = function(req, res, callback) {
     }
 
 };
-var updateAveRating = function(id){
 
-};
-
-module.exports.removeReviewbyID = function(req, res) {
-    var artid = req.params.id;
+exports.removeReviewbyID = function(req, res) {
+    var artID = req.params.id;
     var reviewid = req.query;
+    User.find({'links.url':req.params.query}, function(err, foundUsers){
+        // ---
+    });
 
-    Artists.findOne({ id: artid })
-               .populate("products")
+    Artists.findOne({ id: artID })
                .forEach(function(eachproduct){
-                    eachproduct.populate("reviews").findOne( { id: reviewid}, function(err, review){
+                   for(var i=0;  i< eachproduct.products.length; i++){
+                    eachproduct.products.findOne( { id: reviewid}, function(err, review){
 
-                            if (err) throw err;
+                           if (err) throw err;
 
-                            console.log("remove review by id successfully find review.")
+                           console.log("remove review by id successfully find review.");
 
-                            review.remove(function(err) {
-                                if (err )throw err;
-                                console.log("review successfully removed by id");
-                            })
+                         eachproduct.products.indexOf(i).reviews.remove(function(err) {
+                               if (err )throw err;
+                               console.log("review successfully removed by id");
+                           })
 
-                    } )
+                       } )
+                   }
                });
-}
+};

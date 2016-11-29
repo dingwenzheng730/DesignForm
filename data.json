@@ -4,7 +4,7 @@
     "id": "9780143194798",
     "pwd": "1234151249098",
     "givenname": "Meng",
-    "familyname": "Sun",
+    "lastname": "Sun",
     "gender": "Female",
     "email": "artist@hotmail.com",
     "country": "China",
@@ -17,7 +17,7 @@
         "releaseTime": "Oct.11th",
         "reviews": [
           {
-            "id": "asdfasdfasfd",
+            "reviewID": "asdfasdfasfd",
             "rating": 4,
             "author": "Yu Ang",
             "releaseTime": "Oct.11th",
@@ -31,14 +31,14 @@
         "releaseTime": "Oct.11th",
         "reviews": [
           {
-            "id": "asdfasdfasfd",
+            "reviewID": "asdfasdfasfd",
             "rating": 1,
             "author": "Liya",
             "releaseTime": "Oct.11th",
             "text": "bad work...."
           },
           {
-            "id": "fababsdgsf",
+            "reviewID": "fababsdgsf",
             "rating": 1,
             "author": "Lisa",
             "releaseTime": "Oct.15th",
@@ -52,7 +52,7 @@
         "releaseTime": "Oct.12th",
         "reviews": [
           {
-            "id": "asdfasdfasfd",
+            "reviewID": "asdfasdfasfd",
             "rating": 5,
             "author": "Yu Ang",
             "releaseTime": "Oct.11th",
@@ -68,7 +68,7 @@
     "id": "1111111111111",
     "pwd": "222222222222",
     "givenname": "don",
-    "familyname": "shen",
+    "lastname": "shen",
     "gender": "male",
     "email": "artist@hotmail.com",
     "country": "China",
@@ -81,7 +81,7 @@
         "releaseTime": "Oct.11th",
         "reviews": [
           {
-            "id": "asdfasdfasfd",
+            "reviewID": "asdfasdfasfd",
             "rating": 4,
             "author": "Yu Ang",
             "releaseTime": "Oct.11th",
@@ -95,14 +95,14 @@
         "releaseTime": "Oct.11th",
         "reviews": [
           {
-            "id": "asdfasdfasfd",
+            "reviewID": "3",
             "rating": 1,
             "author": "Liya",
             "releaseTime": "Oct.11th",
             "text": "bad work...."
           },
           {
-            "id": "fababsdgsf",
+            "reviewID": "4",
             "rating": 1,
             "author": "Lisa",
             "releaseTime": "Oct.15th",
@@ -116,7 +116,7 @@
         "releaseTime": "Oct.12th",
         "reviews": [
           {
-            "id": "asdfasdfasfd",
+            "reviewID": "5",
             "rating": 5,
             "author": "Yu Ang",
             "releaseTime": "Oct.11th",

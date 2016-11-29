@@ -3,7 +3,10 @@
  */
 
 //-----------------Profile script Ziyao 2016-11-25---------------------
+
+/*
 $(document).ready(function (){
+
 
 	getByIdBtn.onclick = function() {
 		var targetId = prompt("Please enter the id :");
@@ -23,3 +26,4 @@ $(document).ready(function (){
 		}
 	}
 })
+*/

@@ -17,17 +17,6 @@ module.exports = function(passport) {
         failureRedirect: '/auth/failure'
     }));
 
-    // Google login
-    router.get('/google', passport.authenticate('google', {
-        scope: [
-            'https://www.googleapis.com/auth/plus.login',
-            'https://www.googleapis.com/auth/plus.profile.emails.read']
-    }));
-    // Google login callback
-    router.get('/google/callback', passport.authenticate('google', {
-        successRedirect: '/',
-        failureRedirect: '/auth/failure'
-    }));
 
     //Facebook login
     router.get('/auth/facebook', passport.authenticate('facebook',

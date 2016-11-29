@@ -88,36 +88,6 @@ Request body contains
 }
 Response is "Success" or "Error: duplicate product"
 
-PUT /artists:/:id/products
-Request body contains
-
-{
-   "id": "",
-   "password":"",
-   "givenname": "",
-   "lastname": "",
-   "gender": "",
-   "college": "",
-   "country": "",
-   "address": "",
-    "status": "",
-    "role": ""
-    "products": [
-        {
-            "name": "",
-            "description": "",
-            "releaseTime":"",
-            "saleStatus": ""
-        },
-        {
-           "name": "",
-           "description": "",
-            "releaseTime":"",
-           "saleStatus": ""
-        }
-    ]
-}
-Response is "Success" or "Error: does not contain product"
 
 DELETE /artist/products?name=name
 
@@ -149,7 +119,7 @@ Response
     ]
 }
 
-GET /artists/:id/products?name=name
+GET /products?name=name
 
 Response
 {
