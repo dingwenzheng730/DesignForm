@@ -10,12 +10,14 @@
     "country": "China",
     "status": "Undergrad",
     "role": "Fashion Designer",
+    "picture":"./img/Meng.jpg",
     "products": [
       {
         "_id": "1234567",
-        "name": "asdfsdf",
-        "description": "random work",
+        "name": "Fashion",
+        "description": "work that combines fashion and Chinese culture",
         "releaseTime": "2016-11-29T08:43:41.733Z",
+        "picture":"./img/fashion.jpg",
         "reviews": [
           {
             "_id": "123123124",
@@ -29,9 +31,10 @@
       },
       {
         "_id": "123432",
-        "name": "blue",
-        "description": "shitty work",
+        "name": "passion",
+        "description": "worst work I have ever created in my life. A portrayal of me and my characteristics",
         "releaseTime": "2016-11-29T08:43:41.733Z",
+        "picture":"./img/passion.jpg",
         "reviews": [
           {
 
@@ -59,6 +62,7 @@
         "name": "river",
         "description": "good work",
         "releaseTime": "2016-11-29T08:43:41.733Z",
+        "picture":"./img/tiger.jpg",
         "reviews": [
           {
 
@@ -79,19 +83,21 @@
     "_id":"124124124",
     "username": "DongGe",
     "pwd": "222222222222",
-    "givenname": "don",
-    "lastname": "shen",
+    "givenname": "Alan",
+    "lastname": "Li",
     "gender": "male",
     "email": "artist@hotmail.com",
     "country": "China",
     "status": "PhD",
     "role": "Fashion Designer",
+    "picture":"./img/Alan.jpg",
     "products": [
       {
         "_id":"52123124123",
-        "name": "sssssssss",
-        "description": "random work",
+        "name": "Fashion",
+        "description": "work that combines fashion and Chinese culture",
         "releaseTime": "2016-11-29T08:43:41.733Z",
+        "picture":"./img/fashion.jpg",
         "reviews": [
           {
 
@@ -106,9 +112,10 @@
       },
       {
         "_id": "1523123",
-        "name": "aaaaaaaaa",
-        "description": "shitty work",
+        "name": "tiger",
+        "description": "work that shows demonstrates the courage of tiger and its power",
         "releaseTime": "2016-11-29T08:43:41.733Z",
+        "picture":"./img/tiger.jpg",
         "reviews": [
           {
 
@@ -116,7 +123,7 @@
             "rating": 1,
             "author": "Liya",
             "releaseTime": "2016-11-29T08:43:41.733Z",
-            "text": "bad work...."
+            "text": "awesome work! I am speechless"
           },
           {
 
@@ -124,15 +131,16 @@
             "rating": 1,
             "author": "Lisa",
             "releaseTime": "2016-11-29T08:43:41.733Z",
-            "text": "really bad work...."
+            "text": "really smooth work...."
           }
         ]
       },
       {
         "_id": "12316512412",
-        "name": "eeeeeeeee",
+        "name": "Style",
         "description": "good work",
         "releaseTime": "2016-11-29T08:43:41.733Z",
+        "picture":"./img/culture.jpg",
         "reviews": [
           {
 

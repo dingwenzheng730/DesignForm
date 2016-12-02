@@ -101,7 +101,7 @@ app.get('/auth/facebook', passport.authenticate('facebook',
 // Facebook login callback
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect : 'gallery.ejs',
+        successRedirect : '/main',
         failureRedirect : '/auth/failure'
     }));
 
@@ -125,7 +125,7 @@ app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' })
 // handle the callback after facebook has authorized the user
 app.get('/connect/facebook/callback',
     passport.authorize('facebook', {
-        successRedirect : 'main',
+        successRedirect : 'main.ejs',
         failureRedirect : '/'
     }));
 

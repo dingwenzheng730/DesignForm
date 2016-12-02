@@ -71,12 +71,28 @@ var Artist = new Schema(
 );
 
 
-mongoose.connect('mongodb://localhost/artistsdb');
+
+var dbURI = 'mongodb://localhost/artistsdb';
+
+mongoose.connect(dbURI);
+
+
+mongoose.connection.on('connected', function(){
+    console.log('Mongoose is now connecting to ' + dbURI);
+});
+
+mongoose.connection.on('error', function(err){
+    console.log('Mongoose connection error :' + err);
+});
+
+mongoose.connection.on('disconnected', function(){
+    console.log('Mongoose disconnected');
+});
 
 var findOrCreate = require('mongoose-findorcreate');
 Artist.plugin(findOrCreate);
 module.exports = mongoose.model('Products', Product);
 module.exports = mongoose.model('Reviews', Reviews);
-//module.exports = mongoose.model('Picture', Picture);
+
 
 module.exports = mongoose.model('Artists', Artist);

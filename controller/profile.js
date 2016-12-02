@@ -17,9 +17,6 @@ var sendJsonRes = function(res, status, content){
 };
 
 
-var imgPath = './img/tiger.jpg';
-
-
 
 
 
