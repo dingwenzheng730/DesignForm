@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var passport = require('passport');
+var generator = require('generate-password');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 var Artists = mongoose.model('Artists');
@@ -17,22 +18,22 @@ var FACEBOOK_CONSUMER_KEY = '1006730306139581', FACEBOOK_CONSUMER_SECRET = 'ef44
 
 module.exports = function (passport) {
 // Local login
-    passport.use('login', new LocalStrategy({
+    passport.use('local-signup', new LocalStrategy({
             passReqToCallback: true
-        }, function (req, err, password, done) {
+        }, function (req, err, id,password, done) {
 
-            Artists.findOne({'UserId': name},
+            Artists.findOne({'id':id,'pwd': password},
                 function (err, user) {
                     // error case
                     if (err)
                         return done(err);
                     // Username does not exist, log the error and redirect back
-                    if (!name) {
+                    if (!id) {
                         console.log('User Not Found with Artist \'s name with ' + name);
                         return done(null, false);
                     }
                     //  wrong password
-                    if (isValidPassword(name, password)) {
+                    if (isValidPassword(id, password)) {
                         console.log('Invalid Password');
                         return done(null, false); // redirect back to login page
                     }
@@ -86,20 +87,26 @@ module.exports = function (passport) {
     passport.use(new FacebookStrategy({
             clientID: FACEBOOK_CONSUMER_KEY,
             clientSecret: FACEBOOK_CONSUMER_SECRET,
-            callbackURL: "http://www.example.com/auth/facebook/callback",
+            callbackURL: "http://localhost:3000/auth/facebook/callback",
             profileFields: ['id', 'first_name', 'last_name', 'gender', 'email'],
             passReqToCallback: true
             // haven't decided the picture
         },
         function (req, accessToken, refreshToken, profile, done) {
+            console.log(profile);
             Artists.findOrCreate({
-                id: profile.id,
-                givenName: profile.first_name,
-                familyName: profile.last_name,
+                username: profile._json.id,
+                pwd : generator.generate({
+                    length: 10,
+                    numbers: true
+                }),
+                givenname: profile.name.givenName,
+                lastname: profile.name.familyName,
                 gender: profile.gender,
-                email: profile.email
+                email: profile.emails
 
             }, function (err, user) {
+                console.log(user);
                 if (err) {
                     return done(err);
                 }

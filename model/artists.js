@@ -4,10 +4,11 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Picture = new Schema({
-    img:
-        { data: Buffer, contentType: String }
-});
+/*
+var Picture = new Schema(
+    { data: Buffer, contentType: String }
+);
+*/
 var Reviews = new  Schema({
     reviewID: {type: Number, required: true, unique: true},
     rating: {type: Number, "default": 0, min: 0, max: 5, required: true},
@@ -16,12 +17,13 @@ var Reviews = new  Schema({
     text: {type: String, required: true}
 });
 var Product = new Schema({
-    name: { type: String, required: true},
-    description: { type: String, required: true},
-    releaseTime: {type: Date, "default": Date.now},
-    image:Picture,
-    onSaleStatus:{type: Boolean, "default": false},
-    reviews:[Reviews]},
+        name: { type: String, required: true},
+        description: { type: String, required: true},
+        releaseTime: {type: Date, "default": Date.now},
+
+        onSaleStatus:{type: Boolean, "default": false},
+        reviews:[Reviews],
+        picture: {type: String}},
     {
         collection: 'products'
     }
@@ -31,8 +33,8 @@ var Product = new Schema({
 
 var Artist = new Schema(
     {
-        id: {
-            type: String, required: true
+        username: {
+            type: String, required: true, unique : true
         },
         pwd: {
             type: String, required: true
@@ -47,7 +49,7 @@ var Artist = new Schema(
             type: String, required: true
         },
         email: {
-            type: String,unique: true
+            type: String
         },
         country: {
             type: String
@@ -60,8 +62,8 @@ var Artist = new Schema(
         },
 
         products: [Product],
-        picture: Picture
-        },
+        picture: {type: String}
+    },
 
     {
         collection: 'artists'
@@ -75,6 +77,6 @@ var findOrCreate = require('mongoose-findorcreate');
 Artist.plugin(findOrCreate);
 module.exports = mongoose.model('Products', Product);
 module.exports = mongoose.model('Reviews', Reviews);
+//module.exports = mongoose.model('Picture', Picture);
 
 module.exports = mongoose.model('Artists', Artist);
- 

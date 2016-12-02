@@ -12,6 +12,9 @@
   <!-- Website CSS style -->
   <link rel="stylesheet" type="text/css" href="../css/login_style.css">
 
+  <!-- Website js-->
+  <script src="../script/login.js"></script>
+
     <!-- Website Font style -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     
@@ -29,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>                        
                 </button>
-                <a class="navbar-brand" href="main">DesignForm</a>
+                <a class="navbar-brand" href="/">DesignForm</a>
             </div>
         </div>
     </nav>
@@ -42,17 +45,21 @@
                 <div class="account-wall">
                     <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                     alt="">
+                    <!--
+
+                    -->
                     <form class="form-signin">
-                    <input type="text" class="form-control" placeholder="Email" required autofocus>
-                    <input type="password" class="form-control" placeholder="Password" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">
-                    Sign in</button>
+                        <input type="text" class="form-control" placeholder="Email" required autofocus id="user_name">
+                        <input type="password" class="form-control" placeholder="Password" required id="password">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" id="sign_in_btn">
+                        Sign in</button>
+                        <label class="checkbox pull-left">
+                            <input type="checkbox" value="remember-me">
+                            Remember me
+                        </label>
+
+                        <a href="profile" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                         <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-                    <label class="checkbox pull-left">
-                        <input type="checkbox" value="remember-me">
-                        Remember me
-                    </label>
-                    <a href="profile" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                     </form>
                 </div>
                 <a href="register" class="text-center new-account">Create an account </a>

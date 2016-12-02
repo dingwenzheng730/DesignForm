@@ -1,7 +1,7 @@
 
 [
   {
-    "id": "9780143194798",
+    "username": "SunMengMeng",
     "pwd": "1234151249098",
     "givenname": "Meng",
     "lastname": "Sun",
@@ -12,50 +12,61 @@
     "role": "Fashion Designer",
     "products": [
       {
+        "_id": "1234567",
         "name": "asdfsdf",
         "description": "random work",
-        "releaseTime": "Oct.11th",
+        "releaseTime": "2016-11-29T08:43:41.733Z",
         "reviews": [
           {
-            "reviewID": "asdfasdfasfd",
+            "_id": "123123124",
+
             "rating": 4,
             "author": "Yu Ang",
-            "releaseTime": "Oct.11th",
+            "releaseTime": "2016-11-29T08:43:41.733Z",
             "text": "Nice work!"
           }
         ]
       },
       {
+        "_id": "123432",
         "name": "blue",
         "description": "shitty work",
-        "releaseTime": "Oct.11th",
+        "releaseTime": "2016-11-29T08:43:41.733Z",
         "reviews": [
           {
-            "reviewID": "asdfasdfasfd",
+
+            "_id": "113212412",
+            "reviewID": "12124123",
+
             "rating": 1,
             "author": "Liya",
-            "releaseTime": "Oct.11th",
-            "text": "bad work...."
+            "releaseTime": "2016-11-29T08:43:41.733Z",
+            "text": "decent work, the aesthetic aspect is really worth mentioning  ...."
           },
           {
-            "reviewID": "fababsdgsf",
+
+            "_id": "123123125",
+            "reviewID": "12314123",
             "rating": 1,
             "author": "Lisa",
-            "releaseTime": "Oct.15th",
-            "text": "really bad work...."
+            "releaseTime": "2016-11-29T08:43:41.733Z",
+            "text": "really good work...."
           }
         ]
       },
       {
+        "_id":"12312125124512",
         "name": "river",
         "description": "good work",
-        "releaseTime": "Oct.12th",
+        "releaseTime": "2016-11-29T08:43:41.733Z",
         "reviews": [
           {
-            "reviewID": "asdfasdfasfd",
+
+            "_id": "3",
+            "reviewID": "151242312",
             "rating": 5,
             "author": "Yu Ang",
-            "releaseTime": "Oct.11th",
+            "releaseTime": "2016-11-29T08:43:41.733Z",
             "text": "master piece work!"
           }
         ]
@@ -65,7 +76,8 @@
   
   
   {
-    "id": "1111111111111",
+    "_id":"124124124",
+    "username": "DongGe",
     "pwd": "222222222222",
     "givenname": "don",
     "lastname": "shen",
@@ -76,50 +88,58 @@
     "role": "Fashion Designer",
     "products": [
       {
+        "_id":"52123124123",
         "name": "sssssssss",
         "description": "random work",
-        "releaseTime": "Oct.11th",
+        "releaseTime": "2016-11-29T08:43:41.733Z",
         "reviews": [
           {
-            "reviewID": "asdfasdfasfd",
+
+            "_id": "15123123",
+            "reviewID": "123124124",
             "rating": 4,
             "author": "Yu Ang",
-            "releaseTime": "Oct.11th",
+            "releaseTime": "2016-11-29T08:43:41.733Z",
             "text": "Nice work!"
           }
         ]
       },
       {
+        "_id": "1523123",
         "name": "aaaaaaaaa",
         "description": "shitty work",
-        "releaseTime": "Oct.11th",
+        "releaseTime": "2016-11-29T08:43:41.733Z",
         "reviews": [
           {
+
             "reviewID": "3",
             "rating": 1,
             "author": "Liya",
-            "releaseTime": "Oct.11th",
+            "releaseTime": "2016-11-29T08:43:41.733Z",
             "text": "bad work...."
           },
           {
+
             "reviewID": "4",
             "rating": 1,
             "author": "Lisa",
-            "releaseTime": "Oct.15th",
+            "releaseTime": "2016-11-29T08:43:41.733Z",
             "text": "really bad work...."
           }
         ]
       },
       {
+        "_id": "12316512412",
         "name": "eeeeeeeee",
         "description": "good work",
-        "releaseTime": "Oct.12th",
+        "releaseTime": "2016-11-29T08:43:41.733Z",
         "reviews": [
           {
+
             "reviewID": "5",
             "rating": 5,
             "author": "Yu Ang",
-            "releaseTime": "Oct.11th",
+            "releaseTime": "2016-11-29T08:43:41.733Z",
             "text": "master piece work!"
           }
         ]

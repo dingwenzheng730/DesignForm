@@ -7,67 +7,149 @@ var mongoose = require('mongoose');
 var Artists = require('../model/artists.js');
 var Products = mongoose.model('Products');
 var Reviews = mongoose.model('Reviews');
+//var Picture = mongoose.model('Picture');
+var fs = require('fs');
+
+
+var sendJsonRes = function(res, status, content){
+    res.status(status);
+    res.json(content);
+};
+
+
+var imgPath = './img/tiger.jpg';
+
+
+
+
+
+/**
+ * Created by YuAng on 2016-11-22.
+ */
+
+
+exports.editArtists = function(req, res) {
+
+    var userName = req.query.username;
+
+    if (targetid != undefined) {
+        Artists.findOne({ username: userName }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                var artists = new Array();
+                artists.push(artist);
+                res.render("edit", {persons: artists});
+                return 0;
+            } else {
+                res.render("fail_search");
+                return -1;
+            }
+        });
+    }
+};
+
+exports.deleteArtist = function(req, res) {
+    Artists.findOneAndRemove({ username: req.query.username }, function(err) {
+        if (err) throw err;
+
+        // we have deleted the user
+        console.log('User deleted!');
+    });
+};
+
+exports.updateArtist = function(req, res) {
+    Artists.findOneAndUpdate({ username: req.query.username},
+        { givenname: req.query.givenname, lastname: req.query.lastname,
+            gender: req.query.gender, country: req.query.country,
+            status: req.query.status, role: req.query.role
+        }, function(err, user) {
+            if (err) throw err;
+        });
+};
 
 exports.findArtists = function(req, res) {
 
-    //var targetid = req.query.id;
+    var userName = req.query.username;
     var targetfname = req.query.fname;
     var targetcountry = req.query.country;
-    console.log('findAll');
 
-    if (targetfname == undefined && targetcountry == undefined) {
-
+    if (userName == undefined && targetfname == undefined && targetcountry == undefined) {
         Artists.find({}, function(err, allArtists) {
             if (err) throw err;
-            res.send(allArtists);
+            res.render("search", {persons: allArtists});
+        });
+        return 0;
+    }
+
+    if (userName != undefined) {
+        Artists.findOne({ username: userName }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                var artists = new Array();
+                artists.push(artist);
+                res.render("search", {persons: artists});
+                //res.send(artist);
+                return 0;
+            } else {
+                res.render("fail_search");
+                return -1;
+            }
         });
     }
 
-    else if (targetfname != undefined) {
-        Artists.findOne({ familyname: targetfname }, function(err, artist) {
-            if (err) throw err;
-
-            res.send(artist);
+    if (targetfname != undefined) {
+        Artists.find({ lastname: targetfname }, function(err, artists) {
+            if (artists[0] != null) {
+                if (err) throw err;
+                res.render("search", {persons: artists});
+                //res.send(artist);
+                return 0;
+            } else {
+                res.render("fail_search");
+                return -1;
+            }
         });
-
     }
 
-    else if (targetcountry != undefined) {
-        Artists.find({ country: targetcountry }, function(err, artist) {
-            if (err) throw err;
+    if (targetcountry != undefined) {
+        Artists.find({ country: targetcountry }, function(err, artists) {
+            if (artists[0] != null) {
+                if (err) throw err;
+                res.render("search", {persons: artists});
 
-            res.send(artist);
+                return 0;
+            } else {
+                res.render("fail_search");
+                return -1;
+            }
         });
-
     }
+
 };
 
 
 
 exports.addArtist = function(req, res) {
-    var newArtist = new Artists({
-        id: req.query.id,
-        pwd: req.query.pwd,
-        givenname: req.query.givenname,
-        lastname: req.query.lastname,
-        gender: req.query.gender,
-        college: req.query.college,
-        country: req.query.country,
-        address: req.query.address,
-        status: req.query.status,
-        role: req.query.role,
-        products: req.query.products
-    });
+
+    var id = req.body["email"];
+    var email = req.body["email"];
+    var givenname = req.body["givenname"];
+    var lastname = req.body["lastname"];
+    var gender = req.body["gender"];
+    var pwd = req.body["password"];
+
+    var target = '{ "id": "' + id +'", "pwd": "' + pwd +'", "givenname": "' +
+        givenname + '", "lastname": "' + lastname + '", "gender": "' +
+        gender + '", "email": "' + email + '", ' + '"country": "China",  "status": "", '+
+        '"role": "", "products": []}' ;
+
+
+    var newArtist = new Artists(JSON.parse(target));
+
 
     newArtist.save(function(err){
-        if(err) {
-            console.log(err);
-            res.send({
-                message :'something went wrong/ The user might exists already'
-            });
-        } else {
-            res.send("Success");
-        }
+        if (err) throw err;
+        res.render('login');
     });
 };
 
@@ -80,17 +162,16 @@ exports.addArtist = function(req, res) {
 
 exports.getArtistProducts = function(req, res) {
 
-    var targetid = req.params.id;
+    var userName = req.params.username;
     var productName = req.query.name;
-    //var productReleaseTime = req.query.rtime;
     if (productName != undefined) {
         var review = productName.indexOf('/');
     }
 
-    //console.log('hhhhhhhhh');
+
     console.log(productName);
     if (productName == undefined) {
-        Artists.findOne({ id : targetid })
+        Artists.findOne({ id : userName })
             .exec(function(err, artistsProducts) {
                 if (err) throw err;
                 res.send(artistsProducts.products);
@@ -99,7 +180,7 @@ exports.getArtistProducts = function(req, res) {
 
     else if (productName != undefined) {
         if (review == -1) {
-            Artists.findOne({ id : targetid }, function(err, artist) {
+            Artists.findOne({ id : userName }, function(err, artist) {
                 if (err) throw err;
                 if (!artist) {
                     return res.status(400).json("Error: no such artist");}
@@ -116,7 +197,7 @@ exports.getArtistProducts = function(req, res) {
             });
         }
         else {
-            Artists.findOne({ id : targetid }, function(err, artist) {
+            Artists.findOne({ id : userName }, function(err, artist) {
                 if (err) throw err;
                 if (!artist) {
                     return res.status(400).json("Error: no such artist");}
@@ -133,9 +214,6 @@ exports.getArtistProducts = function(req, res) {
             });
         }
     }
-
-
-
 };
 
 
@@ -144,18 +222,15 @@ exports.getArtistProducts = function(req, res) {
 exports.findArtistById = function(req, res) {
 
     var targetid = req.params.id;
-    //var productName = req.query.name;
-    //var productReleaseTime = req.query.rtime;
+
 
 
     Artists.findOne({ id : targetid })
         .exec(function(err, artistsProducts) {
             if (err) throw err;
-            //console.log(allBooks)
+
             res.send(artistsProducts);
         });
-
-
 
 };
 
@@ -164,6 +239,7 @@ exports.getAllProducts = function(req, res) {
     var name = req.query.name;
     var rtime = req.query.releaseTime;
     var a = [];
+    //var b = [];
     if (name == undefined && rtime == undefined) {
         Artists.find({})
             .exec(function(err, allArtists) {
@@ -171,8 +247,10 @@ exports.getAllProducts = function(req, res) {
                 for (index in allArtists) {
                     a = a.concat(allArtists[index]._doc.products);
                 }
+
                 res.render('main',{
                     products:a
+
                 })
             });
     }
@@ -215,18 +293,25 @@ exports.getAllProducts = function(req, res) {
 
 exports.addArtistProduct = function(req, res) {
 
+     var image = new Picture({
+     img : {
+     data:fs.readFileSync(imgPath),
+     contentType:'image/jpg'
+     }});
 
-    var targetid = req.params.id;
+    var name = req.params.username;
+    console.log(name);
     var product = new Products({
         name: req.query.name,
         description: req.query.description,
         releaseTime: req.query.releaseTime,
-        onSaleStatus:req.query.onSaleStatus
+        onSaleStatus:req.query.onSaleStatus,
+        picture:image
     });
 
 
     Artists.update(
-        { id: targetid },
+        { username: name },
         { $push: { products: product } },function(err){
             if(err) {
                 console.log(err);
@@ -254,31 +339,11 @@ exports.addProductReview = function(req, res) {
         releaseTime: req.query.releaseTime,
         text:req.query.text
     });
-    /*
-    Artists.findOne((
-    {
-        id: targetid
-    }
-    )
-        .exec(
-            function(err, artist){
-                console.log(artist);
-                artist.products.name(name).reviews.push(review);
-               if(err){
-                    console.log(result);
-
-               }
-              // res.send("Success");
-            }
-        ));
-    */
     Artists.update(
-
         {
             id:targetid,
             "products.name": name },
         { $push: { 'products.$.reviews': review } },function(err){
-            console.log("haha");
             if(err) {
                 console.log(err);
                 res.send({
@@ -288,21 +353,77 @@ exports.addProductReview = function(req, res) {
         }
 
     );
-
-
-
 };
 
+exports.UpdateReview = function(req, res) {
+    var artid = req.params.id;
+    var reviewid = req.params.reviewid;
+    var pname = req.params.name;
+
+    Artists.collection.update(
+        {"id":artid, "products.name":pname},
+        {
+            $set: {"products.$.reviews":{
+                rating: req.query.rating,
+                author: req.query.author,
+                releaseTime: req.query.releaseTime,
+                text: req.query.text}}
+        },
+        { multi : true },
+        function updateConnect(){
+            if(err){
+                console.log(err);
+                sendJsonRes(res, 404, err);
+
+            }
+        }
+    );
+
+};
 exports.deleteProduct = function(req, res) {
     var artistId = req.params.id;
     var productName = req.query.name;
-    Artists.findOne({id: artistId}, function(err, artist) {
-        if (err) throw err;
+    Artists.update(
+        { id: artistId },
+        { $pull: { products : { name : productName } } },
+        { safe: true },
+        function removeConnectionsCB(err,obj) {
+            if(err){
+                sendJsonRes(res, 404, err);
+                return;
+            }
+            res.send({
+                message :'Good'
+            });
+            console.log(obj);
+        }
+    );
 
-        artist.findOne({name: productName}, function(err, product) {
-            if (err) throw err;
+};
 
-            delete product;
-        })
-    })
-}
+exports.deleteProductReview = function(req, res) {
+
+    var artID = req.params.id;
+    var pName = req.params.name;
+    var reviewID = req.query.reviewID;
+
+    Artists.collection.update(
+        {"id":artID,"products.name":pName},
+        { $pull: {"products.$.reviews":{reviewID: reviewID}}},
+        { multi : true },
+        function removeConnectionsCB(err,obj) {
+            if(err){
+                sendJsonRes(res, 404, err);
+
+                return;
+            }
+            res.send({
+                message :'Successfully deleted the specified review'
+            });
+            console.log(obj);
+
+        }
+    );
+};
+
+

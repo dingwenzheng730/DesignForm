@@ -19,22 +19,29 @@ POST    |    /artist                                |      Sign up page view / f
 
 GET     |    /artists/:id                           |      Personal Page/   Show all data from
                                                             selected Artist                             |    C
-GET     |    /artists/:id/product?name=name/reviews      |      Personal page / All review of one product
+GET     |   /artists/:id/product?name=name/reviews  |      Personal page / All review of one product
                                                                                                         |    C
 POST    |    /artists/:id/product                   |      Display add Product form/ Add one product
                                                                                                         |    C
-POST    |    /artists/:id/product:name/review         |      Dsiplay add reivew  form/ Add one review
+POST    |    /artists/:id/product:name/review       |      Dsiplay add reivew  form/ Add one review
                                                                                                         |    C
 PUT     |    /artists/:id/products:name
                 /review:reviewid                    |      click modify button on your review/ Allow
                                                             user to modify  and update one
                                                             artist's review                             |    I
+PUT     |    /artists/:id                           |      click modify button on your profile/ Allow
+                                                            admin to modify  and update one's profile
+                                                                                                        |    C
+
 
 GET     |    /login                                 |      Login in page before everything              |    C
 GET     |    /register                              |       Register if not a sign-up user              |    C
-DELETE  |    /artists/:id/product?name=name         |      Click on delete button/ Delete  a product    |    I
+
+DELETE  |    /artists/:id/product?name=name         |      Click on delete button/ Delete  a product    |    C
 DELETE  |   /artists/:id/product:name/review?
-               review?reviewid=reviewid             |       Click on delete button/ Delete  a review    |    I
+              reviewid=reviewid                     |       Click on delete button/ Delete  a review    |    C
+
+
 
 
 Note : haven't decided about facebook login and didn't add routes to the above table
