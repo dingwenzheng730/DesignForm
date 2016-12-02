@@ -29,7 +29,7 @@ exports.editArtists = function(req, res) {
 
     var userName = req.query.username;
 
-    if (targetid != undefined) {
+    if (userName != undefined) {
         Artists.findOne({ username: userName }, function(err, artist) {
             if (artist != null) {
                 if (err) throw err;
@@ -128,14 +128,14 @@ exports.findArtists = function(req, res) {
 
 exports.addArtist = function(req, res) {
 
-    var id = req.body["email"];
+    var username = req.body["email"];
     var email = req.body["email"];
     var givenname = req.body["givenname"];
     var lastname = req.body["lastname"];
     var gender = req.body["gender"];
     var pwd = req.body["password"];
 
-    var target = '{ "id": "' + id +'", "pwd": "' + pwd +'", "givenname": "' +
+    var target = '{ "username": "' + username +'", "pwd": "' + pwd +'", "givenname": "' +
         givenname + '", "lastname": "' + lastname + '", "gender": "' +
         gender + '", "email": "' + email + '", ' + '"country": "China",  "status": "", '+
         '"role": "", "products": []}' ;
@@ -168,7 +168,7 @@ exports.getArtistProducts = function(req, res) {
 
     console.log(productName);
     if (productName == undefined) {
-        Artists.findOne({ id : userName })
+        Artists.findOne({ username : userName })
             .exec(function(err, artistsProducts) {
                 if (err) throw err;
                 res.send(artistsProducts.products);
@@ -177,7 +177,7 @@ exports.getArtistProducts = function(req, res) {
 
     else if (productName != undefined) {
         if (review == -1) {
-            Artists.findOne({ id : userName }, function(err, artist) {
+            Artists.findOne({ username : userName }, function(err, artist) {
                 if (err) throw err;
                 if (!artist) {
                     return res.status(400).json("Error: no such artist");}
@@ -194,7 +194,7 @@ exports.getArtistProducts = function(req, res) {
             });
         }
         else {
-            Artists.findOne({ id : userName }, function(err, artist) {
+            Artists.findOne({ username : userName }, function(err, artist) {
                 if (err) throw err;
                 if (!artist) {
                     return res.status(400).json("Error: no such artist");}
@@ -218,11 +218,11 @@ exports.getArtistProducts = function(req, res) {
 
 exports.findArtistById = function(req, res) {
 
-    var targetid = req.params.id;
+    var userName = req.params.username;
 
 
 
-    Artists.findOne({ id : targetid })
+    Artists.findOne({ username : userName })
         .exec(function(err, artistsProducts) {
             if (err) throw err;
 
@@ -236,7 +236,7 @@ exports.getAllProducts = function(req, res) {
     var name = req.query.name;
     var rtime = req.query.releaseTime;
     var a = [];
-    //var b = [];
+    //var b = []
     if (name == undefined && rtime == undefined) {
         Artists.find({})
             .exec(function(err, allArtists) {
@@ -327,7 +327,7 @@ exports.addArtistProduct = function(req, res) {
 exports.addProductReview = function(req, res) {
 
 
-    var targetid = req.params.id;
+    var userName = req.params.username;
     var name = req.params.name;
     var review = new Reviews({
         reviewID: req.query.reviewID,
@@ -338,7 +338,7 @@ exports.addProductReview = function(req, res) {
     });
     Artists.update(
         {
-            id:targetid,
+            username:userName,
             "products.name": name },
         { $push: { 'products.$.reviews': review } },function(err){
             if(err) {
@@ -353,12 +353,12 @@ exports.addProductReview = function(req, res) {
 };
 
 exports.UpdateReview = function(req, res) {
-    var artid = req.params.id;
+    var userName = req.params.username;
     var reviewid = req.params.reviewid;
     var pname = req.params.name;
 
     Artists.collection.update(
-        {"id":artid, "products.name":pname},
+        {"username":userName, "products.name":pname},
         {
             $set: {"products.$.reviews":{
                 rating: req.query.rating,
@@ -378,10 +378,10 @@ exports.UpdateReview = function(req, res) {
 
 };
 exports.deleteProduct = function(req, res) {
-    var artistId = req.params.id;
+    var userName = req.params.usernuserNameame;
     var productName = req.query.name;
     Artists.update(
-        { id: artistId },
+        { username: userName},
         { $pull: { products : { name : productName } } },
         { safe: true },
         function removeConnectionsCB(err,obj) {
@@ -400,12 +400,12 @@ exports.deleteProduct = function(req, res) {
 
 exports.deleteProductReview = function(req, res) {
 
-    var artID = req.params.id;
+    var userName = req.params.username;
     var pName = req.params.name;
     var reviewID = req.query.reviewID;
 
     Artists.collection.update(
-        {"id":artID,"products.name":pName},
+        {"username":userName,"products.name":pName},
         { $pull: {"products.$.reviews":{reviewID: reviewID}}},
         { multi : true },
         function removeConnectionsCB(err,obj) {

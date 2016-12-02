@@ -72,6 +72,7 @@ app.get('/register', function(req,res){
 });
 
 
+app.post('/register', ctrlArtist.addArtist);
 
 app.get('/login', function(req,res) {
     res.render('login.ejs')
