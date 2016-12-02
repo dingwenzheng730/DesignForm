@@ -49,7 +49,7 @@ module.exports = function (passport) {
         function (req, userID, password, done) {
 
             // find a user in mongo with provided username
-            Artists.findOne({'id': userID}, function (err, user) {
+            Artists.findOne({'id': userID}, function (err, artist) {
 
                 if (err) {
                     console.log('SignUp Error: ' + err);
@@ -64,11 +64,11 @@ module.exports = function (passport) {
                     var newArtist = new Artist();
                     console.log(req.body);
                     // Set credentials
-                    newArtist.id = req.body.artist.id;
-                    newArtist.pwd = createHash(req.body.artist.pwd);
-                    newArtist.givenName = req.body.user.givenName;
-                    newArtist.familyName = req.body.user.familyName;
-                    newArtist.email = req.body.user.email;
+                    newArtist.id = artist.id;
+                    newArtist.pwd = createHash(artist.pwd);
+                    newArtist.givenName = artist.givenName;
+                    newArtist.familyName = artist.familyName;
+                    newArtist.email = artist.email;
 
                     // save the user
                     newArtist.save(function (err) {
@@ -103,7 +103,7 @@ module.exports = function (passport) {
                 givenname: profile.name.givenName,
                 lastname: profile.name.familyName,
                 gender: profile.gender,
-                email: profile.emails
+                email: profile.emails[0].value
 
             }, function (err, user) {
                 console.log(user);
