@@ -236,11 +236,9 @@ exports.getAllProducts = function(req, res) {
     var name = req.query.name;
     var rtime = req.query.releaseTime;
     var a = [];
-<<<<<<< HEAD
+
     var b = [];
-=======
-    //var b = []
->>>>>>> c8132942b6db3b32526985f1f3b67aae5c4c759d
+
     if (name == undefined && rtime == undefined) {
         Artists.find({})
             .exec(function(err, allArtists) {

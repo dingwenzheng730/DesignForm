@@ -17,10 +17,9 @@ var Reviews = new  Schema({
     text: {type: String, required: true}
 });
 var Product = new Schema({
-        name: { type: String, required: true},
+        name: { type: String, required: true, unique: true},
         description: { type: String, required: true},
         releaseTime: {type: Date, "default": Date.now},
-
         onSaleStatus:{type: Boolean, "default": false},
         reviews:[Reviews],
         picture: {type: String}},

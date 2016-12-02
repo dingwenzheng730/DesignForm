@@ -83,12 +83,9 @@ app.post('/login', passport.authenticate('login', {
 
 
 app.get('/signup', function(req, res) {
-<<<<<<< HEAD
     res.render('register.ejs');
-=======
-    res.render('/login');
->>>>>>> c8132942b6db3b32526985f1f3b67aae5c4c759d
 });
+
 app.post('/signup', passport.authenticate('signup', {
     successRedirect: '/main',
     failureRedirect: '/auth/failure'
