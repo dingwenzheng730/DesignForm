@@ -236,17 +236,19 @@ exports.getAllProducts = function(req, res) {
     var name = req.query.name;
     var rtime = req.query.releaseTime;
     var a = [];
-    //var b = [];
+    var b = [];
     if (name == undefined && rtime == undefined) {
         Artists.find({})
             .exec(function(err, allArtists) {
                 if (err) throw err;
                 for (index in allArtists) {
                     a = a.concat(allArtists[index]._doc.products);
+
                 }
 
                 res.render('main',{
                     products:a
+                   // artist:
 
                 })
             });

@@ -67,9 +67,7 @@ app.get('/updateartists', ctrlArtist.updateArtist);//
 
 
 
-app.get('/register', function(req,res){
-	res.render('register');
-});
+
 
 
 
@@ -84,7 +82,7 @@ app.post('/login', passport.authenticate('login', {
 
 
 app.get('/signup', function(req, res) {
-    res.render('signup.ejs', { message: req.flash('signupMessage') });
+    res.render('register.ejs');
 });
 app.post('/signup', passport.authenticate('signup', {
     successRedirect: '/auth/success',
