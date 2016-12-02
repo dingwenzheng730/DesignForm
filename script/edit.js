@@ -1,5 +1,5 @@
 function save_profile() {
-	var id = document.getElementById("email_name").innerText;
+	var userName = document.getElementById("email_name").innerText;
 	var givenname = document.getElementById("edit_givenname").value;
 	var lastname = document.getElementById("edit_lastname").value;
 	var gender = document.getElementById("edit_gender").value;
@@ -11,7 +11,7 @@ function save_profile() {
         url: "/updateartists",
         type: "GET",
         data: {
-          id : id,
+          username : userName,
           givenname: givenname,
           lastname: lastname,
           gender: gender,
@@ -38,7 +38,7 @@ function get_search_text() {
         url: "/artists",
         type: "GET",
         data: {
-          id : search_text
+          username : search_text
         },
         dataType: "json",
         contentType:"application/json; charset=utf-8",
@@ -46,7 +46,7 @@ function get_search_text() {
           window.alert('evaluate response and show alert');
         }
       });
-      window.location.href = "/artists?id=" + search_text;
+      window.location.href = "/artists?username=" + search_text;
     }
 
     if (search_option == "country") {

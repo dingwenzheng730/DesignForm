@@ -70,22 +70,27 @@ app.get('/updateartists', ctrlArtist.updateArtist);//
 
 
 
+app.post('/register', ctrlArtist.addArtist);
 
 app.get('/login', function(req,res) {
     res.render('login.ejs')
 });
 
 app.post('/login', passport.authenticate('login', {
-    successRedirect: '/auth/success',
+    successRedirect: '/main',
     failureRedirect: '/auth/failure'
 }));
 
 
 app.get('/signup', function(req, res) {
+<<<<<<< HEAD
     res.render('register.ejs');
+=======
+    res.render('/login');
+>>>>>>> c8132942b6db3b32526985f1f3b67aae5c4c759d
 });
 app.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/auth/success',
+    successRedirect: '/main',
     failureRedirect: '/auth/failure'
 }));
 

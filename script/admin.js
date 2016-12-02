@@ -3,7 +3,7 @@ function  edit_profile() {
         url: "/edit_artists",
         type: "GET",
         data: {
-          id : this.id
+          username : this.id
         },
         dataType: "json",
         contentType:"application/json; charset=utf-8",
@@ -11,7 +11,7 @@ function  edit_profile() {
           window.alert('evaluate response and show alert');
         }
       });
-    window.location.href = "/edit_artists?id=" + this.id;
+    window.location.href = "/edit_artists?username=" + this.id;
 }
 
 function del_profile() {
@@ -19,7 +19,7 @@ function del_profile() {
     console.log(this.id);
     
     $.ajax({
-        url: "/artists?id=" + this.id,
+        url: "/artists?username=" + this.id,
         type: "DELETE",
         dataType: "json",
         contentType:"application/json; charset=utf-8",
