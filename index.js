@@ -79,16 +79,16 @@ app.get('/login', function(req,res) {
 });
 
 app.post('/login', passport.authenticate('login', {
-    successRedirect: '/auth/success',
+    successRedirect: '/main',
     failureRedirect: '/auth/failure'
 }));
 
 
 app.get('/signup', function(req, res) {
-    res.render('signup.ejs', { message: req.flash('signupMessage') });
+    res.render('/login');
 });
 app.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/auth/success',
+    successRedirect: '/main',
     failureRedirect: '/auth/failure'
 }));
 
