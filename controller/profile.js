@@ -166,7 +166,7 @@ exports.findGallery = function(req, res) {
                 return -1;
             }
         });
-    }    
+    }
 
 };
 
@@ -350,16 +350,16 @@ exports.addArtistProduct = function(req, res) {
 
 exports.addProductReview = function(req, res) {
 
-
+    var date = Date.now();
     var userName = req.params.username;
     var name = req.params.name;
     var review = new Reviews({
-        _id:shortid.generate(),
-        reviewID: req.query.reviewID,
-        rate: req.query.rate,
-        author: req.query.author,
-        releaseTime: req.query.releaseTime,
-        text:req.query.text
+        _id: shortid.generate(),
+        reviewID: shortid.generate(),
+        rate: req.body.reviewRating,
+        author: req.body.reviewerName,
+        releaseTime: date,
+        text:req.body.comment
     });
     Artists.update(
         {
@@ -448,5 +448,3 @@ exports.deleteProductReview = function(req, res) {
         }
     );
 };
-
-

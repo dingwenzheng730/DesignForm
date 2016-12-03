@@ -17,5 +17,22 @@ $(document).ready(function (){
       }
     });
 
-  } ) 
+  } )
+});
+
+$(document).ready(function (){
+  $( "#reviewform" ).submit( function(e){
+  	e.preventDefault();
+    var form_content = $('#reviewform').serializeArray();
+
+    $.ajax({
+      url: '/artists/:id/product:name/review',
+      type: "POST",
+      data : JSON.parse(form_content),
+      success: function(response){
+        alert(response);
+      }
+    });
+
+  } )
 });
