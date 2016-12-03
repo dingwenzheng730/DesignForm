@@ -355,7 +355,7 @@ exports.addProductReview = function(req, res) {
     var name = req.params.name;
     var review = new Reviews({
         _id:shortid.generate(),
-        reviewID: req.query.reviewID,
+        reviewID: shortid.generate(),
         rate: req.query.rate,
         author: req.query.author,
         releaseTime: req.query.releaseTime,

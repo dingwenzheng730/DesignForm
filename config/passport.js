@@ -19,72 +19,48 @@ var FACEBOOK_CONSUMER_KEY = '1006730306139581', FACEBOOK_CONSUMER_SECRET = 'ef44
 module.exports = function (passport) {
 
     passport.serializeUser(function(artist, done) {
-        done(null, artist.username);
+       // console.log(artist);
+        done(null, artist);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(username, done) {
-        Artists.findById(username, function(err, artist) {
-            done(err, artist);
-        });
+    passport.deserializeUser(function(artist,done){
+       // console.log(artist);
+            done(null, artist);
     });
 // Local login
-    passport.use('login', new LocalStrategy({
+    passport.use('local-login', new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
-            username : 'username',
-            password : 'password'
+            username : 'email',
+            password : 'password',
+            passReqToCallback : true
         },
-        function(req, user,password, done) {
+        function(req, username, password, done) {
             // asynchronous
-            console.log(password);
-            console.log(user);
+
             process.nextTick(function() {
-                Artists.findOne({ 'username' :  user.username }, function(err, user) {
+                Artists.findOne({ 'username' :  username }, function(err, artist) {
                     // if there are any errors, return the error
+                    console.log(artist);
                     if (err)
                         return done(err);
 
                     // if no user is found, return the message
-                    if (!user)
+                    if (!artist)
                         return done(null, false, req.flash('loginMessage', 'No user found.'));
 
-                    if (!user.validPassword(password))
+                    if (!isValidPassword(artist,password))
                         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
 
                     // all is well, return user
                     else
-                        return done(null, user);
+                        console.log("ok");
+                        return done(null, artist);
                 });
             });
         }));
 
-    passport.use('signup', new LocalStrategy({
-            usernameField : 'email',
-            passwordField : 'password',
-            passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-        }, function (req, err, username,password, done) {
 
-            Artists.findOne({'username':username,'pwd': password},
-                function (err, user) {
-                    // error case
-                    if (err)
-                        return done(err);
-                    // Username does not exist, log the error and redirect back
-                    if (!id) {
-                        console.log('User Not Found with Artist \'s name with ' + name);
-                        return done(null, false);
-                    }
-                    //  wrong password
-                    if (isValidPassword(id, password)) {
-                        console.log('Invalid Password');
-                        return done(null, false); // redirect back to login page
-                    }
-
-                    return done(null, name);
-                }
-            );
-        }
-    ));
     passport.use('signup', new LocalStrategy({
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },

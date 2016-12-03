@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var ctrlArtist = require('./controller/profile');
 var ctrlProduct = require('./controller/products');
 var passport = require('passport');
+var cookieParser = require('cookie-parser');
 var expressValidator = require('express-validator');
 var logger = require('morgan');
 var path = require('path');
@@ -24,22 +25,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var secret = 'secretkeyDesignform';
-//var hash = bcrypt.hashSync();
+
 
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
 app.use(session({ cookie: { maxAge: 60000 },
-    secret: 'designform',
+    secret: secret,
     resave: false,
     saveUninitialized: false}));
-// The request body is received on GET or POST.
+
+app.use(cookieParser());
 // A middleware that just simplifies things a bit.
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
+
 app.use(flash());
 // Get the index page:
 app.get('/', function(req, res) {
@@ -90,7 +93,7 @@ app.get('/login', function(req,res) {
     res.render('login.ejs',{ message: req.flash('loginMessage'), loggedin: undefined })
 });
 
-app.post('/login', passport.authenticate('login', {
+app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/main',
     failureRedirect: '/login',
     failureFlash : true // flash messages that indicates error login
