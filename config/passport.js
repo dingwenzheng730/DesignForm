@@ -31,7 +31,7 @@ module.exports = function (passport) {
 // Local login
     passport.use('local-login', new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
-            username : 'email',
+            username : 'username',
             password : 'password',
             passReqToCallback : true
         },
@@ -42,26 +42,29 @@ module.exports = function (passport) {
                 Artists.findOne({ 'username' :  username }, function(err, artist) {
                     // if there are any errors, return the error
                     console.log(artist);
+                    console.log(password);
                     if (err)
                         return done(err);
 
                     // if no user is found, return the message
                     if (!artist)
                         return done(null, false, req.flash('loginMessage', 'No user found.'));
-
+/*
                     if (!isValidPassword(artist,password))
                         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-
+*/
                     // all is well, return user
                     else
-                        console.log("ok");
+                        //console.log("ok");
                         return done(null, artist);
                 });
             });
         }));
 
 
-    passport.use('signup', new LocalStrategy({
+    passport.use('local-signup', new LocalStrategy({
+            username : 'username',
+            password : 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function (req, userID, password, done) {

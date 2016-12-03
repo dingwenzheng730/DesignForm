@@ -104,7 +104,7 @@ app.get('/signup', function(req, res) {
     res.render('register.ejs');
 });
 
-app.post('/signup', passport.authenticate('signup', {
+app.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/main',
     failureRedirect: '/login,',
     failureFlash : true //  flash messages that indicates error login
