@@ -21,7 +21,6 @@
         "reviews": [
           {
             "_id": "123123124",
-
             "rating": 4,
             "author": "Yu Ang",
             "releaseTime": "2016-11-29T08:43:41.733Z",
@@ -40,7 +39,6 @@
 
             "_id": "113212412",
             "reviewID": "12124123",
-
             "rating": 1,
             "author": "Liya",
             "releaseTime": "2016-11-29T08:43:41.733Z",
@@ -118,7 +116,7 @@
         "picture":"./img/tiger.jpg",
         "reviews": [
           {
-
+             "_id": "1541123",
             "reviewID": "3",
             "rating": 1,
             "author": "Liya",
@@ -126,7 +124,7 @@
             "text": "awesome work! I am speechless"
           },
           {
-
+            "_id": "23423434",
             "reviewID": "4",
             "rating": 1,
             "author": "Lisa",
@@ -143,7 +141,7 @@
         "picture":"./img/culture.jpg",
         "reviews": [
           {
-
+            "_id": "23423434",
             "reviewID": "5",
             "rating": 5,
             "author": "Yu Ang",
