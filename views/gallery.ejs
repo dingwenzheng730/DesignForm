@@ -16,7 +16,7 @@
         <link rel="stylesheet" type="text/css" href="../css/user_style.css">
 
         <!-- Website js-->
-        <script src="../script/admin.js"></script>
+        <script src="../script/user.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -31,7 +31,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>
-                    <a class="navbar-brand" href="/">DesignForm</a>
+                    <a class="navbar-brand" href="main.html">DesignForm</a>
                 </div>
                 
                 <!-- the right bars -->
@@ -59,18 +59,12 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/">Explore</a></li>
-                    <li><a href="/artists">Users</a></li>
+                    <li><a href="/">Users</a></li>
                     <li><a href="/">Sign Out</a></li>
-                    <br />
-                    <select id="search_option">
-                        <option value="id">Id</option>
-                        <option value="country">Country</option>
-                        <option value="fname">Family Name</option>
-                    </select>
-                    <br />
+                    <br /><br />
                     <li><p style="color:grey">Search</p></li>
                     <li>
-                        <input type="text" id="search_text"></input>
+                        <input type="text"></input>
                         <button id="search_btn"><i class="fa fa-search"></i></button>
                     </li>
                 </ul>
@@ -97,73 +91,24 @@
                             <!-- the user's menu-->
                             <div class="collapse navbar-collapse">
                                 <a id="go_home_btn" href="#" style="font-size: 40px; color:lightblue">Home</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <a href="#" style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp
-                                <a id="gallery_btn" style="font-size: 40px; color:lightblue">Gallery</a> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <a href="#" style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a>&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp
+                                <a href="#" style="font-size: 40px; color:lightblue">Gallery</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                             </div>
                         </div>
                     </nav>
 
                     <!-- the part that may change with the user's choice in this case is the profile-->
                     <div id="changing_part">
-                        
-                        <!-- The profile content-->
-                        <% persons.forEach(function(person){%>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading">
-                                        <h3 class="panel-title" id="user_name"><%= person.givenname %>&nbsp<%= person.lastname %></h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../img/face.jpg" class="img-circle img-responsive"> </div>
-                                                <div class=" col-md-9 col-lg-9 "> 
-                                                    <table class="table table-user-information">
-                                                        <tbody>
-                                                          
-                                                            <tr>
-
-                                                                <td>Status:</td>
-
-                                                                <td id="status_name"><%= person.status %></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Role:</td>
-                                                                <td id="role_name"><%= person.role %></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <tr>
-                                                                    <td>Gender</td>
-                                                                    <td id="gender_name"><%= person.gender %></td>
-                                                                </tr>
-                                                                    <td>Email</td>
-                                                                    <td><a href="#" id="email_name"><%= person.email %></a></td>
-                                                                </tr>
-                                                                <td>Country</td>
-                                                                <td id="country_name"><%= person.country %>
-                                                                </td>
-                                                            </tr>
-                                                            
-                                                        </tbody>
-                                                    </table>
-                                                </div>    
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- the footer -->
-                                        <div class="panel-footer" style="height:50px">
-                                            <span class="pull-right">
-                                                <a id=<%= person.email %> data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning edit_btn"><i class="glyphicon glyphicon-edit"></i></a>
-                                                &nbsp &nbsp
-                                                <a id=<%= person.email %> data-original-title="Delete this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning del_btn"><i class="glyphicon glyphicon-remove"></i></a>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <% products.forEach(function(product){%>
+ 
+                    <div align="center">
+                        <img align="center" src=<%= product.picture%> style="height:600px"></img>
+                        <figcaption style="text-align:center; display:block"><%=product.name%></figcaption>
+                        <br /><br />
                         </div>
-                        <%})%>
+
+                    <%})%>                       
+                
                     </div>
                 </div>
             </div>
