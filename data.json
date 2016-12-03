@@ -90,7 +90,7 @@
     "country": "China",
     "status": "PhD",
     "role": "Fashion Designer",
-    "picture":"./img/Alan.jpeg",
+    "picture":"./img/Alan.jpg",
     "products": [
       {
         "_id":"52123124123",

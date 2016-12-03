@@ -9,7 +9,7 @@ var logger = require('morgan');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var session = require('cookie-session');
-var flash    = require('connect-flash');
+var flash = require('connect-flash');
 //var Picture = mongoose.model('Picture');
 var fs = require('fs');
 //authentication section
@@ -38,7 +38,7 @@ app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
-
+app.use(flash());
 // Get the index page:
 app.get('/', function(req, res) {
     res.render('login');
