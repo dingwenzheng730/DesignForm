@@ -4,20 +4,19 @@ var mongoose = require('mongoose');
 var ctrlArtist = require('./controller/profile');
 var ctrlProduct = require('./controller/products');
 var passport = require('passport');
+var cookieParser = require('cookie-parser');
 var expressValidator = require('express-validator');
 var logger = require('morgan');
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var session = require('cookie-session');
-var flash    = require('connect-flash');
+
+var session = require('express-session');
+var flash = require('connect-flash');
 //var Picture = mongoose.model('Picture');
 var fs = require('fs');
 //authentication section
-
- var initPassport = require('./config/passport');
-
-
 require('./config/passport')(passport);
+
+
 var app = express();
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'view')));
@@ -26,22 +25,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var secret = 'secretkeyDesignform';
-//var hash = bcrypt.hashSync();
+
 
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
-// The request body is received on GET or POST.
+app.use(session({ cookie: { maxAge: 60000 },
+    secret: secret,
+    resave: false,
+    saveUninitialized: false}));
+
+app.use(cookieParser());
 // A middleware that just simplifies things a bit.
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
+app.use(flash());
 // Get the index page:
 app.get('/', function(req, res) {
-    res.render('login');
+    res.render('login',{
+        message: req.flash(),
+        loggedin: undefined
+    });
 });
 app.engine('.html', require('ejs').__express);
 
@@ -84,12 +92,13 @@ app.get('/updateartists', ctrlArtist.updateArtist);//
 app.post('/register', ctrlArtist.addArtist);
 
 app.get('/login', function(req,res) {
-    res.render('login.ejs')
+    res.render('login.ejs',{ message: req.flash('loginMessage'), loggedin: undefined })
 });
 
-app.post('/login', passport.authenticate('login', {
+app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/main',
-    failureRedirect: '/auth/failure'
+    failureRedirect: '/login',
+    failureFlash : true // flash messages that indicates error login
 }));
 
 
@@ -97,9 +106,10 @@ app.get('/signup', function(req, res) {
     res.render('register.ejs');
 });
 
-app.post('/signup', passport.authenticate('signup', {
+app.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/main',
-    failureRedirect: '/auth/failure'
+    failureRedirect: '/login,',
+    failureFlash : true //  flash messages that indicates error login
 }));
 
 
@@ -125,7 +135,7 @@ app.get('/connect/local', function(req, res) {
 app.post('/connect/local', passport.authenticate('local-signup', {
     successRedirect : 'main', // redirect to the secure profile section
     failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
+    failureFlash : true // flash messages that indicates error login
 }));
 
 // facebook -------------------------------

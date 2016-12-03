@@ -2,7 +2,7 @@
 [
   {
     "username": "SunMengMeng",
-    "pwd": "1234151249098",
+    "pwd": "12345678",
     "givenname": "Meng",
     "lastname": "Sun",
     "gender": "Female",
@@ -80,7 +80,7 @@
   {
     "_id":"124124124",
     "username": "DongGe",
-    "pwd": "222222222222",
+    "pwd": "13571357",
     "givenname": "Alan",
     "lastname": "Li",
     "gender": "male",
@@ -88,7 +88,7 @@
     "country": "China",
     "status": "PhD",
     "role": "Fashion Designer",
-    "picture":"./img/Alan.jpeg",
+    "picture":"./img/Alan.jpg",
     "products": [
       {
         "_id":"52123124123",

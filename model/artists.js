@@ -4,11 +4,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-/*
-var Picture = new Schema(
-    { data: Buffer, contentType: String }
-);
-*/
+var bCrypt = require('bcrypt-nodejs');
 var Reviews = new  Schema({
     reviewID: {type: Number, required: true},
     rating: {type: Number, "default": 0, min: 0, max: 5, required: true},
@@ -69,7 +65,14 @@ var Artist = new Schema(
     }
 );
 
+Artist.methods.createHash = function(password) {
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
+};
 
+// checking if password is valid
+Artist.methods.validPassword = function(password) {
+    return bCrypt.compareSync(password, this.password);
+};
 
 var dbURI = 'mongodb://localhost/artistsdb';
 
