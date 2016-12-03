@@ -31,21 +31,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>
-                    <a class="navbar-brand" href="main.html">DesignForm</a>
+                    <a class="navbar-brand" href="/">DesignForm</a>
                 </div>
                 
                 <!-- the right bars -->
                 <div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#" id="username_field">Admin</a></li>
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Followings <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                            <li><a href="#section41">Followed</a></li>
-                            <li><a href="#section42">Follower</a></li>
-                            </ul>
-                            </li>
-                            <li><a href="main.html">Log out</a></li>
+                            <% var home_url= "user_home?username=" + person.username %>
+                            <li><a class="home_ref" href="#" id=<%=person.email%>><%=person.givenname%>&nbsp<%=person.lastname%></a></li>
+                            <li><a href="main">Log out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -57,14 +52,20 @@
         <div class="container">
             <div id="sidebar">
                 <ul>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/main">Home</a></li>
                     <li><a href="/">Explore</a></li>
                     <li><a href="/">Users</a></li>
                     <li><a href="/">Sign Out</a></li>
-                    <br /><br />
+                    <br />
+                    <select id="search_option">
+                        <option value="id">Id</option>
+                        <option value="country">Country</option>
+                        <option value="fname">Family Name</option>
+                    </select>
+                    <br />
                     <li><p style="color:grey">Search</p></li>
                     <li>
-                        <input type="text"></input>
+                        <input type="text" id="search_text"></input>
                         <button id="search_btn"><i class="fa fa-search"></i></button>
                     </li>
                 </ul>
@@ -89,10 +90,14 @@
                         <div class="container-fluid">
                          
                             <!-- the user's menu-->
+                            <% var gallery_url= "gallery?username=" + person.username %>
+                            <% var profile_url= "profile?username=" + person.username %>
+                            <% console.log(gallery_url)%>
                             <div class="collapse navbar-collapse">
-                                <a id="go_home_btn" href="#" style="font-size: 40px; color:lightblue">Home</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <a href="#" style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a>&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp
-                                <a href="#" style="font-size: 40px; color:lightblue">Gallery</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <a id="go_home_btn" href=<%=home_url%> style="font-size: 40px; color:lightblue">Home</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp &nbsp
+                                <a href=<%=profile_url%> style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a>&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp &nbsp&nbsp
+                                <a href=<%=gallery_url%> style="font-size: 40px; color:lightblue">Gallery</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <a id="addproduct_btn" style="font-size: 40px; color:lightblue">Add product</a> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp
                             </div>
                         </div>
                     </nav>
@@ -103,7 +108,7 @@
  
                     <div align="center">
                         <img align="center" src=<%= product.picture%> style="height:600px"></img>
-                        <figcaption style="text-align:center; display:block"><%=product.name%></figcaption>
+                        <figcaption style="text-align:center; display:block; font-size:40px"><%=product.name%></figcaption>
                         <br /><br />
                         </div>
 

@@ -1,11 +1,26 @@
+var photo_url;
+/*
+set the behaviour when clicking the upload photo button
+*/
+function upload_photo() {
+    var url = prompt("Enter url: ");
+    if (url) {
+        photo_url.src = url;
+    }
+}
+
+/*
+the behaviour when clicking the save button
+*/
 function save_profile() {
-	var userName = document.getElementById("email_name").innerText;
+	var userName = document.getElementById("user_ref").innerText;
 	var givenname = document.getElementById("edit_givenname").value;
 	var lastname = document.getElementById("edit_lastname").value;
 	var gender = document.getElementById("edit_gender").value;
 	var country = document.getElementById("edit_country").value;
 	var status = $("#edit_status").val();
 	var role = document.getElementById("edit_role").value;
+  var photo = photo_url.src;
     
 	$.ajax({
         url: "/updateartists",
@@ -17,7 +32,8 @@ function save_profile() {
           gender: gender,
           country: country,
           status: status,
-          role: role
+          role: role,
+          picture: photo
         },
         dataType: "json",
         contentType:"application/json; charset=utf-8",
@@ -25,7 +41,8 @@ function save_profile() {
           window.alert('evaluate response and show alert');
         }
       });
-      window.location.href="/admin_home";    
+      console.log(photo);
+      //window.location.href="/admin_home";    
 }
 
 function get_search_text() {
@@ -88,12 +105,16 @@ function get_search_text() {
 
 
 $(document).ready(function() {
+    photo_url = document.getElementById("user_photo");
 
     // set the search btn
     $("#search_btn").on("click", get_search_text);
 
     // set the behaviour for save btn
     $("#ok_btn").on("click", save_profile);
+
+    // set the behaviour for uploading photo
+    $("#new_photo").on("click", upload_photo);
 
     $("[data-toggle]").click(function() {
         var toggle_el = $(this).data("toggle");

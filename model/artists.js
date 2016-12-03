@@ -10,7 +10,7 @@ var Picture = new Schema(
 );
 */
 var Reviews = new  Schema({
-    reviewID: {type: Number, required: true, unique: true},
+    reviewID: {type: Number, required: true},
     rating: {type: Number, "default": 0, min: 0, max: 5, required: true},
     author: {type: String, required: true},
     releaseTime: {type: Date, "default": Date.now},

@@ -38,13 +38,8 @@
                 <div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#" id="username_field">Admin</a></li>
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Followings <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                            <li><a href="#section41">Followed</a></li>
-                            <li><a href="#section42">Follower</a></li>
-                            </ul>
-                            </li>
+                            <% var home_url= "user_home?username=" + person.username %>
+                            <li><a id="user_ref" href=<%=home_url%>><%=person.username%></a></li>
                             <li><a href="main.html">Log out</a></li>
                         </ul>
                     </div>
@@ -106,18 +101,26 @@
                     <!-- the part that may change with the user's choice in this case is the profile-->
                     <div id="changing_part">
                         <!-- The profile content-->
-                        <% persons.forEach(function(person){ %>
                         <div class="container">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
-                                        <input type="text" class="panel-title" id="edit_givenname" value=<%= person.givenname %>></input>
-                                        <input type="text" class="panel-title" id="edit_lastname" value=<%= person.lastname %>></input>
+                                            <input type="text" class="panel-title" id="edit_givenname" value=<%= person.givenname %>></input>
+                                            <input type="text" class="panel-title" id="edit_lastname" value=<%= person.lastname %>></input>
                                         </div>
                                         <div class="panel-body">
                                             <div class="row">
-                                                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../img/face.jpg" class="img-circle img-responsive"> </div>
+                                             <% if(!person.picture){%>
+                                                <div class="col-md-3 col-lg-3 " align="center"> 
+                                                    <img id="user_photo" src="./img/face.jpg" class="img-circle img-responsive">
+                                                    <i id="new_photo" class="glyphicon glyphicon-camera" style="font-size:25px"></i>
+                                                </div>
+                                            <% }%>
+                                                <div class="col-md-3 col-lg-3 " align="center"> 
+                                                    <img id="user_photo" src="<%= person.picture %>" class="img-circle img-responsive"> <br />
+                                                    <i class="glyphicon glyphicon-camera" style="font-size:25px" id="new_photo"></i>
+                                                </div>
                                                 <div class=" col-md-9 col-lg-9 "> 
                                                     <table class="table table-user-information">
                                                         <tbody>
@@ -178,7 +181,6 @@
                                 </div>
                             </div>
                         </div>
-                        <%})%>
                     </div>
                 </div>
             </div>

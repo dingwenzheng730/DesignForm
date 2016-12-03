@@ -53,6 +53,8 @@ app.post('/register', ctrlArtist.addArtist);
 
 // go to a user's home page, profile and gallery
 app.get('/gallery', ctrlArtist.findGallery);
+app.get('/user_home', ctrlArtist.findHome);
+app.get('/profile', ctrlArtist.findProfile);
 
 
 app.get('/artists', ctrlArtist.findArtists);
@@ -71,7 +73,7 @@ app.post('/artist/:username/product/:name/review', ctrlArtist.addProductReview);
 app.post('/artist', ctrlArtist.addArtist);
 
 app.delete('/artists', ctrlArtist.deleteArtist);//ok
-app.get('/edit_artists', ctrlArtist.editArtists);//ok
+app.get('/edit_artist', ctrlArtist.editArtists);//ok
 app.get('/updateartists', ctrlArtist.updateArtist);//
 
 

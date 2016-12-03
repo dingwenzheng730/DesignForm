@@ -12,7 +12,7 @@ function  edit_profile() {
         }
       });
     window.location.href = "/edit_artists?username=" + this.id;
-}
+add}
 
 function del_profile() {
     console.log("THE DEL BUTTON WORKS");

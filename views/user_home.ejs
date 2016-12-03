@@ -39,7 +39,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
                             <% var home_url= "user_home?username=" + person.username %>
-                            <li><a class="home_ref" href=<%=home_url%> id=<%=person.email%>><%=person.givenname%>&nbsp<%=person.lastname%></a></li>
+                            <li><a class="home_ref" href=<%=home_url%> id=<%=person.username%>><%=person.givenname%>&nbsp<%=person.lastname%></a></li>
                             <li><a href="main">Log out</a></li>
                         </ul>
                     </div>
@@ -95,7 +95,7 @@
                             <% console.log(gallery_url)%>
                             <div class="collapse navbar-collapse">
                                 <a id="go_home_btn" href=<%=home_url%> style="font-size: 40px; color:lightblue">Home</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp &nbsp
-                                <a href=<%=profile_url%> style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a>&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp&nbsp
+                                <a href=<%=profile_url%> style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a>&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp &nbsp&nbsp
                                 <a href=<%=gallery_url%> style="font-size: 40px; color:lightblue">Gallery</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <a id="addproduct_btn" style="font-size: 40px; color:lightblue">Add product</a> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp
                             </div>
@@ -154,14 +154,24 @@
                                         
                                         <!-- the footer -->
                                         <div class="panel-footer" style="height:50px">
-                                            <span class="pull-right">
-                                                <a id=<%= person.username %> data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning edit_btn"><i class="glyphicon glyphicon-edit"></i></a>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>                                                   
+                        </div>
+                    
+
+                        <!-- the gallery part -->
+                        <% products.forEach(function(product){%>
+ 
+                            <div align="center">
+                                <img align="center" src=<%= product.picture%> style="height:600px"></img>
+                                <figcaption style="text-align:center; display:block; font-size:40px"><%=product.name%></figcaption>
+                                <br /><br />
+                            </div>
+
+                        <%})%>                       
+                
                     </div>
                 </div>
             </div>
