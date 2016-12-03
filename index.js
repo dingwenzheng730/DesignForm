@@ -45,6 +45,15 @@ app.get('/', function(req, res) {
 });
 app.engine('.html', require('ejs').__express);
 
+// load the register page and register a user
+app.get('/register', function(req,res){
+    res.render('register');
+});
+app.post('/register', ctrlArtist.addArtist);
+
+// go to a user's home page, profile and gallery
+app.get('/gallery', ctrlArtist.findGallery);
+
 
 app.get('/artists', ctrlArtist.findArtists);
 
