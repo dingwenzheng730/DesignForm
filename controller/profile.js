@@ -46,7 +46,7 @@ exports.editArtists = function(req, res) {
 };
 
 exports.deleteArtist = function(req, res) {
-    Artists.findOneAndRemove({ username: req.query.username }, function(err) {
+    Artists.findOneAndRemove({ email: req.query.username }, function(err) {
         if (err) throw err;
 
         // we have deleted the user
@@ -150,6 +150,25 @@ exports.addArtist = function(req, res) {
     });
 };
 
+exports.findGallery = function(req, res) {
+    var userName = req.query.username;
+
+    if (userName != undefined) {
+        Artists.findOne({ username: userName }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                var products = artist.products;
+                //res.render("gallery1", {products: products});
+                res.render("gallery", {products: products});
+                return 0;
+            } else {
+                res.render("fail_search");
+                return -1;
+            }
+        });
+    }    
+
+}
 
 
 //-----------------2016-11-24-------------------------------------------
@@ -379,6 +398,7 @@ exports.UpdateReview = function(req, res) {
             }
         }
     );
+
 
 };
 exports.deleteProduct = function(req, res) {
