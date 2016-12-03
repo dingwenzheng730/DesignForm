@@ -42,6 +42,17 @@
                 <div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
+
+
+                                    <!-- check if the user has this token (is the user authenticated with this social account) -->
+                                    <% if (loggedin) { %>
+                                        <li><a href="login"> <%= loggedin.name  %> </a></li>
+
+                                    <% } else { %>
+                                             <li><a href="login">Log in</a></li>
+                                    <% } %>
+
+
                             <li><a href="login">Log in</a></li>
                             <li><a href="register">Sign up</a></li>
                             <li><a href="#section2">Section 2</a></li>

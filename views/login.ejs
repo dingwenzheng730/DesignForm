@@ -35,7 +35,11 @@
         </div>
     </nav>
     <p><br /><br /></p>
-    
+
+    <% if (message.length > 0) { %>
+    <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -46,9 +50,9 @@
                     <!--
 
                     -->
-                    <form class="form-signin">
-                        <input type="text" class="form-control" placeholder="Email" required autofocus id="user_name">
-                        <input type="password" class="form-control" placeholder="Password" required id="password">
+                    <form class="form-signin" action="/login" method="post">
+                        <input type="text" name= "username" class="form-control" placeholder="Email" required autofocus id="user_name">
+                        <input type="password" name= "password" class="form-control" placeholder="Password" required id="password">
                         <button class="btn btn-lg btn-primary btn-block" type="submit" id="sign_in_btn">
                         Sign in</button>
                         <label class="checkbox pull-left">
@@ -64,5 +68,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>

@@ -10,7 +10,7 @@ var Reviews = mongoose.model('Reviews');
 //var Picture = mongoose.model('Picture');
 var fs = require('fs');
 
-
+var shortid = require('shortid');
 var sendJsonRes = function(res, status, content){
     res.status(status);
     res.json(content);
@@ -168,7 +168,7 @@ exports.findGallery = function(req, res) {
         });
     }    
 
-}
+};
 
 
 //-----------------2016-11-24-------------------------------------------
@@ -268,8 +268,8 @@ exports.getAllProducts = function(req, res) {
                 }
 
                 res.render('main',{
-                    products:a
-                   // artist:
+                    products:a,
+                    loggedin: true
 
                 })
             });
@@ -322,11 +322,12 @@ exports.addArtistProduct = function(req, res) {
     var name = req.params.username;
     console.log(name);
     var product = new Products({
+        _id: shortid.generate(),
         name: req.query.name,
         description: req.query.description,
         releaseTime: req.query.releaseTime,
         onSaleStatus:req.query.onSaleStatus,
-        picture:image
+        picture:req.query.picture
     });
 
 
@@ -353,6 +354,7 @@ exports.addProductReview = function(req, res) {
     var userName = req.params.username;
     var name = req.params.name;
     var review = new Reviews({
+        _id:shortid.generate(),
         reviewID: req.query.reviewID,
         rate: req.query.rate,
         author: req.query.author,

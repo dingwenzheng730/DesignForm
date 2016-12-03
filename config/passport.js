@@ -8,7 +8,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var Artists = mongoose.model('Artists');
 
-
+var flash = require('connect-flash');
 
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -17,20 +17,29 @@ var bCrypt = require('bcrypt-nodejs');
 var FACEBOOK_CONSUMER_KEY = '1006730306139581', FACEBOOK_CONSUMER_SECRET = 'ef44eadbcb4598df5eccb8cbc2e7c5b5';
 
 module.exports = function (passport) {
-// Local login
-    passport.use('local-login', new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
-            usernameField : 'username',
-            passwordField : 'pwd',
-            passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-        },
-        function(req, username, password, done) {
-            if (username)
-               // email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
+    passport.serializeUser(function(artist, done) {
+        done(null, artist.username);
+    });
+
+    // used to deserialize the user
+    passport.deserializeUser(function(username, done) {
+        Artists.findById(username, function(err, artist) {
+            done(err, artist);
+        });
+    });
+// Local login
+    passport.use('login', new LocalStrategy({
+            // by default, local strategy uses username and password, we will override with email
+            username : 'username',
+            password : 'password'
+        },
+        function(req, user,password, done) {
             // asynchronous
+            console.log(password);
+            console.log(user);
             process.nextTick(function() {
-                Artists.findOne({ 'username' :  username }, function(err, user) {
+                Artists.findOne({ 'username' :  user.username }, function(err, user) {
                     // if there are any errors, return the error
                     if (err)
                         return done(err);
@@ -49,13 +58,13 @@ module.exports = function (passport) {
             });
         }));
 
-    passport.use('local-signup', new LocalStrategy({
+    passport.use('signup', new LocalStrategy({
             usernameField : 'email',
             passwordField : 'password',
             passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-        }, function (req, err, id,password, done) {
+        }, function (req, err, username,password, done) {
 
-            Artists.findOne({'id':id,'pwd': password},
+            Artists.findOne({'username':username,'pwd': password},
                 function (err, user) {
                     // error case
                     if (err)
@@ -82,22 +91,22 @@ module.exports = function (passport) {
         function (req, userID, password, done) {
 
             // find a user in mongo with provided username
-            Artists.findOne({'id': userID}, function (err, artist) {
+            Artists.findOne({'username': userID}, function (err, artist) {
 
                 if (err) {
                     console.log('SignUp Error: ' + err);
                     return done(err);
                 }
                 //The artist already exists in the database
-                if (user) {
-                    console.log('Artist already exists with username: ' + userID);
-                    return done(null, false);
+                if (artist) {
+
+                    return done(null, false, req.flash('signupMessage', 'This '));
                 } else {
                     // if there is no user, create the user
                     var newArtist = new Artist();
                     console.log(req.body);
                     // Set credentials
-                    newArtist.id = artist.id;
+                    newArtist.username = artist.username;
                     newArtist.pwd = createHash(artist.pwd);
                     newArtist.givenName = artist.givenName;
                     newArtist.familyName = artist.familyName;
@@ -109,7 +118,7 @@ module.exports = function (passport) {
                             console.log('Error in Saving user: ' + err);
                             throw err;
                         }
-                        console.log(newArtist.id + ": " + newArtist.givenname + "  " + newArtist.familyName + ' Registration succesful');
+                       // console.log(newArtist.username + ": " + newArtist.givenname + "  " + newArtist.familyName + ' Registration succesful');
                         return done(null, newArtist);
                     });
                 }
@@ -130,7 +139,7 @@ module.exports = function (passport) {
             Artists.findOrCreate({
                 username: profile._json.id,
                 pwd : generator.generate({
-                    length: 10,
+                    length: 8,
                     numbers: true
                 }),
                 givenname: profile.name.givenName,
@@ -148,13 +157,7 @@ module.exports = function (passport) {
         }
     ));
 
-    passport.serializeUser(function (user, done) {
-        done(null, user);
-    });
 
-    passport.deserializeUser(function (user, done) {
-        done(null, user);
-    });
     var isValidPassword = function (user, password) {
         return bCrypt.compareSync(password, user.pwd);
     };
