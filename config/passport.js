@@ -41,8 +41,7 @@ module.exports = function (passport) {
             process.nextTick(function() {
                 Artists.findOne({ 'username' :  username }, function(err, artist) {
                     // if there are any errors, return the error
-                    console.log(artist);
-                    console.log(password);
+
                     if (err)
                         return done(err);
 
@@ -105,8 +104,9 @@ module.exports = function (passport) {
                                     throw err;
                                 }
                                 console.log(newArtist.username + ": " + newArtist.givenname + "  " + newArtist.familyName + ' Registration succesful');
-                                return done(null, newArtist);
+
                             });
+                            return done(null, {person : newArtist});
                         }
                     });
 

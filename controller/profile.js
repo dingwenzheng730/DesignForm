@@ -31,8 +31,11 @@ exports.editArtists = function(req, res) {
 
     if (userName != undefined) {
         Artists.findOne({ username: userName }, function(err, artist) {
+            if (err){
+                res.redirect('/artists',req.flash('info','Did not find user'));
+            }
             if (artist != null) {
-                if (err) throw err;
+
                 res.render("edit", {person: artist});
                 return 0;
             } else {
@@ -44,7 +47,7 @@ exports.editArtists = function(req, res) {
 };
 
 exports.deleteArtist = function(req, res) {
-    Artists.findOneAndRemove({ email: req.query.username }, function(err) {
+    Artists.findOneAndRemove({ username: req.query.username }, function(err) {
         if (err) throw err;
 
         // we have deleted the user

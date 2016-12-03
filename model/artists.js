@@ -55,7 +55,9 @@ var Artist = new Schema(
         role: {
             type: String
         },
-
+        loggedin: {
+            type: Boolean, "default": false
+        },
         products: [Product],
         picture: {type: String}
     },

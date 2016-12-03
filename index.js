@@ -11,7 +11,7 @@ var path = require('path');
 
 var session = require('express-session');
 var flash = require('connect-flash');
-//var Picture = mongoose.model('Picture');
+
 var fs = require('fs');
 //authentication section
 require('./config/passport')(passport);
@@ -46,8 +46,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use(flash());
 // Get the index page:
 app.get('/', function(req, res) {
-    res.render('login',{
-        message: req.flash(),
+    res.render('login.ejs',{
+        message: req.flash('info',"Please Sign in"),
         loggedin: undefined
     });
 });
@@ -81,8 +81,8 @@ app.post('/artist/:username/product/:name/review', ctrlArtist.addProductReview);
 app.post('/artist', ctrlArtist.addArtist);
 
 app.delete('/artists', ctrlArtist.deleteArtist);//ok
-app.get('/edit_artist', ctrlArtist.editArtists);//ok
-app.get('/updateartists', ctrlArtist.updateArtist);//
+app.get('/edit_artists', ctrlArtist.editArtists);//ok
+app.get('/updateartists', ctrlArtist.updateArtist);
 
 
 
@@ -94,28 +94,62 @@ app.get('/addproduct', function(req, res) {
 //app.post('/register', ctrlArtist.addArtist);
 
 app.get('/login', function(req,res) {
-    res.render('login.ejs',{ message: req.flash('loginMessage'), loggedin: undefined })
+    res.render('login',{ message: req.flash('loginMessage','Hello') })
 });
 
-app.post('/login', passport.authenticate('local-login', {
+app.post('/login', function(req, res, next) {
+    passport.authenticate('local-login', function(err, artist, info) {
+
+        if (err) { return next(err); }
+        if (!artist) { return res.redirect('/login',{ message: req.flash('loginMessage','User Not Found') }); }
+        req.logIn(artist, function(err) {
+            console.log(artist);
+            if (err) { return next(err); }
+            return res.redirect('/profile?username=' + artist.person.username);
+        });
+    })(req, res, next);
+});
+
+    /*
+    passport.authenticate('local-login', {
     successRedirect: '/main',
     failureRedirect: '/login',
     failureFlash : true // flash messages that indicates error login
 }));
-
+*/
 
 app.get('/register', function(req, res) {
     res.render('register.ejs',{ message: req.flash('signupMessage'), loggedin: undefined });
 });
 
-app.post('/register', passport.authenticate('local-signup', {
+app.post('/register', function(req, res, next) {
+    passport.authenticate('local-signup', function (err, artist, info) {
+
+        if (err) {
+            return next(err);
+        }
+        if (!artist) {
+            return res.redirect('/login', {message: req.flash('loginMessage', 'User Not Found')});
+        }
+        req.logIn(artist, function (err) {
+            console.log(artist);
+            if (err) {
+                return next(err);
+            }
+            return res.redirect('/profile?username=' + artist.person.username);
+        });
+    })(req, res, next);
+});
+
+/*
+    passport.authenticate('local-signup', {
 
     successRedirect: '/main',
     failureRedirect: '/login',
     successFlash: 'Welcome!',
     failureFlash : true //  flash messages that indicates error login
 }));
-
+*/
 
 //Facebook login
 app.get('/auth/facebook', passport.authenticate('facebook',

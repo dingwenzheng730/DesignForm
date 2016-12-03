@@ -40,7 +40,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <% var home_url= "user_home?username=" + person.username %>
                             <li><a id="user_ref" href=<%=home_url%>><%=person.username%></a></li>
-                            <li><a href="main.html">Log out</a></li>
+                            <li><a href="/login">Log out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -131,11 +131,11 @@
 
                                                                 <td>
                                                                     <select id="edit_status">
-                                                                    	<option value="Undergrad">Undergrad</option>
-                                                                    	<option value="MSc">MSc</option>
+                                                                    	<option value="Undergradudate">Undergraduate</option>
+                                                                    	<option value="Master">MSc</option>
                                                                     	<option value="MScAC">MScAC</option>
-                                                                    	<option value="MEng">MEng</option>
-                                                                    	<option value="phD">phD</option>
+                                                                    	<option value="Diploma">Diploma</option>
+                                                                    	<option value="Phd">Phd</option>
                                                                     </select>
                                                                 </td>
                                                             </tr>
