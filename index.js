@@ -54,11 +54,11 @@ app.get('/', function(req, res) {
 app.engine('.html', require('ejs').__express);
 
 // load the register page and register a user
+/*
 app.get('/register', function(req,res){
     res.render('register');
 });
-app.post('/register', ctrlArtist.addArtist);
-
+*/
 // go to a user's home page, profile and gallery
 app.get('/gallery', ctrlArtist.findGallery);
 app.get('/user_home', ctrlArtist.findHome);
@@ -70,7 +70,7 @@ app.get('/artists', ctrlArtist.findArtists);
 app.get('/main', ctrlArtist.getAllProducts);
 app.put('/artists/:username/product:name/review', ctrlArtist.UpdateReview);
 
-app.get('/artists',ctrlArtist.findArtists);
+
 app.get('/artists/:username', ctrlArtist.findArtists);
 
 
@@ -91,7 +91,7 @@ app.get('/updateartists', ctrlArtist.updateArtist);//
 app.get('/addproduct', function(req, res) {
     res.render("add_product.ejs");
 });
-app.post('/register', ctrlArtist.addArtist);
+//app.post('/register', ctrlArtist.addArtist);
 
 app.get('/login', function(req,res) {
     res.render('login.ejs',{ message: req.flash('loginMessage'), loggedin: undefined })
@@ -104,13 +104,15 @@ app.post('/login', passport.authenticate('local-login', {
 }));
 
 
-app.get('/signup', function(req, res) {
-    res.render('register.ejs');
+app.get('/register', function(req, res) {
+    res.render('register.ejs',{ message: req.flash('signupMessage'), loggedin: undefined });
 });
 
-app.post('/signup', passport.authenticate('local-signup', {
+app.post('/register', passport.authenticate('local-signup', {
+
     successRedirect: '/main',
-    failureRedirect: '/login,',
+    failureRedirect: '/login',
+    successFlash: 'Welcome!',
     failureFlash : true //  flash messages that indicates error login
 }));
 
@@ -132,7 +134,7 @@ app.get('/auth/facebook/callback',
 //Already logged in
 
 app.get('/connect/local', function(req, res) {
-    res.render('profile.ejs', { message: req.flash('loginMessage') });
+    res.render('main.ejs', { message: req.flash('info',"Welcome to DeisignForm ! ") });
 });
 app.post('/connect/local', passport.authenticate('local-signup', {
     successRedirect : 'main', // redirect to the secure profile section

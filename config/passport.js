@@ -49,13 +49,14 @@ module.exports = function (passport) {
                     // if no user is found, return the message
                     if (!artist)
                         return done(null, false, req.flash('loginMessage', 'No user found.'));
-/*
+
+
                     if (!isValidPassword(artist,password))
                         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-*/
-                    // all is well, return user
+
+
                     else
-                        //console.log("ok");
+
                         return done(null, {person : artist});
                 });
             });
@@ -72,42 +73,46 @@ module.exports = function (passport) {
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function (req, userID, password, done) {
+           console.log(req);
+            process.nextTick(function() {
+                if (!req.artist) {
+                    // find a user in mongo with provided username
+                    Artists.findOne({'username': userID}, function (err, artist) {
 
-            // find a user in mongo with provided username
-            Artists.findOne({'username': userID}, function (err, artist) {
-
-                if (err) {
-                    console.log('SignUp Error: ' + err);
-                    return done(err);
-                }
-                //The artist already exists in the database
-                if (artist) {
-
-                    return done(null, false, req.flash('signupMessage', 'This '));
-                } else {
-                    // if there is no user, create the user
-                    var newArtist = new Artist();
-                    console.log(req.body);
-                    // Set credentials
-                    newArtist.username = artist.username;
-                    newArtist.pwd = createHash(artist.pwd);
-                    newArtist.givenName = artist.givenName;
-                    newArtist.familyName = artist.familyName;
-                    newArtist.email = artist.email;
-
-                    // save the user
-                    newArtist.save(function (err) {
                         if (err) {
-                            console.log('Error in Saving user: ' + err);
-                            throw err;
+                            console.log('SignUp Error: ' + err);
+                            return done(null, false, req.flash('signupMessage', 'This is an error with signing up '));
                         }
-                       // console.log(newArtist.username + ": " + newArtist.givenname + "  " + newArtist.familyName + ' Registration succesful');
-                        return done(null, newArtist);
+                        //The artist already exists in the database
+                        if (artist) {
+
+                            return done(null, false, req.flash('signupMessage', 'This user already existed '));
+                        } else {
+
+                            var newArtist = new Artists();
+
+                            newArtist.username = req.body.username;
+                            newArtist.pwd = createHash(req.body.password);
+                            newArtist.givenname = req.body.givenname;
+                            newArtist.lastname = req.body.lastname;
+                            newArtist.gender = req.body.gender;
+                            newArtist.email = req.body.email;
+
+                            // save the user
+                            newArtist.save(function (err) {
+                                if (err) {
+                                    console.log('Error in Saving user: ' + err);
+                                    throw err;
+                                }
+                                console.log(newArtist.username + ": " + newArtist.givenname + "  " + newArtist.familyName + ' Registration succesful');
+                                return done(null, newArtist);
+                            });
+                        }
                     });
-                }
-            });
-        })
-    );
+
+                }});
+            }
+        ));
 
     passport.use(new FacebookStrategy({
             clientID: FACEBOOK_CONSUMER_KEY,
