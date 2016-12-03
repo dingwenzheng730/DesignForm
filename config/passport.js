@@ -56,7 +56,7 @@ module.exports = function (passport) {
                     // all is well, return user
                     else
                         //console.log("ok");
-                        return done(null, artist);
+                        return done(null, {person : artist});
                 });
             });
         }));

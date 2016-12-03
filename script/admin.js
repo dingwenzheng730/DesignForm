@@ -104,7 +104,7 @@ function show_gallery(){
       });
       
 }
-
+/*
 function add_product(){
     var name = prompt("enter name: ");
     var des = prompt("enter description:");
@@ -124,7 +124,7 @@ function add_product(){
         alert(response);
       }
     });
-}
+}*/
 
 $(document).ready(function() {
 
@@ -136,7 +136,6 @@ $(document).ready(function() {
     
     $("#gallery_btn").on("click", show_gallery);
 
-    $("#addproduct_btn").on("click", add_product);
     // set the behaviour for all delete btn
     $(".del_btn").on("click", del_profile);
 

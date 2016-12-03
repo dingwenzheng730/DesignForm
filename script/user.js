@@ -89,27 +89,6 @@ function show_gallery(){
       
 }
 
-function add_product(){
-    var name = prompt("enter name: ");
-    var des = prompt("enter description:");
-    var id = prompt("id:");
-    var pro = '[{ "name": "' + name + '", "description": "'
-              + des + '"}]'; 
-    console.log(pro);
-    $.ajax({
-      url: '/addartistproduct',
-      type: "POST",
-        data: {
-          id : id
-        },
-      
-      data : JSON.parse(pro),
-      success: function(response){
-        alert(response);
-      }
-    });
-}
-
 $(document).ready(function() {
 
     // set the search btn
@@ -120,8 +99,6 @@ $(document).ready(function() {
     
     // set the behaviour for all gallery btn
     $("#gallery_btn").on("click", show_gallery);
-
-    $("#addproduct_btn").on("click", add_product);
 
     $("[data-toggle]").click(function() {
         var toggle_el = $(this).data("toggle");

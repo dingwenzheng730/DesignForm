@@ -88,7 +88,9 @@ app.get('/updateartists', ctrlArtist.updateArtist);//
 
 
 
-
+app.get('/addproduct', function(req, res) {
+    res.render("add_product.ejs");
+});
 app.post('/register', ctrlArtist.addArtist);
 
 app.get('/login', function(req,res) {
