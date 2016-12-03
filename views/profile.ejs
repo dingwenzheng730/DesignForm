@@ -31,21 +31,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>
-                    <a class="navbar-brand" href="main.html">DesignForm</a>
+                    <a class="navbar-brand" href="/">DesignForm</a>
                 </div>
                 
                 <!-- the right bars -->
                 <div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#" id="username_field">Admin</a></li>
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Followings <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                            <li><a href="#section41">Followed</a></li>
-                            <li><a href="#section42">Follower</a></li>
-                            </ul>
-                            </li>
-                            <li><a href="main.html">Log out</a></li>
+                            <% var home_url= "user_home?username=" + person.username %>
+                            <li><a class="home_ref" href=<%=home_url%> id=<%=person.email%>><%=person.givenname%>&nbsp<%=person.lastname%></a></li>
+                            <li><a href="main">Log out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -57,14 +52,20 @@
         <div class="container">
             <div id="sidebar">
                 <ul>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/main">Home</a></li>
                     <li><a href="/">Explore</a></li>
                     <li><a href="/">Users</a></li>
                     <li><a href="/">Sign Out</a></li>
-                    <br /><br />
+                    <br />
+                    <select id="search_option">
+                        <option value="id">Id</option>
+                        <option value="country">Country</option>
+                        <option value="fname">Family Name</option>
+                    </select>
+                    <br />
                     <li><p style="color:grey">Search</p></li>
                     <li>
-                        <input type="text"></input>
+                        <input type="text" id="search_text"></input>
                         <button id="search_btn"><i class="fa fa-search"></i></button>
                     </li>
                 </ul>
@@ -89,56 +90,62 @@
                         <div class="container-fluid">
                          
                             <!-- the user's menu-->
+                            <% var gallery_url= "gallery?username=" + person.username %>
+                            <% var profile_url= "profile?username=" + person.username %>
+                            <% console.log(gallery_url)%>
                             <div class="collapse navbar-collapse">
-                                <a id="go_home_btn" href="#" style="font-size: 40px; color:lightblue">Home</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <a href="#" style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <a href="#" style="font-size: 40px; color:lightblue">Gallery</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <a id="go_home_btn" href=<%=home_url%> style="font-size: 40px; color:lightblue">Home</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp &nbsp
+                                <a href=<%=profile_url%> style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a>&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp&nbsp
+                                <a href=<%=gallery_url%> style="font-size: 40px; color:lightblue">Gallery</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <a id="addproduct_btn" style="font-size: 40px; color:lightblue" href="addproduct">Add product</a> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp
                             </div>
                         </div>
                     </nav>
 
                     <!-- the part that may change with the user's choice in this case is the profile-->
                     <div id="changing_part">
-                        
+
                         <!-- The profile content-->
                         <div class="container">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
-                                        <h3 class="panel-title" id="user_name">Leo Ding</h3>
+                                        <h3 class="panel-title" id="user_name"><%= person.givenname %>&nbsp<%= person.lastname %></h3>
                                         </div>
                                         <div class="panel-body">
                                             <div class="row">
-                                                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../img/face.jpg" class="img-circle img-responsive"> </div>
+                                             <% if(!person.picture){%>
+                                                <div class="col-md-3 col-lg-3 " align="center"> <img  src="./img/face.jpg" class="img-circle img-responsive"> </div>
+                                            <% }%>
+                                                 <div class="col-md-3 col-lg-3 " align="center"> <img  src="<%= person.picture %>" class="img-circle img-responsive"> </div>
                                                 <div class=" col-md-9 col-lg-9 "> 
                                                     <table class="table table-user-information">
                                                         <tbody>
+                                                          
                                                             <tr>
-                                                                <td>School:</td>
-                                                                <td id=school_name>UofT</td>
+
+                                                                <td>Status:</td>
+
+                                                                <td id="status_name"><%= person.status %></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Date of Birth</td>
-                                                                <td id=birth_name>01/24/1988</td>
+                                                                <td>Role:</td>
+                                                                <td id="role_name"><%= person.role %></td>
                                                             </tr>
                                                             <tr>
                                                                 <tr>
                                                                     <td>Gender</td>
-                                                                    <td id="gender_name">Male</td>
+                                                                    <td id="gender_name"><%= person.gender %></td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>Home Address</td>
-                                                                    <td id="address_name">8 Telegram Mews</td>
-                                                                </tr>
-                                                                <tr>
                                                                     <td>Email</td>
-                                                                    <td><a href="#" id="email_name">653009606@qq.com</a></td>
+                                                                    <td><a href="#" id="email_name"><%= person.email %></a></td>
                                                                 </tr>
-                                                                <td>Phone Number</td>
-                                                                <td id="phone_name">647-836-6492
+                                                                <td>Country</td>
+                                                                <td id="country_name"><%= person.country %>
                                                                 </td>
                                                             </tr>
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>    
@@ -148,13 +155,13 @@
                                         <!-- the footer -->
                                         <div class="panel-footer" style="height:50px">
                                             <span class="pull-right">
-                                                <a href="edit" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                                                <a id=<%= person.username %> data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning edit_btn"><i class="glyphicon glyphicon-edit"></i></a>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>                                                   
                     </div>
                 </div>
             </div>

@@ -33,9 +33,7 @@ exports.editArtists = function(req, res) {
         Artists.findOne({ username: userName }, function(err, artist) {
             if (artist != null) {
                 if (err) throw err;
-                var artists = new Array();
-                artists.push(artist);
-                res.render("edit", {persons: artists});
+                res.render("edit", {person: artist});
                 return 0;
             } else {
                 res.render("fail_search");
@@ -58,7 +56,8 @@ exports.updateArtist = function(req, res) {
     Artists.findOneAndUpdate({ username: req.query.username},
         { givenname: req.query.givenname, lastname: req.query.lastname,
             gender: req.query.gender, country: req.query.country,
-            status: req.query.status, role: req.query.role
+            status: req.query.status, role: req.query.role,
+            picture:req.query.picture
         }, function(err, user) {
             if (err) throw err;
         });
@@ -135,6 +134,7 @@ exports.addArtist = function(req, res) {
     var gender = req.body["gender"];
     var pwd = req.body["password"];
 
+
     var target = '{ "username": "' + username +'", "pwd": "' + pwd +'", "givenname": "' +
         givenname + '", "lastname": "' + lastname + '", "gender": "' +
         gender + '", "email": "' + email + '", ' + '"country": "China",  "status": "", '+
@@ -158,8 +158,9 @@ exports.findGallery = function(req, res) {
             if (artist != null) {
                 if (err) throw err;
                 var products = artist.products;
+                var artist = artist;
                 //res.render("gallery1", {products: products});
-                res.render("gallery", {products: products});
+                res.render("gallery", {products: products, person: artist});
                 return 0;
             } else {
                 res.render("fail_search");
@@ -170,6 +171,48 @@ exports.findGallery = function(req, res) {
 
 };
 
+exports.findHome = function(req, res) {
+    var userName = req.query.username;
+
+    if (userName != undefined) {
+        Artists.findOne({ username: userName }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                var products = artist.products;
+                var artist = artist;
+                //res.render("gallery1", {products: products});
+                res.render("user_home", {products: products, person: artist});
+                return 0;
+            } else {
+                res.render("fail_search");
+                return -1;
+            }
+        });
+    }    
+
+}
+
+
+exports.findProfile = function(req, res) {
+    var userName = req.query.username;
+
+    if (userName != undefined) {
+        Artists.findOne({ username: userName }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                var products = artist.products;
+                var artist = artist;
+                //res.render("gallery1", {products: products});
+                res.render("profile", {products: products, person: artist});
+                return 0;
+            } else {
+                res.render("fail_search");
+                return -1;
+            }
+        });
+    }    
+
+}
 
 //-----------------2016-11-24-------------------------------------------
 
