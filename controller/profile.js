@@ -312,7 +312,6 @@ exports.getAllProducts = function(req, res) {
                 res.render('main',{
                     products:a,
                     loggedin: true
-
                 })
             });
     }

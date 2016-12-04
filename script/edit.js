@@ -41,8 +41,7 @@ function save_profile() {
           window.alert('evaluate response and show alert');
         }
       });
-      console.log(photo);
-      //window.location.href="/admin_home";    
+      window.alert("You have saved the profile");
 }
 
 function get_search_text() {
