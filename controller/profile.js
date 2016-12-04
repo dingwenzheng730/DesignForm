@@ -161,7 +161,6 @@ exports.findGallery = function(req, res) {
             if (artist != null) {
                 if (err) throw err;
                 var products = artist.products;
-                var artist = artist;
                 //res.render("gallery1", {products: products});
                 res.render("gallery", {products: products, person: artist});
                 return 0;
@@ -176,13 +175,11 @@ exports.findGallery = function(req, res) {
 
 exports.findHome = function(req, res) {
     var userName = req.query.username;
-
     if (userName != undefined) {
         Artists.findOne({ username: userName }, function(err, artist) {
             if (artist != null) {
                 if (err) throw err;
                 var products = artist.products;
-                var artist = artist;
                 //res.render("gallery1", {products: products});
                 res.render("user_home", {products: products, person: artist});
                 return 0;
@@ -193,7 +190,7 @@ exports.findHome = function(req, res) {
         });
     }    
 
-}
+};
 
 
 exports.findProfile = function(req, res) {
@@ -204,7 +201,6 @@ exports.findProfile = function(req, res) {
             if (artist != null) {
                 if (err) throw err;
                 var products = artist.products;
-                var artist = artist;
                 //res.render("gallery1", {products: products});
                 res.render("profile", {products: products, person: artist});
                 return 0;

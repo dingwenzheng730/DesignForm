@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var ctrlArtist = require('./controller/profile');
-var ctrlProduct = require('./controller/products');
+
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var expressValidator = require('express-validator');
@@ -80,8 +80,8 @@ app.post('/artist/:username/product', ctrlArtist.addArtistProduct);
 app.post('/artist/:username/product/:name/review', ctrlArtist.addProductReview);
 app.post('/artist', ctrlArtist.addArtist);
 
-app.delete('/artists', ctrlArtist.deleteArtist);//ok
-app.get('/edit_artists', ctrlArtist.editArtists);//ok
+app.delete('/artists', ctrlArtist.deleteArtist);
+app.get('/edit_artist', ctrlArtist.editArtists);
 app.get('/updateartists', ctrlArtist.updateArtist);
 
 
@@ -98,10 +98,12 @@ app.get('/login', function(req,res) {
 });
 
 app.post('/login', function(req, res, next) {
+    console.log(req);
     passport.authenticate('local-login', function(err, artist, info) {
-
+        console.log(info);
+        console.log(artist);
         if (err) { return next(err); }
-        if (!artist) { return res.redirect('/login',{ message: req.flash('loginMessage','User Not Found') }); }
+        if (artist == false) { return res.redirect('/login'); }
         req.logIn(artist, function(err) {
             console.log(artist);
             if (err) { return next(err); }
@@ -136,7 +138,7 @@ app.post('/register', function(req, res, next) {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/profile?username=' + artist.person.username);
+            return res.redirect('/artists?username=' + artist.person.username);
         });
     })(req, res, next);
 });
@@ -158,12 +160,25 @@ app.get('/auth/facebook', passport.authenticate('facebook',
     }));
 
 // Facebook login callback
-app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {
-        successRedirect : '/main',
-        failureRedirect : '/auth/failure'
-    }));
+app.get('/auth/facebook/callback', function(req, res, next) {
+    passport.authenticate('facebook', function (err, artist, info) {
+        console.log(artist);
 
+        if (err) {
+            return next(err);
+        }
+        if (!artist) {
+            return res.redirect('/login', {message: req.flash('loginMessage', 'Something went wrong')});
+        }
+        req.logIn(artist, function (err) {
+            console.log(artist);
+            if (err) {
+                return next(err);
+            }
+            return res.redirect('/artists?username=' + artist.person.username);
+        });
+    })(req, res, next);
+});
 
 //Already logged in
 
@@ -197,6 +212,9 @@ app.get('/admin_home', function(req,res){
 app.get('/edit', function(req,res){
     res.render('edit');
 });
+
+
+
 // Start the server
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() {

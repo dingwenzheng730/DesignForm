@@ -85,7 +85,7 @@ module.exports = function (passport) {
                         //The artist already exists in the database
                         if (artist) {
 
-                            return done(null, false, req.flash('signupMessage', 'This user already existed '));
+                            return done(null, false, {message: "Incorrect Message"})
                         } else {
 
                             var newArtist = new Artists();
@@ -114,13 +114,13 @@ module.exports = function (passport) {
             }
         ));
 
-    passport.use(new FacebookStrategy({
+    passport.use('facebook',new FacebookStrategy({
             clientID: FACEBOOK_CONSUMER_KEY,
             clientSecret: FACEBOOK_CONSUMER_SECRET,
             callbackURL: "http://localhost:3000/auth/facebook/callback",
             profileFields: ['id', 'first_name', 'last_name', 'gender', 'email'],
             passReqToCallback: true
-            // haven't decided the picture
+
         },
         function (req, accessToken, refreshToken, profile, done) {
             console.log(profile);
@@ -135,12 +135,12 @@ module.exports = function (passport) {
                 gender: profile.gender,
                 email: profile.emails[0].value
 
-            }, function (err, user) {
-                console.log(user);
+            }, function (err, artist) {
+              //  console.log(artist);
                 if (err) {
                     return done(err);
                 }
-                done(null, user);
+                return done(null, {person : artist});
             });
         }
     ));
