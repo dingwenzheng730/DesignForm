@@ -71,7 +71,7 @@ exports.findArtists = function(req, res) {
     var userName = req.query.username;
     var targetfname = req.query.fname;
     var targetcountry = req.query.country;
-
+    console.log(req);
     if (userName == undefined && targetfname == undefined && targetcountry == undefined) {
         Artists.find({}, function(err, allArtists) {
             if (err) throw err;
@@ -170,7 +170,6 @@ exports.findGallery = function(req, res) {
             }
         });
     }
-
 };
 
 exports.findHome = function(req, res) {
@@ -189,7 +188,6 @@ exports.findHome = function(req, res) {
             }
         });
     }
-
 };
 
 
@@ -210,8 +208,7 @@ exports.findProfile = function(req, res) {
             }
         });
     }
-
-}
+};
 exports.addproductpage = function(req, res) {
     var userName = req.query.username;
 
@@ -220,7 +217,6 @@ exports.addproductpage = function(req, res) {
             if (artist != null) {
                 if (err) throw err;
                 var products = artist.products;
-                var artist = artist;
                 //res.render("gallery1", {products: products});
                 res.render("add_product", {products: products, person: artist});
                 return 0;
@@ -230,8 +226,7 @@ exports.addproductpage = function(req, res) {
             }
         });
     }
-
-}
+};
 //-----------------2016-11-24-------------------------------------------
 
 
@@ -264,7 +259,7 @@ exports.getArtistProducts = function(req, res) {
 
                 for (index in artist._doc.products) {
                     if (artist._doc.products[index].name == productName) {
-                        console.log('you');
+
                         res.send(artist._doc.products[index]);
                         return;
                     }
@@ -281,7 +276,7 @@ exports.getArtistProducts = function(req, res) {
 
                 for (index in artist._doc.products) {
                     if (artist._doc.products[index].name == productName.substring(0, review)) {
-                        console.log('you');
+
                         res.send(artist._doc.products[index].reviews);
                         return;
                     }
@@ -314,23 +309,9 @@ exports.getProductByName = function(req, res) {
                 }
             }
         });
-}
-
-
-exports.findArtistById = function(req, res) {
-
-    var userName = req.params.username;
-
-
-
-    Artists.findOne({ username : userName })
-        .exec(function(err, artistsProducts) {
-            if (err) throw err;
-
-            res.send(artistsProducts);
-        });
-
 };
+
+
 
 
 exports.getAllProducts = function(req, res) {
@@ -492,9 +473,7 @@ exports.deleteProduct = function(req, res) {
                 sendJsonRes(res, 404, err);
                 return;
             }
-            res.send({
-                message :'Good'
-            });
+            res.send('Success');
             console.log(obj);
         }
     );
