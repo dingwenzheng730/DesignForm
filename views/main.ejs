@@ -12,6 +12,10 @@
         
         <!-- Website CSS style -->
         <link rel="stylesheet" type="text/css" href="assets/css/index_style.css">
+
+        <!-- Website JS -->
+        <script src="../script/main.js"></script>
+
         <style>
             body {
                 position: relative; 
@@ -122,6 +126,7 @@
 
                 <div class="caption">
                     <img src="<%= product.picture%>" class="img-circle" alt="No Image Provided" width="200" height="136">
+                    <button id=<%= product.name%> class="see_btn">SEE ME</button>
 
                     <h2>Name: <%= product.name %></h2>
                     <text>Description: <%=  product.description%></text>
