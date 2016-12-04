@@ -85,7 +85,7 @@ module.exports = function (passport) {
                         //The artist already exists in the database
                         if (artist) {
 
-                            return done(null, false, {message: "Incorrect Message"})
+                            return done(null, false, req.flash('signupMessage', 'User already exists '))
                         } else {
 
                             var newArtist = new Artists();
@@ -123,7 +123,7 @@ module.exports = function (passport) {
 
         },
         function (req, accessToken, refreshToken, profile, done) {
-            console.log(profile);
+
             Artists.findOrCreate({
                 username: profile._json.id,
                 pwd : generator.generate({
@@ -138,7 +138,7 @@ module.exports = function (passport) {
             }, function (err, artist) {
               //  console.log(artist);
                 if (err) {
-                    return done(err);
+                    return done(null, false);
                 }
                 return done(null, {person : artist});
             });

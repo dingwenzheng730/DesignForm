@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var ctrlArtist = require('./controller/profile');
-
+var ctrlProduct = require('./controller/products');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var expressValidator = require('express-validator');
@@ -94,20 +94,18 @@ app.get('/addproduct', function(req, res) {
 //app.post('/register', ctrlArtist.addArtist);
 
 app.get('/login', function(req,res) {
-    res.render('login',{ message: req.flash('loginMessage','Hello') })
+    res.render('login',{ message: req.flash('loginMessage','Hello') });
 });
 
 app.post('/login', function(req, res, next) {
-    console.log(req);
     passport.authenticate('local-login', function(err, artist, info) {
-        console.log(info);
-        console.log(artist);
+
         if (err) { return next(err); }
-        if (artist == false) { return res.redirect('/login'); }
+        if (!artist) { return res.render('login.ejs',{ message: req.flash('loginMessage','User Not Found') }); }
         req.logIn(artist, function(err) {
             console.log(artist);
             if (err) { return next(err); }
-            return res.redirect('/profile?username=' + artist.person.username);
+            return res.redirect('/user_home?username=' + artist.person.username);
         });
     })(req, res, next);
 });
@@ -128,17 +126,18 @@ app.post('/register', function(req, res, next) {
     passport.authenticate('local-signup', function (err, artist, info) {
 
         if (err) {
+
             return next(err);
         }
-        if (!artist) {
-            return res.redirect('/login', {message: req.flash('loginMessage', 'User Not Found')});
+        if (!artist || artist == false) {
+            return res.render('login.ejs', {message: req.flash('loginMessage', 'User Not Found')});
         }
         req.logIn(artist, function (err) {
             console.log(artist);
             if (err) {
                 return next(err);
             }
-            return res.redirect('/artists?username=' + artist.person.username);
+            return res.redirect('/user_home?username=' + artist.person.username);
         });
     })(req, res, next);
 });
@@ -162,20 +161,21 @@ app.get('/auth/facebook', passport.authenticate('facebook',
 // Facebook login callback
 app.get('/auth/facebook/callback', function(req, res, next) {
     passport.authenticate('facebook', function (err, artist, info) {
-        console.log(artist);
+        console.log(req);
 
         if (err) {
+
             return next(err);
         }
-        if (!artist) {
-            return res.redirect('/login', {message: req.flash('loginMessage', 'Something went wrong')});
+        if (!artist || artist ==false) {
+            return res.render('login',{ message: 'Duplicate key'});
         }
         req.logIn(artist, function (err) {
             console.log(artist);
             if (err) {
                 return next(err);
             }
-            return res.redirect('/artists?username=' + artist.person.username);
+            return res.redirect('/user_home?username=' + artist.person.username);
         });
     })(req, res, next);
 });
