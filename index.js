@@ -85,6 +85,9 @@ app.get('/edit_artist', ctrlArtist.editArtists);
 app.get('/updateartists', ctrlArtist.updateArtist);
 
 
+app.get("/product", ctrlArtist.getArtistProducts);
+app.get("/productbyname", ctrlArtist.getProductByName);
+
 
 
 
@@ -96,6 +99,11 @@ app.get('/addproduct', function(req, res) {
 app.get('/login', function(req,res) {
     res.render('login',{ message: req.flash('loginMessage','Hello') });
 });
+
+app.get('/add_review', function(req,res) {
+    res.render('add_review');
+});
+
 
 app.post('/login', function(req, res, next) {
     passport.authenticate('local-login', function(err, artist, info) {

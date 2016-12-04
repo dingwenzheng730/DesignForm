@@ -220,7 +220,7 @@ exports.findProfile = function(req, res) {
 
 exports.getArtistProducts = function(req, res) {
 
-    var userName = req.params.username;
+    var userName = req.query.username;
     var productName = req.query.name;
     if (productName != undefined) {
         var review = productName.indexOf('/');
@@ -274,7 +274,28 @@ exports.getArtistProducts = function(req, res) {
     }
 };
 
+exports.getProductByName = function(req, res) {
+    var productName = req.query.name;
+    var a = [];
+    //var b = [];
+    if (productName != undefined) {
+        var review = productName.indexOf('/');
+    }
+    Artists.find({})
+        .exec(function(err, allArtists) {
+            if (err) throw err;
+            for (index in allArtists) {
+                a = a.concat(allArtists[index]._doc.products);
+            }
 
+            for (ind in a) {
+                console.log(a[ind].name);
+                if (a[ind].name == productName) {
+                	res.render("product_reviews", {product: a[ind]});
+                }
+            }
+        });
+}
 
 
 exports.findArtistById = function(req, res) {
@@ -311,7 +332,8 @@ exports.getAllProducts = function(req, res) {
 
                 res.render('main',{
                     products:a,
-                    loggedin: true
+                    loggedin: true,
+                    
 
                 })
             });
