@@ -90,14 +90,15 @@
                         <div class="container-fluid">
                          
                             <!-- the user's menu-->
-                            <% var gallery_url= "gallery?username=" + person.username %>
-                            <% var profile_url= "profile?username=" + person.username %>
+                            <% var gallery_url = "gallery?username=" + person.username %>
+                            <% var profile_url = "profile?username=" + person.username %>
+                            <% var add_url = "addproduct?username=" + person.username%>
                             <% console.log(gallery_url)%>
                             <div class="collapse navbar-collapse">
                                 <a id="go_home_btn" href=<%=home_url%> style="font-size: 40px; color:lightblue">Home</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp &nbsp
                                 <a href=<%=profile_url%> style="font-size: 40px; color:lightblue" id="get_profile_btn">Profile</a>&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp &nbsp&nbsp
                                 <a href=<%=gallery_url%> style="font-size: 40px; color:lightblue">Gallery</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <a id="addproduct_btn" style="font-size: 40px; color:lightblue" href="addproduct">Add product</a> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp
+                                <a id="addproduct_btn" style="font-size: 40px; color:lightblue" href=<%=add_url%>>Add product</a> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp
                             </div>
                         </div>
                     </nav>

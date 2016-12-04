@@ -188,7 +188,7 @@ exports.findHome = function(req, res) {
                 return -1;
             }
         });
-    }    
+    }
 
 };
 
@@ -209,10 +209,29 @@ exports.findProfile = function(req, res) {
                 return -1;
             }
         });
-    }    
+    }
 
 }
+exports.addproductpage = function(req, res) {
+    var userName = req.query.username;
 
+    if (userName != undefined) {
+        Artists.findOne({ username: userName }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                var products = artist.products;
+                var artist = artist;
+                //res.render("gallery1", {products: products});
+                res.render("add_product", {products: products, person: artist});
+                return 0;
+            } else {
+                res.render("fail_search");
+                return -1;
+            }
+        });
+    }
+
+}
 //-----------------2016-11-24-------------------------------------------
 
 
@@ -375,21 +394,17 @@ exports.getAllProducts = function(req, res) {
 
 exports.addArtistProduct = function(req, res) {
 
-     var image = new Picture({
-     img : {
-     data:fs.readFileSync(imgPath),
-     contentType:'image/jpg'
-     }});
 
-    var name = req.params.username;
+    var date = Date.now();
+    var name = req.query.username;
     console.log(name);
     var product = new Products({
         _id: shortid.generate(),
-        name: req.query.name,
-        description: req.query.description,
-        releaseTime: req.query.releaseTime,
-        onSaleStatus:req.query.onSaleStatus,
-        picture:req.query.picture
+        name: req.body.prodname,
+        description: req.body.proddes,
+        releaseTime: date,
+        onSaleStatus:req.body.salest,
+        picture:req.body.pic
     });
 
 
@@ -409,7 +424,6 @@ exports.addArtistProduct = function(req, res) {
     res.send("Success");
 
 };
-
 exports.addProductReview = function(req, res) {
 
     var date = Date.now();

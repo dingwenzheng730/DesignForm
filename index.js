@@ -76,7 +76,7 @@ app.engine('.html', require('ejs').__express);
 app.get('/gallery',ctrlArtist.findGallery);
 app.get('/user_home', ctrlArtist.findHome);
 app.get('/profile', ctrlArtist.findProfile);
-
+app.get('/addproduct', ctrlArtist.addproductpage);
 
 app.get('/artists',ctrlArtist.findArtists);
 
@@ -89,8 +89,12 @@ app.get('/artists/:username', ctrlArtist.findArtists);
 
 app.delete('/artists/:username/product/:name/review', ctrlArtist.deleteProductReview);
 app.delete('/artists/:username/product',ctrlArtist.deleteProduct);
-app.post('/artist/:username/product',ctrlArtist.addArtistProduct);
-app.post('/artist/:username/product/:name/review',ctrlArtist.addProductReview);
+
+app.post('/add_product',ctrlArtist.addArtistProduct);
+//app.post('/artist/:username/product/:name/review',ctrlArtist.addProductReview);
+
+
+
 app.post('/artist', ctrlArtist.addArtist);
 
 app.delete('/artists',ctrlArtist.deleteArtist);
@@ -104,9 +108,11 @@ app.get("/productbyname", ctrlArtist.getProductByName);
 
 
 
-app.get('/addproduct',function(req, res) {
-    res.render("add_product.ejs");
-});
+
+//app.get('/addproduct', function(req, res) {
+  //  res.render("add_product.ejs");
+
+//});
 //app.post('/register', ctrlArtist.addArtist);
 
 app.get('/login', function(req,res) {
