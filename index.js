@@ -219,9 +219,11 @@ app.get("/logout",function(req,res){
 });
 
 
+
 // Start the server
 app.set('port', (process.env.PORT || 3000));
-app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
+module.exports = server;
 

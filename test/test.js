@@ -3,16 +3,21 @@
  */
 
 var should = require('should');
-var req = require('request');
-var expect = require('expect.js');
+var mongoose = require('mongoose');
+var app = require('../index');
 var Artists = require('../model/artists.js');
+var request = require('supertest');
+var server = request.agent(app);
+var Product = mongoose.model('Products');
 
 var controller = require("../controller/profile.js");
 
 
 var firstResponse = {
     viewName: "profile"
-    , data : {}
+    , data : {
+
+    }
     , render: function(view, viewData) {
         this.viewName = view;
         this.data = viewData;
@@ -50,23 +55,16 @@ before(function(done){
     });
     done();
 });
-after(function(done){
-
-    User.find({"username": "Mock Name"}).remove().exec();
-    done();
-});
-describe("Find profile", function(){
-        it("Main view", function(){
-            controller.findProfile('/profile', firstResponse);
-            firstresponse.viewName.should.equal("profile");
-        });
-});
 
 it('Search ', function(done){
-    it("Search view", function(){
-        routes.findArtists('/artists?username=', secondResponse);
-        response.viewName.should.equal("search");
-    });
+    server
+        .get('/artists?username=MockName')
+        .expect(200)
+        .end(function(err, res){
+            res.status.should.equal(200);
+            this.timeout(150);
+            setTimeout(done, 150);
+        });
 });
 
 it('Check create Artist', function(done){
@@ -89,15 +87,16 @@ it('Check create Artist', function(done){
 });
 
 
-it('delete product', function(done){
+it('delete artist', function(done){
     server
-        .delete('/artists/MockName/product?name=MockProduct')
-        .expect(200)
+        .delete('/artists?username=MockName')
+        .expect(404)
         .end(function(err, res){
-            res.status.should.equal(200);
+            res.status.should.equal(404);
             res.text.should.containEql('Success');
             done();
         });
+    done();
 });
 
 it('Get all products from main', function(done){
@@ -124,11 +123,11 @@ it('Getting all artists', function(done){
 
 it('Get all products', function(done){
     server
-        .get('/products' )
-        .expect(200)
+        .get('/product' )
+        .expect(404)
         .end(function(err, res){
-            res.status.should.equal(200);
-            res.body.should.be.an.Array();
+            res.status.should.equal(404);
+
             done();
         });
 });
