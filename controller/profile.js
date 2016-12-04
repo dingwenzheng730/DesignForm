@@ -7,7 +7,6 @@ var mongoose = require('mongoose');
 var Artists = require('../model/artists.js');
 var Products = mongoose.model('Products');
 var Reviews = mongoose.model('Reviews');
-//var Picture = mongoose.model('Picture');
 var fs = require('fs');
 
 var shortid = require('shortid');
@@ -71,7 +70,7 @@ exports.findArtists = function(req, res) {
     var userName = req.query.username;
     var targetfname = req.query.fname;
     var targetcountry = req.query.country;
-    console.log(req);
+
     if (userName == undefined && targetfname == undefined && targetcountry == undefined) {
         Artists.find({}, function(err, allArtists) {
             if (err) throw err;
@@ -136,12 +135,13 @@ exports.addArtist = function(req, res) {
     var lastname = req.body["lastname"];
     var gender = req.body["gender"];
     var pwd = req.body["password"];
+    var id = shortid.generate();
 
 
     var target = '{ "username": "' + username +'", "pwd": "' + pwd +'", "givenname": "' +
         givenname + '", "lastname": "' + lastname + '", "gender": "' +
         gender + '", "email": "' + email + '", ' + '"country": "China",  "status": "", '+
-        '"role": "", "products": []}' ;
+        '"role": "", "products": [id]}' ;
 
 
     var newArtist = new Artists(JSON.parse(target));
@@ -199,7 +199,7 @@ exports.findProfile = function(req, res) {
             if (artist != null) {
                 if (err) throw err;
                 var products = artist.products;
-                //res.render("gallery1", {products: products});
+
                 res.render("profile", {products: products, person: artist});
                 return 0;
             } else {
@@ -331,8 +331,7 @@ exports.getAllProducts = function(req, res) {
                 }
 
                 res.render('main',{
-                    products:a,
-                    loggedin: true,
+                    products:a
                 })
             });
     }
@@ -378,7 +377,7 @@ exports.addArtistProduct = function(req, res) {
 
     var date = Date.now();
     var name = req.query.username;
-    console.log(name);
+
     var product = new Products({
         _id: shortid.generate(),
         name: req.body.prodname,
