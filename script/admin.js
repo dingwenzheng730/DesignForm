@@ -1,6 +1,6 @@
 function  edit_profile() { 
     $.ajax({
-        url: "/edit_artists",
+        url: "/edit_artist",
         type: "GET",
         data: {
           username : this.id
@@ -11,8 +11,8 @@ function  edit_profile() {
           window.alert('evaluate response and show alert');
         }
       });
-    window.location.href = "/edit_artists?username=" + this.id;
-add}
+    window.location.href = "/edit_artist?username=" + this.id;
+}
 
 function del_profile() {
     console.log("THE DEL BUTTON WORKS");

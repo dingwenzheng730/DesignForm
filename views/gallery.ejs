@@ -39,7 +39,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
                             <% var home_url= "user_home?username=" + person.username %>
-                            <li><a class="home_ref" href="#" id=<%=person.email%>><%=person.givenname%>&nbsp<%=person.lastname%></a></li>
+                            <li><a class="home_ref" href=<%=home_url%> id="user_ref"><%=person.username%></a></li>
                             <li><a href="main">Log out</a></li>
                         </ul>
                     </div>

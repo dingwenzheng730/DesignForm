@@ -39,7 +39,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
                             <% var home_url= "user_home?username=" + person.username %>
-                            <li><a class="home_ref" href=<%=home_url%> id=<%=person.username%>><%=person.givenname%>&nbsp<%=person.lastname%></a></li>
+                            <li><a class="home_ref" href=<%=home_url%> id="user_ref"><%=person.username%></a></li>
                             <li><a href="main">Log out</a></li>
                         </ul>
                     </div>
@@ -52,9 +52,9 @@
         <div class="container">
             <div id="sidebar">
                 <ul>
-                    <li><a href="/main">Home</a></li>
+                    <li><a href="main">Home</a></li>
                     <li><a href="/">Explore</a></li>
-                    <li><a href="/">Users</a></li>
+                    <li><a href="artists">Users</a></li>
                     <li><a href="/">Sign Out</a></li>
                     <br />
                     <select id="search_option">
