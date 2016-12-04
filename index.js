@@ -2,12 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var ctrlArtist = require('./controller/profile');
-var ctrlProduct = require('./controller/products');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var expressValidator = require('express-validator');
 var logger = require('morgan');
+var bCrypt = require('bcrypt-nodejs');
+
 var path = require('path');
+
 
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -24,10 +26,27 @@ app.use(express.static(path.join(__dirname, 'view')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var secret = 'secretkeyDesignform';
+var secret = 'secretkeydesignform';
 
-
-
+var createHash = function (password) {
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
+};
+var isValidPassword = function (user, password) {
+    return bCrypt.compareSync(password, user.pwd);
+};
+// Generates hash using bCrypt
+var encrypted = createHash(secret);
+function isLoggedIn(req,res,next){
+    console.log(req);
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
+app.use(function(req,res,next){
+   res.locals.person = req.artist;
+    next();
+});
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
@@ -53,42 +72,36 @@ app.get('/', function(req, res) {
 });
 app.engine('.html', require('ejs').__express);
 
-// load the register page and register a user
-/*
-app.get('/register', function(req,res){
-    res.render('register');
-});
-*/
 // go to a user's home page, profile and gallery
-app.get('/gallery', ctrlArtist.findGallery);
+app.get('/gallery',ctrlArtist.findGallery);
 app.get('/user_home', ctrlArtist.findHome);
 app.get('/profile', ctrlArtist.findProfile);
 
 
-app.get('/artists', ctrlArtist.findArtists);
+app.get('/artists',ctrlArtist.findArtists);
 
-app.get('/main', ctrlArtist.getAllProducts);
-app.put('/artists/:username/product:name/review', ctrlArtist.UpdateReview);
+app.get('/main',isLoggedIn,ctrlArtist.getAllProducts);
+app.put('/artists/:username/product:name/review', isLoggedIn,ctrlArtist.UpdateReview);
 
 
 app.get('/artists/:username', ctrlArtist.findArtists);
 
 
 app.delete('/artists/:username/product/:name/review', ctrlArtist.deleteProductReview);
-app.delete('/artists/:username/product', ctrlArtist.deleteProduct);
-app.post('/artist/:username/product', ctrlArtist.addArtistProduct);
-app.post('/artist/:username/product/:name/review', ctrlArtist.addProductReview);
+app.delete('/artists/:username/product',ctrlArtist.deleteProduct);
+app.post('/artist/:username/product',ctrlArtist.addArtistProduct);
+app.post('/artist/:username/product/:name/review', isLoggedIn,ctrlArtist.addProductReview);
 app.post('/artist', ctrlArtist.addArtist);
 
-app.delete('/artists', ctrlArtist.deleteArtist);
-app.get('/edit_artist', ctrlArtist.editArtists);
-app.get('/updateartists', ctrlArtist.updateArtist);
+app.delete('/artists',ctrlArtist.deleteArtist);
+app.get('/edit_artist',ctrlArtist.editArtists);
+app.get('/updateartists',ctrlArtist.updateArtist);
 
 
 
 
 
-app.get('/addproduct', function(req, res) {
+app.get('/addproduct', isLoggedIn,function(req, res) {
     res.render("add_product.ejs");
 });
 //app.post('/register', ctrlArtist.addArtist);
@@ -103,9 +116,14 @@ app.post('/login', function(req, res, next) {
         if (err) { return next(err); }
         if (!artist) { return res.render('login.ejs',{ message: req.flash('loginMessage','User Not Found') }); }
         req.logIn(artist, function(err) {
-            console.log(artist);
-            if (err) { return next(err); }
-            return res.redirect('/user_home?username=' + artist.person.username);
+            if (err) {
+                console.log(artist);
+                return next(err);
+            }
+            if(isValidPassword(artist.person,encrypted) && artist.username == 'admin'){
+                return res.redirect('/admin_home',{message:req.flash('info','Welcome admin! ')});
+            }
+            return res.redirect('/gallery?username=' + artist.person.username);
         });
     })(req, res, next);
 });
@@ -137,7 +155,7 @@ app.post('/register', function(req, res, next) {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/user_home?username=' + artist.person.username);
+            return res.redirect('/gallery?username=' + artist.person.username);
         });
     })(req, res, next);
 });
@@ -213,6 +231,11 @@ app.get('/edit', function(req,res){
     res.render('edit');
 });
 
+app.get("/logout",function(req,res){
+
+    req.logout();
+    res.redirect("/main");
+});
 
 
 // Start the server
@@ -220,3 +243,11 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
+
+
+/*
+app.get("/secert",isLoggedin, function(req,res){
+    res.render("/login");
+});
+
+*/

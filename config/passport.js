@@ -41,7 +41,7 @@ module.exports = function (passport) {
             process.nextTick(function() {
                 Artists.findOne({ 'username' :  username }, function(err, artist) {
                     // if there are any errors, return the error
-
+                    console.log(artist);
                     if (err)
                         return done(err);
 
