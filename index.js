@@ -81,7 +81,7 @@ app.get('/artists/:username', ctrlArtist.findArtists);
 
 
 app.delete('/artists/:username/product/:name/review', ctrlArtist.deleteProductReview);
-app.delete('/artists/:username/product',ctrlArtist.deleteProduct);
+app.post('/artists/:username/product',ctrlArtist.deleteProduct);
 
 app.post('/add_product',ctrlArtist.addArtistProduct);
 

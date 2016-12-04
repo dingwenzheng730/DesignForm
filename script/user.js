@@ -1,4 +1,4 @@
-function  edit_profile() { 
+function  edit_profile() {
     $.ajax({
         url: "/edit_artists",
         type: "GET",
@@ -66,7 +66,7 @@ function get_search_text() {
         success: function(response) {
           window.alert('evaluate response and show alert');
         }
-        
+
       });
       window.location.href = "/artists?fname=" + search_text;
     }
@@ -84,9 +84,9 @@ function show_gallery(){
         success: function(response) {
           window.alert('evaluate response and show alert');
         }
-        
+
       });
-      
+
 }
 
 $(document).ready(function() {
@@ -96,13 +96,16 @@ $(document).ready(function() {
 
     // set the behaviour for all edit btn
     $(".edit_btn").on("click", edit_profile);
-    
+
     // set the behaviour for all gallery btn
     $("#gallery_btn").on("click", show_gallery);
+
+    // set for del product btn
+    $('.del_pic_btn').on('click', del_product);
 
     $("[data-toggle]").click(function() {
         var toggle_el = $(this).data("toggle");
         $(toggle_el).toggleClass("open-sidebar");
     });
-     
+
 });

@@ -462,7 +462,7 @@ exports.UpdateReview = function(req, res) {
 
 };
 exports.deleteProduct = function(req, res) {
-    var userName = req.params.usernuserNameame;
+    var userName = req.params.username;
     var productName = req.query.name;
     Artists.update(
         { username: userName},
