@@ -27,7 +27,7 @@ Our project is to built a web application to implement the Designform platform. 
 - **User Authentication**: Login with user account. 
 - **Third-party Authentication**:  Login using Facebook account without signing up in the form.
 - **User Profile**: Each user has a profile page including privacy informations, emails and the pictures for all the user's products.
-- **User Actions**: Artists can release a products with descriptions and sale status attached with a picture for their products for the purpose of better visual experience. Thay can also remove and edit the products that they have already post. In addition, users can search for a specific product or user according to their Id, name or country.
+- **User Actions**: Artists can release a products with descriptions and sale status attached with a picture for their products for the purpose of better visual experience. Thay can also remove and edit the products that they have already posted. In addition, users can search for a specific product or user according to their username, name or country.
 - **User Interactions**: Designers can see all products in main page and view others products in their profile pages. Other users can make reviews on the products they've seen. 
 - **Administrative View**: The website administrator will log in to an administrative view which is a different view from normal users. Administrator can remove artists as well as their products.
 
@@ -41,6 +41,7 @@ Our project is to built a web application to implement the Designform platform. 
 - ``NPM``: mongoose.js, passport.js, generate-password.js, bcrypt-node.js
 - ``View``: EJS
 - ``JQuery``: Script
+- ``Mocha/Should.js/Supertest.js``: Unit Test
 
 ## Database Schema
 We are going to use mongodb with mongoose module in our project. The database saves all informationsabout our website, and provide functionality of all database operations. Whenever the pages need to interact with database, this module should be used.

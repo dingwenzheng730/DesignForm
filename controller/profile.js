@@ -90,7 +90,7 @@ exports.updateArtist = function(req, res) {
  * @param res:Object
  */
 exports.findArtists = function(req, res) {
-
+    
     var userName = req.query.username;
     var targetfname = req.query.fname;
     var targetcountry = req.query.country;
@@ -149,6 +149,78 @@ exports.findArtists = function(req, res) {
 
 };
 
+exports.user_search = function(req, res) {
+    var user = req.query.user;
+    var founduser;
+    // find the user first
+    Artists.findOne({ username: user }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                founduser = artist;
+                console.log(founduser);
+            } else {
+                res.render("user_search_fail", {person: founduser});
+                return -1;
+            }
+        });
+    
+    var userName = req.query.username;
+    var targetfname = req.query.fname;
+    var targetcountry = req.query.country;
+
+    if (userName == undefined && targetfname == undefined && targetcountry == undefined) {
+        Artists.find({}, function(err, allArtists) {
+            if (err) throw err;
+            res.render("user_search", {persons: allArtists, person: founduser});
+        });
+        return 0;
+    }
+
+    if (userName != undefined) {
+        Artists.findOne({ username: userName }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                var artists = new Array();
+                artists.push(artist);
+                res.render("user_search", {persons: artists, person: founduser});
+                //res.send(artist);
+                return 0;
+            } else {
+                res.render("user_search_fail", {person: founduser});
+                return -1;
+            }
+        });
+    }
+
+    if (targetfname != undefined) {
+        Artists.find({ lastname: targetfname }, function(err, artists) {
+            if (artists[0] != null) {
+                if (err) throw err;
+                res.render("user_search", {persons: artists, person: founduser});
+                //res.send(artist);
+                return 0;
+            } else {
+                res.render("user_search_fail", {person: founduser});
+                return -1;
+            }
+        });
+    }
+
+    if (targetcountry != undefined) {
+        Artists.find({ country: targetcountry }, function(err, artists) {
+            if (artists[0] != null) {
+                if (err) throw err;
+                res.render("user_search", {persons: artists, person: founduser});
+
+                return 0;
+            } else {
+                res.render("user_search_fail", {person: founduser});
+                return -1;
+            }
+        });
+    }
+
+};
 
 /**
  * Add an artist / Register an account
@@ -282,6 +354,7 @@ exports.addproductpage = function(req, res) {
 
 exports.getArtistProducts = function(req, res) {
 
+
     var userName = req.query.username;
     var productName = req.query.name;
     if (productName != undefined) {
@@ -345,6 +418,16 @@ exports.getArtistProducts = function(req, res) {
  */
 
 exports.getProductByName = function(req, res) {
+    var username = req.query.username;
+    var founduser;
+    // find the user first
+    Artists.findOne({ username: username }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                founduser = artist;
+            } 
+        }); 
+
     var productName = req.query.name;
     var a = [];
 
@@ -360,7 +443,7 @@ exports.getProductByName = function(req, res) {
 
             for (ind in a) {
                 if (a[ind].name == productName) {
-                	res.render("product_reviews", {product: a[ind]});
+                	res.render("product_reviews", {product: a[ind], person: founduser});
                 }
             }
         });
@@ -429,12 +512,86 @@ exports.getAllProducts = function(req, res) {
     }
 };
 
+
 /**
- * Add artist's product / The artist is only allowed to add his/her own work
+ * Explore  artist's product / The artist is only allowed to add his/her own work
  *
  * @param req: Object
  * @param res:Object
  */
+
+
+exports.exploreProducts = function(req, res) {
+    var username = req.query.username;
+    var founduser;
+    // find the user first
+    Artists.findOne({ username: username }, function(err, artist) {
+            if (artist != null) {
+                if (err) throw err;
+                founduser = artist;
+                console.log(founduser);
+            } else {
+                res.render("user_search_fail", {person: founduser});
+                return -1;
+            }
+        });
+
+    var name = req.query.name;
+    var rtime = req.query.releaseTime;
+    var a = [];
+
+    var b = [];
+
+    if (name == undefined && rtime == undefined) {
+        Artists.find({})
+            .exec(function(err, allArtists) {
+                if (err) throw err;
+                for (index in allArtists) {
+                    a = a.concat(allArtists[index]._doc.products);
+
+                }
+
+                res.render('explore',{
+                    products:a, person: founduser
+                })
+            });
+    }
+    else if (name != undefined) {
+        Artists.find({})
+            .exec(function(err, allArtists) {
+                if (err) throw err;
+                for (index in allArtists) {
+                    a = a.concat(allArtists[index]._doc.products);
+                }
+                for (ind in a) {
+                    if (a[ind]._doc.name == name){
+                        res.send(a[ind]);
+                        return;
+                    }
+                }
+                return res.status(400).json("Error: no such product");
+            });
+    }
+    else if (rtime != undefined) {
+        Artists.find({})
+            .exec(function(err, allArtists) {
+                if (err) throw err;
+                for (index in allArtists) {
+                    a = a.concat(allArtists[index]._doc.products);
+                }
+                for (ind in a) {
+                    if (a[ind]._doc.releaseTime == rtime){
+                        res.send(a[ind]);
+                        return;
+                    }
+                }
+                return res.status(400).json("Error: no such product");
+            });
+    }
+};
+
+
+
 exports.addArtistProduct = function(req, res) {
 
 

@@ -53,9 +53,11 @@
         <div class="container">
             <div id="sidebar">
                 <ul>
+                    <% var user_search_url = "user_search?user=" + person.username %>
+                    <% var explore_url = "explore?username=" + person.username %>
                     <li><a href="main">Home</a></li>
-                    <li><a href="/">Explore</a></li>
-                    <li><a href="artists">Users</a></li>
+                    <li><a href=<%= explore_url%>>Explore</a></li>
+                    <li><a href=<%= user_search_url %>>Users</a></li>
                     <li><a href="/">Sign Out</a></li>
                     <br />
                     <select id="search_option">

@@ -49,7 +49,7 @@ function get_search_text() {
           window.alert('evaluate response and show alert');
         }
       });
-      window.location.href = "/artists?id=" + search_text;
+      window.location.href = "/artists?username=" + search_text;
     }
 
     if (search_option == "country") {
@@ -104,27 +104,6 @@ function show_gallery(){
       });
       
 }
-/*
-function add_product(){
-    var name = prompt("enter name: ");
-    var des = prompt("enter description:");
-    var id = prompt("id:");
-    var pro = '[{ "name": "' + name + '", "description": "'
-              + des + '"}]'; 
-    console.log(pro);
-    $.ajax({
-      url: '/addartistproduct',
-      type: "POST",
-        data: {
-          id : id
-        },
-      
-      data : JSON.parse(pro),
-      success: function(response){
-        alert(response);
-      }
-    });
-}*/
 
 $(document).ready(function() {
 
