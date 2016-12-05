@@ -121,10 +121,10 @@ module.exports = function (passport) {
 
         },
         function (req, accessToken, refreshToken, profile, done) {
-
+           
             Artists.findOrCreate({
                 username: profile.name.givenName,
-                pwd : "facebook",
+                pwd : "facebook"+profile._json.id,
                 givenname: profile.name.givenName,
                 lastname: profile.name.familyName,
                 gender: profile.gender,
