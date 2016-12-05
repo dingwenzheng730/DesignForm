@@ -71,6 +71,8 @@ app.get('/gallery',ctrlArtist.findGallery);
 app.get('/user_home', ctrlArtist.findHome);
 app.get('/profile', ctrlArtist.findProfile);
 app.get('/addproduct', ctrlArtist.addproductpage);
+app.get('/explore', ctrlArtist.exploreProducts);
+app.get('/user_search', ctrlArtist.user_search);
 
 app.get('/artists',ctrlArtist.findArtists);
 
@@ -213,4 +215,3 @@ var server = app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
 module.exports = server;
-
