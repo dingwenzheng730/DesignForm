@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var ctrlArtist = require('./controller/profile');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
-var expressValidator = require('express-validator');
 var logger = require('morgan');
 
 
@@ -154,7 +153,7 @@ app.post('/register', function(req, res, next) {
             if(artist.person.email =='leonzhang1996@hotmail.com' && artist.person.username == 'admin'){
                 return res.render('admin_home');
             }
-            //return res.redirect('/user_home?username=' + artist.person.username);
+
         });
         return res.redirect('/user_home?username=' + artist.person.username);
     })(req, res, next);
