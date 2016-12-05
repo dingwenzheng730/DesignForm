@@ -19,13 +19,13 @@ var FACEBOOK_CONSUMER_KEY = '1006730306139581', FACEBOOK_CONSUMER_SECRET = 'ef44
 module.exports = function (passport) {
 
     passport.serializeUser(function(artist, done) {
-       // console.log(artist);
+
         done(null, artist);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(artist,done){
-       // console.log(artist);
+
             done(null, artist);
     });
 // Local login

@@ -112,7 +112,6 @@ app.get('/login', function(req,res) {
 });
 
 
-
 app.post('/login', function(req, res, next) {
     passport.authenticate('local-login', function(err, artist, info) {
         if (err) { return next(err); }
