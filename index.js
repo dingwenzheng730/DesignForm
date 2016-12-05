@@ -15,16 +15,18 @@ var session = require('express-session');
 var flash = require('connect-flash');
 
 var fs = require('fs');
-//authentication section
-require('./config/passport')(passport);
+
 
 
 var app = express();
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'view')));
+app.use(express.static(path.join(__dirname, 'views')));
 
+//authentication initialization
+require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 var secret = 'secretkeydesignform';
 
@@ -74,7 +76,6 @@ app.get('/addproduct', ctrlArtist.addproductpage);
 app.get('/artists',ctrlArtist.findArtists);
 
 app.get('/main',ctrlArtist.getAllProducts);
-//app.put('/artists/:username/product/:name/review', isLoggedIn,ctrlArtist.UpdateReview);
 
 
 app.get('/artists/:username', ctrlArtist.findArtists);
@@ -106,8 +107,6 @@ app.get('/add_review', function(req,res) {
 
 
 //Authentication
-
-
 app.get('/login', function(req,res) {
     res.render('login',{ message: req.flash('loginMessage','Hello') });
 });
@@ -116,7 +115,6 @@ app.get('/login', function(req,res) {
 
 app.post('/login', function(req, res, next) {
     passport.authenticate('local-login', function(err, artist, info) {
-
         if (err) { return next(err); }
         if (!artist) { return res.render('login.ejs',{ message: 'username/password incorrect'}); }
         req.logIn(artist, function(err) {
@@ -162,15 +160,7 @@ app.post('/register', function(req, res, next) {
     })(req, res, next);
 });
 
-/*
-    passport.authenticate('local-signup', {
 
-    successRedirect: '/main',
-    failureRedirect: '/login',
-    successFlash: 'Welcome!',
-    failureFlash : true //  flash messages that indicates error login
-}));
-*/
 
 //Facebook login
 app.get('/auth/facebook', passport.authenticate('facebook',
@@ -213,7 +203,6 @@ app.get('/edit', function(req,res){
 });
 
 app.get("/logout",function(req,res){
-
     req.logout();
     res.redirect("/main");
 });

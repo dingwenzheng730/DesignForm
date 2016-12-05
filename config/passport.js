@@ -61,7 +61,7 @@ module.exports = function (passport) {
             });
         }));
 
-
+    // Local log in
     passport.use('local-signup', new LocalStrategy({
             username : 'username',
             password : 'password',
@@ -88,7 +88,6 @@ module.exports = function (passport) {
                         } else {
 
                             var newArtist = new Artists();
-
                             newArtist.username = req.body.username;
                             newArtist.pwd = createHash(req.body.password);
                             newArtist.givenname = req.body.givenname;
@@ -135,7 +134,6 @@ module.exports = function (passport) {
                 email: profile.emails[0].value
 
             }, function (err, artist) {
-              //  console.log(artist);
                 if (err) {
                     return done(null, false);
                 }
@@ -144,11 +142,15 @@ module.exports = function (passport) {
         }
     ));
 
-
+    /**
+     *  Check the validation of typed-int password
+     */
     var isValidPassword = function (user, password) {
         return bCrypt.compareSync(password, user.pwd);
     };
-    // Generates hash using bCrypt
+    /**
+     *  Hash the password using a salt, hashSync(data, salt).
+     */
     var createHash = function (password) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
     };

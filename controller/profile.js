@@ -2,7 +2,6 @@
  * Created by YuAng on 2016-11-22.
  */
 
-//------------------Ziyao 2016-11-24----------------------------
 var mongoose = require('mongoose');
 var Artists = require('../model/artists.js');
 var Products = mongoose.model('Products');
@@ -10,19 +9,26 @@ var Reviews = mongoose.model('Reviews');
 var fs = require('fs');
 
 var shortid = require('shortid');
+/**
+ *
+ * @param res : Object
+ * @param status : int
+ * @param content : String
+ *
+ * Helper function that setup the json response
+ *
+ */
+
 var sendJsonRes = function(res, status, content){
     res.status(status);
     res.json(content);
 };
 
-
-
-
-
 /**
- * Created by YuAng on 2016-11-22.
+ *
+ * @param req: Object
+ * @param res : Object
  */
-
 
 exports.editArtists = function(req, res) {
 
@@ -45,6 +51,12 @@ exports.editArtists = function(req, res) {
     }
 };
 
+/**
+ * Delete the artist as admin
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 exports.deleteArtist = function(req, res) {
     Artists.findOneAndRemove({ username: req.query.username }, function(err) {
         if (err) throw err;
@@ -54,6 +66,12 @@ exports.deleteArtist = function(req, res) {
     });
 };
 
+/**
+ * Update the artist's info as admin
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 exports.updateArtist = function(req, res) {
     Artists.findOneAndUpdate({ username: req.query.username},
         { givenname: req.query.givenname, lastname: req.query.lastname,
@@ -65,6 +83,12 @@ exports.updateArtist = function(req, res) {
         });
 };
 
+/**
+ * Find all artists/ artist by username / by lastname /by country
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 exports.findArtists = function(req, res) {
 
     var userName = req.query.username;
@@ -126,6 +150,12 @@ exports.findArtists = function(req, res) {
 };
 
 
+/**
+ * Add an artist / Register an account
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 
 exports.addArtist = function(req, res) {
 
@@ -161,7 +191,7 @@ exports.findGallery = function(req, res) {
             if (artist != null) {
                 if (err) throw err;
                 var products = artist.products;
-                //res.render("gallery1", {products: products});
+
                 res.render("gallery", {products: products, person: artist});
                 return 0;
             } else {
@@ -179,7 +209,7 @@ exports.findHome = function(req, res) {
             if (artist != null) {
                 if (err) throw err;
                 var products = artist.products;
-                //res.render("gallery1", {products: products});
+
                 res.render("user_home", {products: products, person: artist});
                 return 0;
             } else {
@@ -191,6 +221,12 @@ exports.findHome = function(req, res) {
 };
 
 
+/**
+ * Find artist personal profile
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 exports.findProfile = function(req, res) {
     var userName = req.query.username;
 
@@ -209,6 +245,13 @@ exports.findProfile = function(req, res) {
         });
     }
 };
+
+/**
+ * Find artist's username and then render to an add product page
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 exports.addproductpage = function(req, res) {
     var userName = req.query.username;
 
@@ -228,9 +271,14 @@ exports.addproductpage = function(req, res) {
     }
 };
 //-----------------2016-11-24-------------------------------------------
-
-
 //----------------Zili 11/24---------------------
+
+/**
+ * Get all artists' products / by product name
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 
 exports.getArtistProducts = function(req, res) {
 
@@ -288,10 +336,18 @@ exports.getArtistProducts = function(req, res) {
     }
 };
 
+
+/**
+ * Get Product by its' name
+ *
+ * @param req: Object
+ * @param res:Object
+ */
+
 exports.getProductByName = function(req, res) {
     var productName = req.query.name;
     var a = [];
-    //var b = [];
+
     if (productName != undefined) {
         var review = productName.indexOf('/');
     }
@@ -303,7 +359,6 @@ exports.getProductByName = function(req, res) {
             }
 
             for (ind in a) {
-                console.log(a[ind].name);
                 if (a[ind].name == productName) {
                 	res.render("product_reviews", {product: a[ind]});
                 }
@@ -312,7 +367,12 @@ exports.getProductByName = function(req, res) {
 };
 
 
-
+/**
+ * Get all products
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 
 exports.getAllProducts = function(req, res) {
     var name = req.query.name;
@@ -369,9 +429,12 @@ exports.getAllProducts = function(req, res) {
     }
 };
 
-
-
-
+/**
+ * Add artist's product / The artist is only allowed to add his/her own work
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 exports.addArtistProduct = function(req, res) {
 
 
@@ -404,6 +467,12 @@ exports.addArtistProduct = function(req, res) {
     res.send("Success");
 
 };
+/**
+ * Add a review for specific product
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 exports.addProductReview = function(req, res) {
 
     var date = Date.now();
@@ -433,33 +502,11 @@ exports.addProductReview = function(req, res) {
 
     );
 };
-
-exports.UpdateReview = function(req, res) {
-    var userName = req.params.username;
-    var reviewid = req.params.reviewid;
-    var pname = req.params.name;
-
-    Artists.collection.update(
-        {"username":userName, "products.name":pname},
-        {
-            $set: {"products.$.reviews":{
-                rating: req.query.rating,
-                author: req.query.author,
-                releaseTime: req.query.releaseTime,
-                text: req.query.text}}
-        },
-        { multi : true },
-        function updateConnect(){
-            if(err){
-                console.log(err);
-                sendJsonRes(res, 404, err);
-
-            }
-        }
-    );
-
-
-};
+/**
+ *  Delete a product/ The artist are only allowed to delete their own works
+ * @param req
+ * @param res
+ */
 exports.deleteProduct = function(req, res) {
     var userName = req.params.username;
     var productName = req.query.name;
@@ -478,7 +525,12 @@ exports.deleteProduct = function(req, res) {
     );
 
 };
-
+/**
+ * Delete a review
+ *
+ * @param req: Object
+ * @param res:Object
+ */
 exports.deleteProductReview = function(req, res) {
 
     var userName = req.params.username;
@@ -492,7 +544,6 @@ exports.deleteProductReview = function(req, res) {
         function removeConnectionsCB(err,obj) {
             if(err){
                 sendJsonRes(res, 404, err);
-
                 return;
             }
             res.send({
