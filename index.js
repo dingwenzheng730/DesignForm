@@ -154,8 +154,9 @@ app.post('/register', function(req, res, next) {
             if(artist.person.email =='leonzhang1996@hotmail.com' && artist.person.username == 'admin'){
                 return res.render('admin_home');
             }
-            return res.redirect('/user_home?username=' + artist.person.username);
+            //return res.redirect('/user_home?username=' + artist.person.username);
         });
+        return res.redirect('/user_home?username=' + artist.person.username);
     })(req, res, next);
 });
 
@@ -163,15 +164,14 @@ app.post('/register', function(req, res, next) {
 
 //Facebook login
 app.get('/auth/facebook', passport.authenticate('facebook',
-    { scope : 'email'
+    { authType: 'rerequest',
+        scope : 'email'
 
     }));
 
 // Facebook login callback
 app.get('/auth/facebook/callback', function(req, res, next) {
     passport.authenticate('facebook', function (err, artist, info) {
-        console.log(req);
-
         if (err) {
 
             return next(err);

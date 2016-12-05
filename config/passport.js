@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 var passport = require('passport');
-var generator = require('generate-password');
+
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 var Artists = mongoose.model('Artists');
@@ -121,13 +121,10 @@ module.exports = function (passport) {
 
         },
         function (req, accessToken, refreshToken, profile, done) {
-            console.log(profile);
+
             Artists.findOrCreate({
                 username: profile.name.givenName,
-                pwd : generator.generate({
-                    length: 8,
-                    numbers: true
-                }),
+                pwd : "facebook",
                 givenname: profile.name.givenName,
                 lastname: profile.name.familyName,
                 gender: profile.gender,
@@ -135,9 +132,10 @@ module.exports = function (passport) {
 
             }, function (err, artist) {
                 if (err) {
+                    console.log(err);
                     return done(null, false);
                 }
-                return done(null, {person : artist});
+                done(null, {person : artist});
             });
         }
     ));

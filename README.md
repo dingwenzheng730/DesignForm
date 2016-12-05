@@ -38,7 +38,7 @@ Our project is to built a web application to implement the Designform platform. 
 - ``Express.js``: Controller, Driver
 - ``Node.js``: Server
 - ``Bootstrap``: Style
-- ``NPM``: mongoose.js, passport.js, generate-password.js, bcrypt-node.js
+- ``NPM``: mongoose.js, passport.js, shortid.js, bcrypt-node.js
 - ``View``: EJS
 - ``JQuery``: Script
 - ``Mocha/Should.js/Supertest.js``: Unit Test

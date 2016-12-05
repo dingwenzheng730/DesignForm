@@ -5,6 +5,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bCrypt = require('bcrypt-nodejs');
+var findOrCreate = require('mongoose-findorcreate');
+
 var Reviews = new  Schema({
     reviewID: {type: Number, required: true},
     rating: {type: Number, "default": 0, min: 0, max: 5, required: true},
@@ -93,7 +95,7 @@ mongoose.connection.on('disconnected', function(){
     console.log('Mongoose disconnected');
 });
 
-var findOrCreate = require('mongoose-findorcreate');
+
 Artist.plugin(findOrCreate);
 module.exports = mongoose.model('Products', Product);
 module.exports = mongoose.model('Reviews', Reviews);
