@@ -33,7 +33,7 @@ function get_search_text() {
           window.alert('evaluate response and show alert');
         }
       });
-      window.location.href = "/artists?username=" + search_text;
+      window.location.href = "/user_search?username=" + search_text +"&user=" + document.getElementById("user_ref").innerText;
     }
 
     if (search_option == "country") {
@@ -51,7 +51,7 @@ function get_search_text() {
         }
       });
       //window.location.href = "/artists?id=" + search_text;
-      window.location.href = "/artists?country=" + search_text;
+      window.location.href = "/user_search?country=" + search_text +"&user=" + document.getElementById("user_ref").innerText
     }
 
     if (search_option == "fname") {
@@ -68,7 +68,7 @@ function get_search_text() {
         }
 
       });
-      window.location.href = "/artists?fname=" + search_text;
+      window.location.href = "/user_search?fname=" + search_text +"&user=" + document.getElementById("user_ref").innerText
     }
 }
 
@@ -101,7 +101,7 @@ $(document).ready(function() {
     $("#gallery_btn").on("click", show_gallery);
 
     // set for del product btn
-    $('.del_pic_btn').on('click', del_product);
+    //$('.del_pic_btn').on('click', del_product);
 
     $("[data-toggle]").click(function() {
         var toggle_el = $(this).data("toggle");
