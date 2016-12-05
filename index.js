@@ -74,6 +74,7 @@ app.get('/addproduct', ctrlArtist.addproductpage);
 app.get('/explore', ctrlArtist.exploreProducts);
 app.get('/user_search', ctrlArtist.user_search);
 
+
 app.get('/artists',ctrlArtist.findArtists);
 
 app.get('/main',ctrlArtist.getAllProducts);
