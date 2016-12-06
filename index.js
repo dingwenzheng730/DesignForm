@@ -80,7 +80,7 @@ app.delete('/artists/:username/product/:name/review', ctrlArtist.deleteProductRe
 app.post('/artists/:username/product',ctrlArtist.deleteProduct);
 
 app.post('/add_product',ctrlArtist.addArtistProduct);
-
+app.post('/addOneReview', ctrlArtist.addOneReview);
 
 
 

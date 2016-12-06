@@ -713,3 +713,61 @@ exports.deleteProductReview = function(req, res) {
         }
     );
 };
+
+
+
+exports.addOneReview = function (req, res) {
+    //console.log(req.body);
+    var productName = req.body["productName"];
+    var rate = parseInt(req.body["reviewRating"]);
+    var comment = req.body["comment"];
+    var author = req.body["reviewerName"];
+    var artist = req.body["artist"];
+    var id = parseInt(Math.random() * 10000000 );
+    var time = Date.now;
+    //var artistarray = [];
+    console.log(typeof comment);
+
+    var review = new Reviews({
+        _id: shortid.generate(),
+        rating: rate,
+        releaseTime: time,
+        text: comment,
+        author: author,
+        reviewID: id
+        
+        
+       
+                
+    });
+
+
+    console.log("outside" + review);
+
+    Artists.findOne({username: artist}, function(err, artist2) {
+        if (err) throw err;
+
+        var len = artist2.products.length;
+        for (var i = 0; i < len; i++) {
+            if (artist2.products[i].name == productName) {
+                artist2.products[i].reviews.push(review);
+                console.log(artist2.products[i].name);
+                console.log(artist2.products[i].reviews);
+
+            }
+        }
+    
+        artist2.save(function(err) {
+            if (err) throw err;
+
+            console.log("ooooooooo");
+   
+        });
+
+    })
+    res.send("success");
+
+
+
+
+}
