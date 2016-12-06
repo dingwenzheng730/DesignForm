@@ -8,14 +8,14 @@ var bCrypt = require('bcrypt-nodejs');
 var findOrCreate = require('mongoose-findorcreate');
 
 var Reviews = new  Schema({
-    reviewID: {type: Number, required: true},
+    reviewID: {type: Number, required: true, sparse: true},
     rating: {type: Number, "default": 0, min: 0, max: 5, required: true},
     author: {type: String, required: true},
     releaseTime: {type: Date, "default": Date.now},
     text: {type: String, required: true}
 });
 var Product = new Schema({
-        name: { type: String, required: true, unique: true},
+        name: { type: String, required: true, unique: true, sparse: true},
         description: { type: String, required: true},
         releaseTime: {type: Date, "default": Date.now},
         onSaleStatus:{type: Boolean, "default": false},

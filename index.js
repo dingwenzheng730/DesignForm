@@ -31,13 +31,6 @@ var secret = 'secretkeydesignform';
 
 
 
-function isLoggedIn(req,res,next){
-    console.log(req);
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 app.use(function(req,res,next){
    res.locals.person = req.artist;
     next();
@@ -124,11 +117,11 @@ app.post('/login', function(req, res, next) {
                 return next(err);
             }
 
-            if(artist.person.email =='leonzhang1996@hotmail.com' && artist.person.username == 'admin'){
-                return res.render('admin_home');
-            }
-            return res.redirect('/user_home?username=' + artist.person.username);
         });
+        if(artist.person.email =='leonzhang1996@hotmail.com' && artist.person.username == 'admin'){
+            return res.render('admin_home');
+        }
+        return res.redirect('/user_home?username=' + artist.person.username);
     })(req, res, next);
 });
 
@@ -152,12 +145,10 @@ app.post('/register', function(req, res, next) {
             if (err) {
                 return next(err);
             }
-
-            if(artist.person.email =='leonzhang1996@hotmail.com' && artist.person.username == 'admin'){
-                return res.render('admin_home');
-            }
-
         });
+        if(artist.person.email =='leonzhang1996@hotmail.com' && artist.person.username == 'admin'){
+            return res.redirect('/admin_home');
+        }
         return res.redirect('/user_home?username=' + artist.person.username);
     })(req, res, next);
 });

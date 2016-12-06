@@ -62,7 +62,7 @@
         "name": "river",
         "description": "good work",
         "releaseTime": "2016-11-29T08:43:41.733Z",
-        "picture":"./img/tiger.jpg",
+        "picture":"./img/culturegirl.jpg",
         "reviews": [
           {
 
@@ -94,10 +94,10 @@
     "products": [
       {
         "_id":"52123124123",
-        "name": "Fashion",
-        "description": "work that combines fashion and Chinese culture",
+        "name": "民族风情",
+        "description": "My final work from first semester",
         "releaseTime": "2016-11-29T08:43:41.733Z",
-        "picture":"./img/fashion.jpg",
+        "picture":"./img/culture.jpg",
         "reviews": [
           {
 
@@ -140,7 +140,7 @@
         "name": "Style",
         "description": "good work",
         "releaseTime": "2016-11-29T08:43:41.733Z",
-        "picture":"./img/culture.jpg",
+        "picture":"./img/nation.jpg",
         "reviews": [
           {
             "_id": "23423434",

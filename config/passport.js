@@ -8,6 +8,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var Artists = mongoose.model('Artists');
 
+
 var flash = require('connect-flash');
 
 var LocalStrategy = require('passport-local').Strategy;
@@ -122,9 +123,10 @@ module.exports = function (passport) {
         },
         function (req, accessToken, refreshToken, profile, done) {
 
+
             Artists.findOrCreate({
                 username: profile.name.givenName,
-                pwd : "facebook"+profile._json.id,
+                pwd : "facebook"+profile.emails[0].value,
                 givenname: profile.name.givenName,
                 lastname: profile.name.familyName,
                 gender: profile.gender,
