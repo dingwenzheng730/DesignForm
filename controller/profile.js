@@ -741,7 +741,6 @@ exports.addOneReview = function (req, res) {
                 
     });
 
-
     console.log("outside" + review);
 
     Artists.findOne({username: artist}, function(err, artist2) {
