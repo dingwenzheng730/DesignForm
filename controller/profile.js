@@ -621,7 +621,7 @@ exports.addArtistProduct = function(req, res) {
 
     );
 
-    res.send("Success");
+    return res.redirect("/user_home?username="+name);
 
 };
 /**
@@ -676,10 +676,12 @@ exports.deleteProduct = function(req, res) {
                 sendJsonRes(res, 404, err);
                 return;
             }
-            res.send('Success');
+            
             console.log(obj);
         }
     );
+
+    return res.redirect("/user_home?username="+ userName);
 
 };
 /**
