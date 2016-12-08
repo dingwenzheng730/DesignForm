@@ -421,13 +421,14 @@ exports.getProductByName = function(req, res) {
     var username = req.query.username;
     var founduser;
     // find the user first
+    /*
     Artists.findOne({ username: username }, function(err, artist) {
             if (artist != null) {
                 if (err) throw err;
                 founduser = artist;
             } 
         }); 
-
+    */
     var productName = req.query.name;
     var a = [];
 
@@ -439,6 +440,9 @@ exports.getProductByName = function(req, res) {
             if (err) throw err;
             for (index in allArtists) {
                 a = a.concat(allArtists[index]._doc.products);
+                if(allArtists[index]._doc.username == username){
+                    founduser = allArtists[index];
+                }
             }
 
             for (ind in a) {
@@ -742,7 +746,6 @@ exports.addOneReview = function (req, res) {
     });
 
     console.log("outside" + review);
-
     Artists.findOne({username: artist}, function(err, artist2) {
         if (err) throw err;
 
@@ -763,10 +766,6 @@ exports.addOneReview = function (req, res) {
    
         });
 
-    })
+    });
     res.send("success");
-
-
-
-
-}
+};
