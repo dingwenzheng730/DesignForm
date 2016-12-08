@@ -62,5 +62,29 @@ The navigation bar provides functionality of upper side panel for all pages. Thi
 ### Profile page
 Display some privacy informations of the users including their first and last name, gender, email and so on. It also list all their works of art in grids. Moreover, if the user is authenticated, it will display the complete information about a user with update options. Otherwise, the profile page only shows public information about a user without privacy informations. Authenticated users can update their informations such as password, email, sale staus of their products.
 
+### How to Start
+- First, clone this repository and ``cd `` into it. Enter ``npm install`` in order to install all the modules
+- After finish installing, open another ternminal and enter ``mkdir data`` and then ``mongod --dbpath=$PWD/data``( Make sure you have mongo installed in your machine)
+- If you want to have existing data, you can enter ``mongoimport --db artistsdb --collection artists --type json --file data.json --jsonArray`` within the repository
+- Enter ``node index`` to start the server after you have your database setup. Our website is live at ``http://localhost:3000``
+- About the admin, we have planned to register the admin after the database has been setup. That means, you have to
+register admin account if you want to test it. Make sure your admin account has username as ``admin``, email address as ``leonzhang1996@hotmail.com`` and your password as ``secretkeydesignform``.
 
+### Testing
+- Use Mocha and its assertion library to test the back-end functionality
+- ``test_result.jpeg`` is the result of our test
+
+### Third Party Authentication
+
+- We obtained an admin secret and keys from facebook Developer center in order to make sure the thrid party authentication works.
+You will see the exact details in ``facebook.jpg``. You can also check out this video as 
+ and understand how we set up the similar authentication for our project ``https://www.youtube.com/watch?v=OMcWgmkMpEE&t=241s``
+
+### Improvements
+
+- Amazon S3 is definitely a great choice for storing objects such as images in the bucket. Our TA(Simon) provides some useful resources
+for us to integrate our web applications and we will definitely take a detailed look into that in the future.
+- The back-end can be more sophisticated. The majority of the Group members 
+decides to use routes that are differed from the originals and it turns out the resulting APIs can be more organized
+- We can definitely write more testing cases and test more on the render aspect of our back-end logic.
 

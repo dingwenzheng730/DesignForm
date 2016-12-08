@@ -2,29 +2,26 @@
 
 TYPE    |       URL                                 |            View details /  Description            |   C/I( complete or imcomplete)
 =======================================================================================================================================
-GET     |    /artists                               |      Show all artists all the page                |    C
+GET     |    /artists                               |      Show all artists all the page  /
+                                                                Only as admin                           |    C
 GET     |   /artists?country=country                |      Show all artists from one country            |    C
 GET     |    /artists?lname=lname                   |      Show all particular artist by searching
                                                                its last name                            |    C
-GET     |    /main                                  |      Main Page / Send products from all
-                                                            artists after login                         |    C
-GET     |    /main?name=name                        |       Main Page / Show products
-                                                            with specific name
-                                                                                                        |    C
-GET     |    /main?rtime=rtime                      |       Main Page / Show products
-                                                            with release time
-
+GET     |    /main                                  |      Main Page / Display products from all
+                                                            artists without login in                    |    C
+GET     |    /user_search                           |     Search an artist / Only as admin              |
 GET     |    /edit_artist                           |      Admin option only /Edit artist's information |   C                                                                                                |    C
 POST    |    /artist                                |      Register.ejs / fill-in form
                                                             and add Artist                              |    C
 
 GET     |    /user_home?username=username           |      Personal Page/   Show all data from
                                                             selected Artist                             |    C
-GET     |   /artists/:id/product?name=name/reviews  |      Personal page / All review of one product
+GET     |   /explore?username=username              |     Explore all the products made by all artists
+                                                           as the person you logged in
                                                                                                         |    C
 POST    |    /artists/:id/product                   |      Display add Product form/ Add one product
                                                                                                         |    C
-POST    |    /artists/:id/product:name/review       |      Diplay add reivew  form/ Add one review
+POST    |    /artists/:id/product:name/review       |       add reivew  form/ Add one review
                                                                                                         |    C
 
 GET     |    /login                                 |     login page / Login in page before everything  |    C
@@ -34,8 +31,9 @@ DELETE  |    /artists/:id/product?name=name         |      Click on delete butto
 DELETE  |   /artists/:id/product:name/review?
               reviewid=reviewid                     |       Click on delete button/ Delete  a review    |    C
 
-
 GET     |   /auth/facebook                          |     Authenticate with existed facebook account    |    C
+GET     |   /auth/facebook/callback                 |    Redirect  to the specified URL
+                                                          after success or failure                      |    C
 
 Login page  ->  Create an account
             ->  user_home page
